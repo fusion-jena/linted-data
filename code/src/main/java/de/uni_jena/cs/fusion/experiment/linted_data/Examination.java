@@ -15,8 +15,11 @@ import picocli.CommandLine.Parameters;
 public class Examination implements Callable<Integer> {
 
 	@Parameters(index = "0", description = "The file that will be checked")
-	File file;
-
+	File inputFile;
+	
+	@Parameters(index = "1", description = "The file where the result will be stored")
+	File outputFile;
+	
 	@Option(names = { "-l", "--level" }, description = "What kind of checks will be executed\n"
 			+ "SPARQL, FILE, GRAPH, MULTIGRAPH, ALL", defaultValue = "ALL")
 	Level level;
@@ -46,23 +49,34 @@ public class Examination implements Callable<Integer> {
 			return level;
 		}
 	}
-
+	
+	public Integer call() {
+		if (!inputFile.exists()) {
+			System.err.println(inputFile.getAbsolutePath() + " doesn't exist.\n" + "Please check the path and start again.");
+			return -1;
+		}
+		if (! FileUtil.checkInputFileExtension(inputFile)) {
+			System.err.println("The file format of the ontology can't be processed.");
+			return -1;
+		}
+		if (! FileUtil.checkOutputFileExtension(outputFile)) {
+			System.err.println("The output file must be an xml file");
+			return -1;
+		}
+		
+		System.out.println("Input parsed successfull");
+		new Runner(level, inputFile, outputFile);
+		
+		System.out.println("Finished");
+		
+		return 0;
+	}
+	
 	public static void main(String[] args) {
 		int exitCode = new CommandLine(new Examination()).execute(args);
 		System.exit(exitCode);
 	}
 
-	public Integer call() {
-		if (!file.exists()) {
-			System.err.println(file.getAbsolutePath() + " doesn't exist.\n" + "Please check the path and start again.");
-			return -1;
-		}
-		if (FileUtil.checkFileExtension(file)) {
-			System.err.println("The file format can't be processed.");
-		}
-		System.out.println(level.toString());
-
-		return 0;
-	}
+	
 
 }
