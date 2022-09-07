@@ -11,6 +11,13 @@ import de.uni_jena.cs.fusion.experiment.linted_data.types.Level;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
 
+/**
+ * Finds all literals that start or end with a whitespace character
+ * 
+ * 
+ * \s doesn't exist in SPARQL so the equivalent form [\r\n\t\f\v ] is used
+ * \v also doesn't exist in SPARQL and is hence not checked
+ */
 public class CheckLeadingOrTrailingSpaces extends SPARQLCheck {
 	
 	private static final String literal = "literal";
@@ -28,9 +35,10 @@ public class CheckLeadingOrTrailingSpaces extends SPARQLCheck {
 				"	}\n" + 
 				"	}\n" + 
 				"  	FILTER (regex(?" + literal + ", \"^[\\r\\n\\t\\f ]|[\\r\\n\\t\\f ]$\"))\n" + 
-				"}" // TODO add \\v if possible?
+				"}" 
 				); 
 	}	
+	
 	@Override
 	protected List<Failure> execute(ResultSet rs, String failureDescription) {
 		List<Failure> failures = new ArrayList<Failure>();
