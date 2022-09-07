@@ -21,26 +21,20 @@ public class Testsuite {
 	@JacksonXmlElementWrapper(useWrapping = false)
 	private List<Testcase> testcases;
 	/**
-	 * reference for the initialisation of the id
-	 */
-	@JsonIgnore
-	private static long idCounter = 0;
-	/**
 	 * ID of the provider
 	 */
 	@JacksonXmlProperty(isAttribute = true)
-	private long id;
+	private String id;
 	/**
 	 * label of the provider
 	 */
 	@JacksonXmlProperty(isAttribute = true)
 	private String name;
 	
-	public Testsuite(String name, List<Testcase> testcases) {
+	public Testsuite(String id, String name, List<Testcase> testcases) {
 		this.name = name;
 		this.testcases = testcases;
-		this.id = Testsuite.idCounter;
-		Testsuite.idCounter++;
+		this.id = id;
 	}
 	
 	/**

@@ -91,7 +91,7 @@ public class Runner {
 				testcases.get(targetLanguage).add(new Testcase(check, failures));
 			}
 			// create a testsuite for the language with its testcases
-			testsuites.add(new Testsuite(targetLanguage + " testsuite", testcases.get(targetLanguage)));
+			testsuites.add(new Testsuite(TargetLanguage.class.getCanonicalName() + "." + targetLanguage, targetLanguage + " testsuite", testcases.get(targetLanguage)));
 			System.out.println("Finished tests for: " + targetLanguage);
 		}
 	}

@@ -25,15 +25,10 @@ public class Testcase {
 	@JacksonXmlElementWrapper(useWrapping = false)
 	private List<Failure> failures;
 	/**
-	 * reference for the initialisation of the id
-	 */
-	@JsonIgnore
-	private static long idCounter = 0;
-	/**
 	 * ID of the rule
 	 */
 	@JacksonXmlProperty(isAttribute = true)
-	private long id;
+	private String id;
 
 	/**
 	 * the check the the testcase is representing
@@ -42,8 +37,7 @@ public class Testcase {
 	private Check check;
 
 	public Testcase(Check check, List<Failure> failures) {
-		this.id = Testcase.idCounter;
-		Testcase.idCounter++;
+		this.id = check.getClass().getCanonicalName();
 		this.check = check;
 		this.failures = failures;
 	}
@@ -56,7 +50,7 @@ public class Testcase {
 		return failures;
 	}
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
