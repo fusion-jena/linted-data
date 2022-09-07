@@ -50,15 +50,16 @@ public class TestsuiteManager {
 	}
 
 	/**
-	 * @return time that was required to process all the rules
+	 * @return time that was required to process all the rules in seconds
 	 */
 	@JacksonXmlProperty(isAttribute = true, localName ="time")
-	public long getTime() {
+	public double getTime() {
 		long sum = 0L;
 		for (Testsuite testsuite : testsuites) {
-			sum += testsuite.getTime();
+			sum += testsuite.getTime_ms();
 		}
-		return sum;
+		// convert from ms to s
+		return (double) sum / 1000;
 	}
 	
 	/**

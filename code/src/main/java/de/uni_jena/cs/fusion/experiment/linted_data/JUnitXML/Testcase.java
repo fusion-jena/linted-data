@@ -64,9 +64,23 @@ public class Testcase {
 	public String getName() {
 		return check.getName();
 	}
-
-	@JacksonXmlProperty(isAttribute = true, localName = "time")
-	public long getTime() {
+	
+	/**
+	 * @return the duration of the check in milliseconds
+	 */
+	@JsonIgnore
+	public long getTime_ms() {
 		return check.getTime();
 	}
+	
+	/**
+	 * @return the duration of the check in seconds
+	 */
+	@JacksonXmlProperty(isAttribute = true, localName = "time")
+	public double getTime_s() {
+		// convert from ms to s
+		return (double) check.getTime()/1000; 
+	}
+	
+	
 }

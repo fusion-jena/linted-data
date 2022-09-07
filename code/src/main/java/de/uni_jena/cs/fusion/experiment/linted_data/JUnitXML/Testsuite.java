@@ -64,16 +64,31 @@ public class Testsuite {
 	}
 	
 	/**
-	 * @return time that was required to process the rules in the provider
+	 * @return time that was required to process the rules in the provider in milliseconds
 	 */
-	@JacksonXmlProperty(isAttribute = true, localName = "time")
-	public long getTime() {
+	@JsonIgnore
+	public long getTime_ms() {
 		long sum = 0L;
 		for (Testcase testcase : testcases) {
-			sum += testcase.getTime();
+			sum += testcase.getTime_ms();
 		}
 		return sum;
 	}
+	
+	/**
+	 * @return time that was required to process the rules in the provider in seconds
+	 */
+	@JacksonXmlProperty(isAttribute = true, localName = "time")
+	public double getTime_s() {
+		long sum = 0L;
+		for (Testcase testcase : testcases) {
+			sum += testcase.getTime_ms();
+		}
+		// convert from ms to s
+		return (double) sum / 1000;
+	}
+	
+	
 	
 	public List<Testcase> getTestcases(){
 		return testcases;
