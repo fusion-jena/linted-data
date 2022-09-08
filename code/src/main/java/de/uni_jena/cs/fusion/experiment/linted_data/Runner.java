@@ -18,6 +18,7 @@ import de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.FileCheck
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.CheckURIcontainsFileExtension;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.CheckLexicalRepresentationOfFloatingPointDatatypes;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckLeadingOrTrailingSpaces;
+import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRDFcontainers;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.Level;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
 
@@ -133,6 +134,7 @@ public class Runner {
 		allChecks.add(new CheckLeadingOrTrailingSpaces());
 		allChecks.add(new CheckURIcontainsFileExtension());
 		allChecks.add(new CheckLexicalRepresentationOfFloatingPointDatatypes());
+		allChecks.add(new CheckRDFcontainers());
 		return allChecks;
 	}
 
