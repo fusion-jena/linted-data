@@ -16,6 +16,7 @@ import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Testsuite;
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.TestsuiteManager;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.FileCheck;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.CheckURIcontainsFileExtension;
+import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.CheckLexicalRepresentationOfFloatingPointDatatypes;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckLeadingOrTrailingSpaces;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.Level;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
@@ -40,9 +41,9 @@ public class Runner {
 	public Runner(Level level, File resource, File output) {
 		createChecks(level);
 		createTestsuites(resource);
-		
+
 		TestsuiteManager manager = new TestsuiteManager("Linted Data", testsuites);
-		
+
 		// export
 		System.out.println("Exporting the results");
 		XmlMapper xmlMapper = new XmlMapper();
@@ -91,7 +92,8 @@ public class Runner {
 				testcases.get(targetLanguage).add(new Testcase(check, failures));
 			}
 			// create a testsuite for the language with its testcases
-			testsuites.add(new Testsuite(TargetLanguage.class.getCanonicalName() + "." + targetLanguage, targetLanguage + " testsuite", testcases.get(targetLanguage)));
+			testsuites.add(new Testsuite(TargetLanguage.class.getCanonicalName() + "." + targetLanguage,
+					targetLanguage + " testsuite", testcases.get(targetLanguage)));
 			System.out.println("Finished tests for: " + targetLanguage);
 		}
 	}
@@ -130,6 +132,7 @@ public class Runner {
 		List<FileCheck> allChecks = new ArrayList<FileCheck>();
 		allChecks.add(new CheckLeadingOrTrailingSpaces());
 		allChecks.add(new CheckURIcontainsFileExtension());
+		allChecks.add(new CheckLexicalRepresentationOfFloatingPointDatatypes());
 		return allChecks;
 	}
 

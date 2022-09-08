@@ -45,5 +45,5 @@ public abstract class GraphCheck extends MultiGraphCheck {
 		return failures;
 	}
 
-	protected abstract List<Failure> execute(Model model, String failureDescription);
+	public abstract List<Failure> execute(Model model, String failureDescription);
 }
