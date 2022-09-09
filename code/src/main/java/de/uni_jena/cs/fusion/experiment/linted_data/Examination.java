@@ -65,7 +65,12 @@ public class Examination implements Callable<Integer> {
 		}
 		
 		System.out.println("Input parsed successfull");
-		new Runner(level, inputFile, outputFile);
+		try {
+			new Runner(level, inputFile, outputFile);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
 		
 		System.out.println("Finished");
 		

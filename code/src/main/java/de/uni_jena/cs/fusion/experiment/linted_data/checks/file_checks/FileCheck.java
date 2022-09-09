@@ -40,7 +40,7 @@ public abstract class FileCheck extends Check {
 		this.severity = severity;
 	}
 	
-	public final List<Failure> startExecution(File file){
+	public final List<Failure> startExecution(File file) throws Exception{
 		long start = System.currentTimeMillis();
 		String failureDescription;
 		try {
@@ -64,7 +64,7 @@ public abstract class FileCheck extends Check {
 	 * 
 	 * @return
 	 */
-	public abstract List<Failure> execute(File file, String failureDescription);
+	public abstract List<Failure> execute(File file, String failureDescription) throws Exception;
 	
 	public Level getLevel() {
 		return level;

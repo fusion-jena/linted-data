@@ -14,6 +14,7 @@ import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Testcase;
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Testsuite;
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.TestsuiteManager;
+import de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.CheckPrefixesReferToOneNamespace;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.FileCheck;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.CheckURIcontainsFileExtension;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.CheckLexicalRepresentationOfFloatingPointDatatypes;
@@ -38,8 +39,10 @@ public class Runner {
 	 * @param level    speciefies which checks will be executed
 	 * @param resource the file on which the checks will be performed
 	 * @param output   where the xml output should be stored
+	 * @throws Exception when during one of the execution of the checks occurred an
+	 *                   exception
 	 */
-	public Runner(Level level, File resource, File output) {
+	public Runner(Level level, File resource, File output) throws Exception {
 		createChecks(level);
 		createTestsuites(resource);
 
@@ -75,8 +78,10 @@ public class Runner {
 	 * 
 	 * 
 	 * @param resource the file that is investigated
+	 * @throws Exception when during one of the execution of the checks occurred an
+	 *                   exception
 	 */
-	private void createTestsuites(File resource) {
+	private void createTestsuites(File resource) throws Exception {
 		// split the testcases into the languages
 		Map<TargetLanguage, List<Testcase>> testcases = new HashMap<TargetLanguage, List<Testcase>>();
 
@@ -135,6 +140,7 @@ public class Runner {
 		allChecks.add(new CheckURIcontainsFileExtension());
 		allChecks.add(new CheckLexicalRepresentationOfFloatingPointDatatypes());
 		allChecks.add(new CheckRDFcontainers());
+		allChecks.add(new CheckPrefixesReferToOneNamespace());
 		return allChecks;
 	}
 
