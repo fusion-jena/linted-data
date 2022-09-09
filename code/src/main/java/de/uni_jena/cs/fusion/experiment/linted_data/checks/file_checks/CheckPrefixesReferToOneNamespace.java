@@ -19,7 +19,7 @@ import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
  * checks that when a serialisation language supports prefixes, they are only
  * used once
  * 
- * only for Turtle
+ * only for Turtle, TriG and N3
  */
 public class CheckPrefixesReferToOneNamespace extends FileCheck {
 
@@ -36,8 +36,11 @@ public class CheckPrefixesReferToOneNamespace extends FileCheck {
 
 		// prefix : List<corresponding namespaces>
 		Map<String, List<String>> map = new HashMap<String, List<String>>();
-		if (RDFLanguages.TURTLE.getFileExtensions().contains(fileExtension)) {
+		if (RDFLanguages.TURTLE.getFileExtensions().contains(fileExtension)
+				|| RDFLanguages.TRIG.getFileExtensions().contains(fileExtension)) {
 			processPrefixesPerLine("PREFIX", ">", ":", file, map);
+			processPrefixesPerLine("@prefix", ">", ":", file, map);
+		}else if(RDFLanguages.N3.getFileExtensions().contains(fileExtension)) {
 			processPrefixesPerLine("@prefix", ">", ":", file, map);
 		}
 		// for each namespace check that it has only one corresponding prefix
