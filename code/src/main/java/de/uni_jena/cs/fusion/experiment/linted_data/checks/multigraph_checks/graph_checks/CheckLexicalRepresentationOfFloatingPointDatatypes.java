@@ -20,7 +20,7 @@ public class CheckLexicalRepresentationOfFloatingPointDatatypes extends GraphChe
 
 	public CheckLexicalRepresentationOfFloatingPointDatatypes() {
 		super(Level.GRAPH, TargetLanguage.RDFS, Severity.WARN,
-				"The lexical value can't be represented with the selected floating point data type");
+				"The lexical value can't be exactly represented with the selected floating point data type");
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class CheckLexicalRepresentationOfFloatingPointDatatypes extends GraphChe
 			} else if (type.equals(XSDDatatype.XSDdouble)
 					&& !StringUtil.isPreciseRepresentableAsDouble(object.asLiteral().getLexicalForm())) {
 				Failure failure = new Failure(this.name, this.severity, object.asLiteral().toString(),
-						failureDescription + "\n" + statement.toString());
+						failureDescription + "\n" + statement.toString().replace("[", "").replace("]", ""));
 				failures.add(failure);
 			}
 		}

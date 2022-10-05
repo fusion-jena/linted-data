@@ -47,7 +47,12 @@ public class Testcase {
 	}
 
 	public List<Failure> getFailures() {
-		return failures;
+		return failures.subList(0, Math.min(100, failures.size()));
+	}
+	
+	@JsonIgnore
+	public int failureSize() {
+		return failures.size();
 	}
 
 	public String getId() {

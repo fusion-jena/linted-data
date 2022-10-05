@@ -52,7 +52,7 @@ public class Testsuite {
 	public long getFailures() {
 		long sum = 0L;
 		for (Testcase testcase : testcases) {
-			sum += testcase.getFailures().size();
+			sum += testcase.failureSize();
 		}
 		return sum;
 	}
