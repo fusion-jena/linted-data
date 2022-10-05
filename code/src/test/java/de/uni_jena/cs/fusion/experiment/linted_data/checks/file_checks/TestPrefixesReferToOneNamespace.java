@@ -3,12 +3,18 @@ package de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
+
+import org.apache.jena.query.Dataset;
+import org.apache.jena.query.DatasetFactory;
+import org.apache.jena.riot.RDFParser;
+import org.apache.jena.riot.RiotException;
 import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
@@ -35,8 +41,9 @@ public class TestPrefixesReferToOneNamespace {
 	 * @param text          content of the file
 	 * @return failures occured during the execution of
 	 *         CheckPrefixesReferToOneNamespace
+	 * @throws IOException 
 	 */
-	private List<Failure> executeCheck(String fileExtension, String text) throws FileNotFoundException {
+	private List<Failure> executeCheck(String fileExtension, String text) throws IOException {
 		File file = null;
 		try {
 			file = File.createTempFile("temp", fileExtension);
@@ -45,12 +52,30 @@ public class TestPrefixesReferToOneNamespace {
 		}
 		assertNotNull(file);
 		assertTrue(writeToFile(text, file));
+		Dataset dataset = DatasetFactory.create();
+		try {
+			RDFParser.source(file.getAbsolutePath()).parse(dataset);
+		}catch(RiotException e) {
+			fail("Error when parsing the text");
+		}
+		CheckPrefixesReferToOneNamespace check = new CheckPrefixesReferToOneNamespace();
+		return check.execute(file, "");
+	}
+	
+	private List<Failure> executeCheck(String path) throws IOException, URISyntaxException {
+		File file = new File(this.getClass().getClassLoader().getResource(path).toURI());
+		Dataset dataset = DatasetFactory.create();
+		try {
+			RDFParser.source(file.getAbsolutePath()).parse(dataset);
+		}catch(RiotException e) {
+			fail("Error when parsing " + path);
+		}
 		CheckPrefixesReferToOneNamespace check = new CheckPrefixesReferToOneNamespace();
 		return check.execute(file, "");
 	}
 
 	@Test
-	public void TurtleOneNamespacePerPrefix() throws FileNotFoundException {
+	public void TurtleOneNamespacePerPrefix() throws IOException {
 		List<Failure> failures = executeCheck(".ttl",
 				" #hello PREFIX abc:<http://www.semanticweb.org/abc#>\n PREFIX abc:<http://www.semanticweb.org/abc#>\n@prefix def:<http://www.semanticweb.org/def#> .");
 		assertNotNull(failures);
@@ -58,7 +83,7 @@ public class TestPrefixesReferToOneNamespace {
 	}
 
 	@Test
-	public void TurtleMultipleNamespacesPerPrefix() throws FileNotFoundException {
+	public void TurtleMultipleNamespacesPerPrefix() throws IOException {
 		List<Failure> failures = executeCheck(".ttl",
 				"PREFIX abc:<http://www.semanticweb.org/abc#>\n@prefix abc:<http://www.semanticweb.org/def#> . # this is a text for testing\nPREFIX ghi:<http://www.semanticweb.org/ghi#>\n@prefix jkl:<http://www.semanticweb.org/jkl#> .\n#this is nothing");
 		assertNotNull(failures);
@@ -70,7 +95,7 @@ public class TestPrefixesReferToOneNamespace {
 				"\nabc has the 2 namespaces: [http://www.semanticweb.org/abc#, http://www.semanticweb.org/def#]");
 
 		failures = executeCheck(".ttl",
-				"PREFIX abc:<http://www.semanticweb.org/abc#>   #this is an unnecessary comment\n@prefix def:<http://www.semanticweb.org/def#>\nPREFIX ghi:<http://www.semanticweb.org/ghi#>\n@prefix def : <http://www.semanticweb.org/jkl#>\n\n@prefix def : <http://www.semanticweb.org/mno#>");
+				"PREFIX abc:<http://www.semanticweb.org/abc#>   #this is an unnecessary comment\n@prefix def:<http://www.semanticweb.org/def#> .\nPREFIX ghi:<http://www.semanticweb.org/ghi#>\n@prefix def:<http://www.semanticweb.org/jkl#>\n\n@prefix def:<http://www.semanticweb.org/mno#>.");
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		f = failures.get(0);
@@ -79,9 +104,49 @@ public class TestPrefixesReferToOneNamespace {
 		assertEquals(f.getText(),
 				"\ndef has the 3 namespaces: [http://www.semanticweb.org/def#, http://www.semanticweb.org/jkl#, http://www.semanticweb.org/mno#]");
 	}
+	
+	@Test
+	public void TurtleOnePrefixOneNamespaceMultipleTimes() throws IOException, URISyntaxException {
+		List<Failure> failures =  executeCheck("Turtle_OnePrefixOneNamespaceMultipleTimes_01.ttl");		
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		Failure f = failures.get(0);
+		assertEquals("test1", f.getFailureElement());
+		assertEquals(Severity.INFO, f.getSeverity());
+		assertEquals(f.getText(),
+				"\ntest1 has 2 times the namespace http://www.test-1.org/o#");
+	
+		failures =  executeCheck("Turtle_OnePrefixOneNamespaceMultipleTimes_02.ttl");		
+		assertNotNull(failures);
+		assertEquals(2, failures.size());
+		f = failures.get(0);
+		assertEquals("test1", f.getFailureElement());
+		assertEquals(Severity.INFO, f.getSeverity());
+		assertEquals(f.getText(),
+				"\ntest1 has 2 times the namespace http://www.test-1.org/o#");
+		f = failures.get(1);
+		assertEquals("test1", f.getFailureElement());
+		assertEquals(Severity.WARN, f.getSeverity());
+		assertEquals(f.getText(),
+				"\ntest1 has the 2 namespaces: [http://www.test-1.org/o#, http://www.test-2.org/o#]");
+		
+		failures =  executeCheck("Turtle_OnePrefixOneNamespaceMultipleTimes_03.ttl");		
+		assertNotNull(failures);
+		assertEquals(2, failures.size());
+		f = failures.get(1);
+		assertEquals("test1", f.getFailureElement());
+		assertEquals(Severity.INFO, f.getSeverity());
+		assertEquals(f.getText(),
+				"\ntest1 has 2 times the namespace http://www.test-1.org/o#");
+		f = failures.get(0);
+		assertEquals("test2", f.getFailureElement());
+		assertEquals(Severity.WARN, f.getSeverity());
+		assertEquals(f.getText(),
+				"\ntest2 has the 2 namespaces: [http://www.test-2.com/onto#, http://www.test-2.org/o#]");
+	}
 
 	@Test
-	public void TriG_oneNamespacePerPrefix() throws FileNotFoundException{
+	public void TriG_oneNamespacePerPrefix() throws IOException{
 		String text = "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n" + 
 				"PREFIX dc: <http://purl.org/dc/terms/> \n" + 
 				"@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n" + 
@@ -107,7 +172,7 @@ public class TestPrefixesReferToOneNamespace {
 	}
 
 	@Test
-	public void TriG_MultipleNamespacesPerPrefix() throws FileNotFoundException{
+	public void TriG_MultipleNamespacesPerPrefix() throws IOException{
 		String text = "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n" + 
 				"PREFIX dc: <http://purl.org/dc/terms/> \n" +
 				"@prefix dc: <http://purl.org/test/syntax#>           .  #this is a comment at the end of a line\n" +
@@ -163,10 +228,24 @@ public class TestPrefixesReferToOneNamespace {
 		assertEquals(failure.getSeverity(), Severity.WARN);
 		assertEquals(failure.getText(),
 				"\nex has the 2 namespaces: [http://www.2ndexample.org/document#, http://www.example.org/vocabulary#]");
+	
+		failures = executeCheck("TriG_MultipleNamespacesPerPrefix_01.trig");
+		assertNotNull(failures);
+		assertEquals(2, failures.size());
+		failure = failures.get(1);
+		assertEquals(failure.getFailureElement(), "ex");
+		assertEquals(failure.getSeverity(), Severity.WARN);
+		assertEquals(failure.getText(),
+				"\nex has the 2 namespaces: [http://www.2ndexample.org/document#, http://www.example.org/vocabulary#]");
+		failure = failures.get(0);
+		assertEquals(failure.getFailureElement(), "ex");
+		assertEquals(failure.getSeverity(), Severity.INFO);
+		assertEquals(failure.getText(),
+				"\nex has 2 times the namespace http://www.example.org/vocabulary#");
 	}
 
 	@Test
-	public void N3_oneNamespacePerPrefix() throws FileNotFoundException{
+	public void N3_oneNamespacePerPrefix() throws IOException{
 		String text = "@prefix my: <http://my.ontology#> . \n" + 
 			"@prefix : <n3_notation#> .\n" +
 			"my:Peter :suffers my:acrophobia.\n";
@@ -184,7 +263,7 @@ public class TestPrefixesReferToOneNamespace {
 	}
 	
 	@Test
-	public void N3_MultipleNamespacesPerPrefix() throws FileNotFoundException{
+	public void N3_MultipleNamespacesPerPrefix() throws IOException{
 		String text = "@prefix my: <http://my.ontology#> . \n" + 
 			"@prefix : <n3_notation#> .\n" +
 			"@prefix my: <http://test.org/notation/> .\n" +
@@ -221,5 +300,71 @@ public class TestPrefixesReferToOneNamespace {
 		assertEquals(failure.getText(),
 				"\nfoo has the 2 namespaces: [http://my_last.ontology/, http://foo.ontology#]");
 	}
+	
+	@Test
+	public void JSONLD_oneNamespacePerPrefix() throws URISyntaxException, IOException{
+		List<Failure> failures =  executeCheck("JSONLD_oneNamespacePerPrefix_01.jsonld");
+		assertNotNull(failures);
+		assertEquals(0, failures.size());
+
+		failures =  executeCheck("JSONLD_oneNamespacePerPrefix_02.jsonld10");
+		assertNotNull(failures);
+		assertEquals(0, failures.size());
+
+		failures =  executeCheck("JSONLD_oneNamespacePerPrefix_03.jsonld11");
+		assertNotNull(failures);
+		assertEquals(0, failures.size());
+		
+		failures =  executeCheck("JSONLD_oneNamespacePerPrefix_04.jsonld");
+		assertNotNull(failures);
+		assertEquals(0, failures.size());
+	}
+	
+	@Test
+	public void JSONLD_multipleNamespacesPerPrefix() throws URISyntaxException, IOException { 
+		List<Failure> failures =  executeCheck("JSONLD_multipleNamespacesPerPrefix_01.jsonld");
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		Failure failure = failures.get(0);
+		assertEquals(failure.getFailureElement(), "foaf");
+		assertEquals(failure.getSeverity(), Severity.WARN);
+		assertEquals(failure.getText(), 
+				"\nfoaf has the 2 namespaces: [http://xmlns.com/foaf/0.1/, http://foo.test#]");
+		
+		failures =  executeCheck("JSONLD_multipleNamespacesPerPrefix_02.jsonld10");
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		failure = failures.get(0);
+		assertEquals(failure.getFailureElement(), "foo");
+		assertEquals(failure.getSeverity(), Severity.WARN);
+		assertEquals(failure.getText(), 
+				"\nfoo has the 2 namespaces: [http://onto-foo.bar#, http://foo.bar/]");
+		
+		failures =  executeCheck("JSONLD_multipleNamespacesPerPrefix_03.jsonld11");
+		assertNotNull(failures);
+		assertEquals(2, failures.size());
+		failure = failures.get(1);
+		assertEquals(failure.getFailureElement(), "foaf");
+		assertEquals(failure.getSeverity(), Severity.WARN);
+		assertEquals(failure.getText(), 
+				"\nfoaf has the 2 namespaces: [http://xmlns.com/foaf/0.1/, http://foo.bar2#]");
+		failure = failures.get(0);
+		assertEquals(failure.getFailureElement(), "foo");
+		assertEquals(failure.getSeverity(), Severity.WARN);
+		assertEquals(failure.getText(), 
+				"\nfoo has the 2 namespaces: [http://onto-foo.bar#, http://foo.bar/]");
+		failures =  executeCheck("JSONLD_multipleNamespacesPerPrefix_04.jsonld11");
+		assertNotNull(failures);
+		assertEquals(2, failures.size());
+		failure = failures.get(0);
+		assertEquals(failure.getFailureElement(), "foo");
+		assertEquals(failure.getSeverity(), Severity.INFO);
+		assertEquals("\nfoo has 3 times the namespace http://onto-foo.bar#", failure.getText());
+		failure = failures.get(1);
+		assertEquals(failure.getSeverity(), Severity.WARN);
+		assertEquals(failure.getText(), 
+				"\nfoaf has the 2 namespaces: [http://xmlns.com/foaf/0.1/, http://foo.bar2#]");
+	}
+
 
 }

@@ -1,0 +1,15 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix test1: <http://www.test-1.org/o#>
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+PREFIX test1: <http://www.test-1.org/o#>
+
+###  http://www.test-1.org/o#hasAddress
+test1:hasAddress rdf:type owl:ObjectProperty ;
+              rdfs:domain test1:Local ;
+              rdfs:range test1:address ;
+              rdfs:comment "verknuepft ein Lokal mit seiner Adresse"@de ;
+              rdfs:label "has address"@en ,
+                         "hat Adresse"@de .

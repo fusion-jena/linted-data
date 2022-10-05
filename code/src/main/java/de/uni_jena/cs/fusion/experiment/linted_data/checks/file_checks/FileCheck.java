@@ -46,9 +46,7 @@ public abstract class FileCheck extends Check {
 		try {
 			failureDescription = "\n" + "File: " + file.getCanonicalPath();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			failureDescription = "";
+			throw e;
 		}
 		List<Failure> failures = this.execute(file, failureDescription);
 		this.time = System.currentTimeMillis() - start;
