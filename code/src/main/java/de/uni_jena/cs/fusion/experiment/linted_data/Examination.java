@@ -3,6 +3,11 @@ package de.uni_jena.cs.fusion.experiment.linted_data;
 import java.io.File;
 import java.util.concurrent.Callable;
 
+import org.apache.jena.query.Dataset;
+import org.apache.jena.query.DatasetFactory;
+import org.apache.jena.riot.RDFParser;
+import org.apache.jena.riot.RiotException;
+
 import de.uni_jena.cs.fusion.experiment.linted_data.types.Level;
 import de.uni_jena.cs.fusion.experiment.linted_data.util.FileUtil;
 import picocli.CommandLine;
@@ -55,8 +60,11 @@ public class Examination implements Callable<Integer> {
 			System.err.println(inputFile.getAbsolutePath() + " doesn't exist.\n" + "Please check the path and start again.");
 			return -1;
 		}
-		if (! FileUtil.checkInputFileExtension(inputFile)) {
-			System.err.println("The file format of the ontology can't be processed.");
+		Dataset dataset = DatasetFactory.create();
+		try {
+			RDFParser.source(inputFile.getAbsolutePath()).parse(dataset);
+		}catch(RiotException e) {
+			System.err.println("The file can't be parsed");
 			return -1;
 		}
 		if (! FileUtil.checkOutputFileExtension(outputFile)) {
