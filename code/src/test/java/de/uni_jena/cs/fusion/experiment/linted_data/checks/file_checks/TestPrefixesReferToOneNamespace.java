@@ -172,7 +172,7 @@ public class TestPrefixesReferToOneNamespace {
 	}
 
 	@Test
-	public void TriG_MultipleNamespacesPerPrefix() throws IOException{
+	public void TriG_MultipleNamespacesPerPrefix() throws IOException, URISyntaxException{
 		String text = "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n" + 
 				"PREFIX dc: <http://purl.org/dc/terms/> \n" +
 				"@prefix dc: <http://purl.org/test/syntax#>           .  #this is a comment at the end of a line\n" +

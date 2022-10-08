@@ -1,12 +1,15 @@
 package de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import org.apache.jena.riot.RDFLanguages;
 
