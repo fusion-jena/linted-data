@@ -4,27 +4,36 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFLanguages;
 
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.Level;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
+import de.uni_jena.cs.fusion.experiment.linted_data.util.FileUtil;
 
 /**
  * checks that when a serialisation language supports prefixes, they are only
  * used once
  * 
- * only for Turtle, TriG, JSONLD (10, 11) and N3
+ * only for Turtle, TriG, JSONLD (10, 11), RDF/XML and N3
  */
 public class CheckPrefixesReferToOneNamespace extends FileCheck {
+
+	private static final List<Lang> languages = Arrays.asList(RDFLanguages.TURTLE, RDFLanguages.TRIG,
+			RDFLanguages.JSONLD, RDFLanguages.JSONLD10, RDFLanguages.JSONLD11, RDFLanguages.RDFXML, RDFLanguages.N3);
 
 	public CheckPrefixesReferToOneNamespace() {
 		super(Level.FILE, TargetLanguage.RDFS, Severity.WARN, "Prefixes should not refer to multiple namespaces");
@@ -32,25 +41,47 @@ public class CheckPrefixesReferToOneNamespace extends FileCheck {
 
 	@Override
 	public List<Failure> execute(File file, String failureDescription) throws IOException {
-		List<Failure> failures = new ArrayList<Failure>();
+		Lang language = FileUtil.getLang(file, languages);
 
-		String[] substrings = file.getName().split("\\.");
-		String fileExtension = substrings[substrings.length - 1];
+		List<Failure> failures = new ArrayList<Failure>();
 
 		// prefix : List<corresponding namespaces>
 		Map<String, List<String>> map = new HashMap<String, List<String>>();
-		if (RDFLanguages.TURTLE.getFileExtensions().contains(fileExtension)
-				|| RDFLanguages.TRIG.getFileExtensions().contains(fileExtension)) {
-			processPrefixesPerLine("PREFIX", ">", ":", file, map);
-			processPrefixesPerLine("@prefix", ">", ":", file, map);
-		}else if(RDFLanguages.N3.getFileExtensions().contains(fileExtension)) {
-			processPrefixesPerLine("@prefix", ">", ":", file, map);
-		} else if (RDFLanguages.JSONLD.getFileExtensions().contains(fileExtension)
-				|| RDFLanguages.JSONLD10.getFileExtensions().contains(fileExtension)
-				|| RDFLanguages.JSONLD11.getFileExtensions().contains(fileExtension)) {
-			processJSONDocument(file, map);
+		
+		if(language == null) {
+			String[] substrings = file.getName().split("\\.");
+			String fileExtension = substrings[substrings.length - 1];
+			if(RDFLanguages.TURTLE.getFileExtensions().contains(fileExtension)) {
+				language = RDFLanguages.TURTLE;
+			}else if(RDFLanguages.TRIG.getFileExtensions().contains(fileExtension)) {
+				language = RDFLanguages.TRIG;
+			}else if(RDFLanguages.N3.getFileExtensions().contains(fileExtension)) {
+				language = RDFLanguages.N3;
+			}else if(RDFLanguages.JSONLD.getFileExtensions().contains(fileExtension)) {
+				language = RDFLanguages.JSONLD;
+			}else if(RDFLanguages.JSONLD10.getFileExtensions().contains(fileExtension)) {
+				language = RDFLanguages.JSONLD10;
+			}else if(RDFLanguages.JSONLD11.getFileExtensions().contains(fileExtension)) {
+				language = RDFLanguages.JSONLD11;
+			}else if(RDFLanguages.RDFXML.getFileExtensions().contains(fileExtension)) {
+				language = RDFLanguages.RDFXML;
+			}
 		}
 		
+		if (language == RDFLanguages.TURTLE || language == RDFLanguages.TRIG) {
+			processPrefixesPerLine("PREFIX", ">", ":", file, map);
+			processPrefixesPerLine("@prefix", ">", ":", file, map);
+		} else if (language == RDFLanguages.N3) {
+			processPrefixesPerLine("@prefix", ">", ":", file, map);
+		} else if (language == RDFLanguages.JSONLD || language == RDFLanguages.JSONLD10
+				|| language == RDFLanguages.JSONLD11) {
+			processJSONDocument(file, map);
+		} else if (language == RDFLanguages.RDFXML) {
+			processRDFXMLdocument(file, map);
+		} else if (language == RDFLanguages.NTRIPLES || language == RDFLanguages.NQUADS) {
+			// these languages don't allow prefixes
+		}
+
 		for (String prefix : map.keySet()) {
 			// search for namespaces that are assigned more than once to the same prefix
 			// how often each namespace occurs
@@ -221,6 +252,37 @@ public class CheckPrefixesReferToOneNamespace extends FileCheck {
 			return (char) reader.read();
 		} catch (IOException e) {
 			return (char) -1;
+		}
+	}
+
+	/**
+	 * processes a RDF/XML document
+	 * 
+	 * searches for <rdf:RDF ... >
+	 * <p>
+	 * within this attribute search for all xmlns definitions and add them to the
+	 * map
+	 * 
+	 * @param file that is parsed
+	 * @param map  stores the prefixes as keys with the corresponding list of
+	 *             namespaces as value
+	 * @throws IOException in case of an error when closing the reader
+	 */
+	public void processRDFXMLdocument(File file, Map<String, List<String>> map) throws IOException {
+		String content = Files.readString(file.toPath());
+		// get the substring with all prefix definitions 
+		// is within the <rdf:RDF ...> element
+		Matcher m = Pattern.compile("<rdf:RDF[^>]*>").matcher(content);
+		if (m.find()) {
+			String substring = m.group(0);
+			// search for all prefix declarations
+			// xmlns:prefix="namespace"
+			// prefix -> first group element
+			// namespace -> second group element
+			m = Pattern.compile("xmlns:([^=]+)=\"([^\"]+)\"").matcher(substring);
+			while (m.find()) {
+				addNamespace(m.group(1), m.group(2), map);
+			}
 		}
 	}
 

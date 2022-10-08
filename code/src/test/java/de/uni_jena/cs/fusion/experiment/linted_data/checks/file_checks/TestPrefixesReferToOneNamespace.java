@@ -366,5 +366,55 @@ public class TestPrefixesReferToOneNamespace {
 				"\nfoaf has the 2 namespaces: [http://xmlns.com/foaf/0.1/, http://foo.bar2#]");
 	}
 
+	@Test
+	public void RDFXML_onePrefixPerNamespace() throws URISyntaxException, IOException {
+		List<Failure> failures = executeCheck("RDFXML_oneNamespacePerPrefix_01.owl");
+		assertNotNull(failures);
+		assertEquals(0, failures.size());
+		
+		failures = executeCheck("RDFXML_oneNamespacePerPrefix_02.xml");
+		assertNotNull(failures);
+		assertEquals(0, failures.size());
+		
+		failures = executeCheck("RDFXML_oneNamespacePerPrefix_03.xml");
+		assertNotNull(failures);
+		assertEquals(0, failures.size());
+	}
+	
+	@Test
+	public void RDFXML_multipleNamespacesPerPrefix() throws URISyntaxException, IOException {
+		CheckPrefixesReferToOneNamespace check = new CheckPrefixesReferToOneNamespace();
+		List<Failure> failures = check.execute(new File(this.getClass().getClassLoader().getResource("RDFXML_multipleNamespacesPerPrefix_01.owl").toURI()), "");
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		Failure failure = failures.get(0);
+		assertEquals(Severity.WARN, failure.getSeverity());
+		assertEquals("ccon", failure.getFailureElement());
+		assertEquals("\nccon has the 2 namespaces: [http://cerrado.linkeddata.es/ecology/ccon#, http://cerrado.linkeddata.es/ecology/ccon#2]",failure.getText());
+		
+		failures = check.execute(new File(this.getClass().getClassLoader().getResource("RDFXML_multipleNamespacesPerPrefix_02.owl").toURI()), "");
+		assertNotNull(failures);
+		assertEquals(2, failures.size());
+		failure = failures.get(0);
+		assertEquals(Severity.INFO, failure.getSeverity());
+		assertEquals(failure.getText(), "\nbar has 3 times the namespace http://www.city.ac.uk/ds/inm713/bar#");
+		assertEquals("bar", failure.getFailureElement());
+		failure = failures.get(1);
+		assertEquals(Severity.WARN, failure.getSeverity());
+		assertEquals("foo", failure.getFailureElement());
+		assertEquals("\nfoo has the 2 namespaces: [http://www.city.ac.uk/ds/inm713/foo#, http://www.city.ac.uk/ds/inm713/foo2#]",failure.getText());
+		
+		failures = check.execute(new File(this.getClass().getClassLoader().getResource("RDFXML_multipleNamespacesPerPrefix_03.xml").toURI()), "");
+		assertNotNull(failures);
+		assertEquals(2, failures.size());
+		failure = failures.get(0);
+		assertEquals(Severity.INFO, failure.getSeverity());
+		assertEquals(failure.getText(), "\nbar has 3 times the namespace http://www.city.ac.uk/ds/inm713/bar#");
+		assertEquals("bar", failure.getFailureElement());
+		failure = failures.get(1);
+		assertEquals(Severity.WARN, failure.getSeverity());
+		assertEquals("bar", failure.getFailureElement());
+		assertEquals("\nbar has the 2 namespaces: [http://www.city.ac.uk/ds/inm713/bar#, http://www.city.ac.uk/ds/inm713/bar2#]",failure.getText());
+	}
 
 }

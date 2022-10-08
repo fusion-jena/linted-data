@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<!--rdf:RDF xmlns="http://www.city.ac.uk/ds/inm713/an-ontology#"
+     xml:base="http://www.city.ac.uk/ds/inm713/an-ontology"
+     xmlns:gr="http://www.city.ac.uk/ds/inm713/an-ontology#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+		<owl:Ontology rdf:about="http://www.city.ac.uk/ds/inm713/an-ontology#"-->
+<rdf:RDF xmlns="http://www.city.ac.uk/ds/inm713/an-ontology#"
+     xml:base="http://www.city.ac.uk/ds/inm713/an-ontology"
+     xmlns:gr="http://www.city.ac.uk/ds/inm713/an-ontology#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+		<owl:Ontology rdf:about="http://www.city.ac.uk/ds/inm713/an-ontology#">
+        <Creator>Creator 1</Creator>
+        <Creator>Creator 2</Creator>
+    </owl:Ontology>
+		
+		    <!-- http://www.city.ac.uk/ds/inm713/an-ontology#countryIdentifier -->
+
+    <owl:DatatypeProperty rdf:about="http://www.city.ac.uk/ds/inm713/an-ontology#countryIdentifier">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#Country"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment xml:lang="de">Ein Identifier fuer Laender
+2 Zeichen lang
+ISO 3166-1 alpha-2 code</rdfs:comment>
+        <rdfs:label xml:lang="de">Laenderidentifizierer</rdfs:label>
+        <rdfs:label xml:lang="en">country identifier</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.city.ac.uk/ds/inm713/an-ontology#hasPostCode -->
+
+    <owl:DatatypeProperty rdf:about="http://www.city.ac.uk/ds/inm713/an-ontology#hasPostCode">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#address"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment xml:lang="de">Wird genutzt um den Ort iner Stadt zu kodieren.</rdfs:comment>
+        <rdfs:label xml:lang="de">Postleitzahl</rdfs:label>
+        <rdfs:label xml:lang="en">postcode</rdfs:label>
+    </owl:DatatypeProperty>
+		
+		<!-- http://www.city.ac.uk/ds/inm713/an-ontology#Pizza -->
+
+    <owl:Class rdf:about="http://www.city.ac.uk/ds/inm713/an-ontology#Pizza">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#hasBase"/>
+                <owl:allValuesFrom rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#pizzaBase"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#hasPrice"/>
+                <owl:allValuesFrom rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#Price"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#hasTopping"/>
+                <owl:allValuesFrom rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#topping"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#soldQuantity"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#Name"/>
+                <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#itemDescription"/>
+                <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="de">Eine beliebig belegte Pizza</rdfs:comment>
+        <rdfs:label xml:lang="de">Pizza</rdfs:label>
+        <rdfs:label xml:lang="en">Pizza</rdfs:label>
+    </owl:Class>
+		
+		    <!-- http://www.city.ac.uk/ds/inm713/an-ontology#Pizza_1490 -->
+
+    <owl:NamedIndividual rdf:about="http://www.city.ac.uk/ds/inm713/an-ontology#Pizza_1490">
+        <rdf:type rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#Pizza"/>
+        <hasPrice rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#Price_1490"/>
+        <Name>pizza del giorno</Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.city.ac.uk/ds/inm713/an-ontology#Pizza_1491 -->
+
+    <owl:NamedIndividual rdf:about="http://www.city.ac.uk/ds/inm713/an-ontology#Pizza_1491">
+        <rdf:type rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#Pizza"/>
+        <hasTopping rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#topping_130_0"/>
+        <hasTopping rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#topping_130_1"/>
+        <Name>any brick oven pizza</Name>
+        <itemDescription>Small</itemDescription>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.city.ac.uk/ds/inm713/an-ontology#Pizza_1492 -->
+
+    <owl:NamedIndividual rdf:about="http://www.city.ac.uk/ds/inm713/an-ontology#Pizza_1492">
+        <rdf:type rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#Pizza"/>
+        <hasPrice rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#Price_1492"/>
+        <hasTopping rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#cheeseTopping_1_0"/>
+        <hasTopping rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#chicken_33_0"/>
+        <hasTopping rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#chicken_33_5"/>
+        <hasTopping rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#mozarella_33_3"/>
+        <hasTopping rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#onion_666_1"/>
+        <hasTopping rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#topping_1492_3"/>
+        <hasTopping rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#topping_1492_4"/>
+        <hasTopping rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#topping_33_1"/>
+        <hasTopping rdf:resource="http://www.city.ac.uk/ds/inm713/an-ontology#topping_33_2"/>
+        <Name>bbq chicken pizza</Name>
+        <itemDescription>BBQ chicken marinated in a smoky hickory BBQ sauce topped with caramelized onions and mozzarella cheese.</itemDescription>
+    </owl:NamedIndividual>
+		
+	</rdf:RDF>
+	
