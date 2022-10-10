@@ -1,0 +1,101 @@
+\documentclass[12pt,a4paper]{article}
+%%%%% font, language
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[UKenglish]{babel}
+\usepackage{lmodern}
+%%%%% figures
+\usepackage{subcaption}
+\captionsetup[subfigure]{textfont = normalfont, labelfont = bf, format = hang}
+\captionsetup[figure]{textfont = normalfont, labelfont = bf, format = hang}
+\captionsetup[table]{textfont = normalfont, labelfont = bf, format = hang}
+%%%%% images
+\usepackage{graphicx}
+%%%%% references, quoting
+\usepackage[german=quotes]{csquotes}
+\usepackage{hyperref}
+%%%%% layout
+\usepackage[left=2.5cm,right=3cm,top=3cm,bottom=3cm]{geometry}
+%%%%%%%%%%
+%%%%% own commands
+\newcommand{\function}[1]{\texttt{#1}}
+\newcommand{\argument}[1]{\texttt{#1}}
+%%%%%%%%%%
+\begin{document}
+\begin{center}
+\begin{LARGE}
+\textbf{How to add a new validator to \textit{linteddata}}
+\end{LARGE}
+\end{center}
+\hrule
+\tableofcontents
+\bigskip
+\hrule
+%
+\section{General architecture}
+\begin{itemize}
+	\item image of the class diagram
+	\item description of the three main groups
+	\begin{itemize}
+		\item check $\rightarrow$ extend
+		\item report $\rightarrow$ no changes 
+		\item execution $\rightarrow$ only add the new check
+	\end{itemize}
+	\item describe different severity levels
+\end{itemize}
+\section{Check types}
+\begin{itemize}
+	\item describe the different types of test
+	\item SPARQL checks might be implemented more efficient as a different type, but should be implemented as them $\rightarrow$ can be used in other frameworks
+	\item file level
+	\begin{itemize}
+		\item errors that get lost when the file is parsed
+		\item manual processing of the file
+	\end{itemize}	 
+	\item multi graph level 
+	\begin{itemize}
+		\item file parsed as dataset
+		\item information extracted from all models 
+	\end{itemize}
+	\item graph level 
+	\begin{itemize}
+		\item executed on default model and all named models
+		\item check always performs on only one model at the same time $\rightarrow$ no information about other models at this point
+	\end{itemize}
+	\item SPARQL level
+	\begin{itemize}
+		\item executed on a single model 
+		\item query = string $\rightarrow$ attribute
+		\item \function{execute} $\rightarrow$ only processing of the query result into failures
+	\end{itemize}		 
+\end{itemize}
+%
+\section{Implementation of a new validator}
+\begin{enumerate}
+	\item choose a corresponding level 
+	\item implementation of the constructor
+	\begin{itemize}
+		\item description of the attributes
+		\item choose severity
+	\end{itemize}
+	\item implementation of the \function{execute} 
+	\begin{itemize}
+		\item how to customise \argument{failureDescription}
+		\item 
+	\end{itemize}
+	\item test check
+	\begin{itemize}
+		\item JUnit Test
+		\item test the \enquote{lowest} \function{execute} function
+	\end{itemize}
+	\item add test to the list of all checks
+	\begin{itemize}
+		\item add check in \function{Runner.createAllChecks()}
+	\end{itemize}
+\end{enumerate}
+%
+\section{Example}
+\begin{itemize}
+	\item documentation of creating a check
+\end{itemize}
+\end{document}
