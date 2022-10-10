@@ -104,14 +104,25 @@ In the following section the classes of the package \package{check} are describe
 %
 In this section the different types of validators are explained. 
 The aim of this section is it, to understand, when to implement which type of check. 
+
+As seen in the class diagram (figure~\ref{fig:general_architecture:class_diagram}), the different types of validators are implemented as subclass from \class{Check}. 
+
+\class{FileCheck} is the first \enquote{real} check that applies to the structure of the tool. 
+All non abstract subclasses of this class need to process the file in its raw format. 
+The failures detected in those classes can't be detected after parsing the file into a Jena dataset \cite{apache_jena}. 
+\\
+A validator should be realised as a subclass of \class{MultiGraphCheck} if the problem can be detected after parsing the file, but it is necessary to have access to all models contained in the dataset. 
+\\
+When a problem affects only a single model from Jena contained in the dataset. 
+At this level, it is not possible to access any other model. 
+If this is necessary, the validator should be a subclass of \class{MultiGraphCheck}. 
+\\
+Although implementing a validator as a subclass of \class{SPARQLCheck} might not be the best efficient solution, it should be the superclass to choose. 
+If the validator is implemented as SPARQL query, this query can be reused in other frameworks as well. 
+ 
 \begin{itemize}
 	\item describe the different types of test
-	\item SPARQL checks might be implemented more efficient as a different type, but should be implemented as them $\rightarrow$ can be used in other frameworks
-	\item file level
-	\begin{itemize}
-		\item errors that get lost when the file is parsed
-		\item manual processing of the file
-	\end{itemize}	 
+	\item SPARQL checks might be implemented more efficient as a different type, but should be implemented as them $\rightarrow$ can be used in other frameworks 
 	\item multi graph level 
 	\begin{itemize}
 		\item file parsed as dataset
