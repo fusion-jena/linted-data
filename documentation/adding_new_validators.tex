@@ -12,6 +12,8 @@
 %%%%% images
 \usepackage{graphicx}
 \usepackage{pdflscape} % horizontal pages
+%%%%% tables
+\usepackage{tabularray}
 %%%%% references, quoting
 \usepackage[german=quotes]{csquotes}
 \usepackage{hyperref}
@@ -44,6 +46,7 @@
 \end{itemize}
 %
 \section{General architecture}
+\label{sec:general_architecture}
 %
 In this section at first the architecture is displayed. 
 Additionally some of the classes and their functionality are explained.  
@@ -97,6 +100,7 @@ In the following section the classes of the package \package{check} are describe
 \begin{itemize}
 	\item should the classes be described more in detail?
 	\item more details on failure? $\rightarrow$ most important class from JUnitXML
+	\item Apache Jena for parsing, processing?	
 \end{itemize}
 %
 \section{Check types}
@@ -132,34 +136,83 @@ On the basis of this, \class{RoundedValues}, which represents this validation, i
 \\
 The next section describes the procedure when implementing a new validator. 
 \begin{itemize}
-	\item describe the different types of test	 
+	\item describe the different types of test	
 \end{itemize}
 %
 \section{Implementation of a new validator}
+%
+After describing the different level that are included in \toolname , this section describes which steps need to be followed when implementing a new validator. 
+\\
+The first step is to assign the validator a level. 
+The differences between those are described in section~\ref{sec:check_types}. 
+When choosing the level, it should be considered that although you can parse a file into a dataset in a \class{FileCheck} this shouldn't be done. 
+Instead, the most appropriate class should always be chosen. 
+
+Next to choosing the level of the validator, it must be considered to which \enum{TargetLanguage} it applies. 
+This selection is not as important as the choice of level, as described in section~\ref{sec:general_architecture} it only influences to which \class{Testsuite} the validator belongs. 
+\\
+All checks call the constructor of their abstract superclass. 
+They have the following arguments: 
+\begin{description}
+\item[level:] As described before, corresponding value of the enum \enum{level}.
+\item[targetLanguage:] Determines corresponding \class{Testuite}, a value of \enum{TargetLanguage}.
+\item[severity:] How important it is to fix an occurring failure of this validator, see section~\ref{fig:general_architecture:class_diagram} for a description of the different values. 
+\item[name:] This attribute does not describe the validator, but is a general description of the occurring failures found by the validator. 
+\end{description}
+%
+When the validator is a \class{SPARQLCheck} the constructor has an additional argument for the query. 
+All these arguments should be set in the constructor itself, so that the constructor itself doesn't require an argument. 
+\\
+Next to creating a constructor is the implementation of the method \function{execute}. 
+This function returns a list of \class{Failure}s and always has two arguments: 
+
+One is a String called \texttt{failureDescription}. 
+This argument is used to set the text attribute of a failure. 
+The text will later be the only option for the user to locate the failure within his file. 
+To help the user, the description gets specified with the more specific subclasses. 
+To keep the text formatted, the first character added to it must be a line break. 
+Afterwards should be added information that describes the element, or elements, that lead to the failure. 
+
+Depending on the level the second argument is different. 
+The content of \texttt{failureDescription} and the second argument for each level can be found in table~\ref{tab:implementation_new_validator:arguments_execute}.
+%
+\begin{table}[bt]
+	\centering
+	\caption{Arguments of \function{execute} for each level of check.}
+	\label{tab:implementation_new_validator:arguments_execute}
+\begin{tblr}{colspec={l l l}, hline{1, Z}={2pt}, hline{2-Y}={1pt}}
+Level & \texttt{failureDescription} & 2nd argument \\
+File & Canonical path to the file & Raw file \\
+MultiGraph & Canonical path to the file & File parsed as dataset \\
+Graph & {Canonical path to the file \\ Name of the model} & Single model from the dataset \\
+SPARQL & {Canonical path to the file \\ Name of the model}& ResultSet from the query execution \\
+\end{tblr}
+\end{table}
+%
+When creating a new failure, and adding it to the list that will be returned at the end, 
+\\
+The last step is to add the check to all the checks that are executed when the tool is executed. 
+Therefore the function \function{createAllChecks} in the class \class{Runner} must be adopted. 
+Within this function the new class must be added to the list \texttt{allChecks}, that's the only needed change in this class. 
+When executing \toolname\ the next time, the check will also be executed. 
+No further steps are needed. 
+In the last section an example of adding a new validator is given.  
 \begin{enumerate}
-	\item choose a corresponding level 
-	\item implementation of the constructor
-	\begin{itemize}
-		\item description of the attributes
-		\item choose severity
-	\end{itemize}
 	\item implementation of the \function{execute} 
 	\begin{itemize}
 		\item how to customise \argument{failureDescription}
-		\item 
 	\end{itemize}
 	\item test check
 	\begin{itemize}
 		\item JUnit Test
 		\item test the \enquote{lowest} \function{execute} function
 	\end{itemize}
-	\item add test to the list of all checks
-	\begin{itemize}
-		\item add check in \function{Runner.createAllChecks()}
-	\end{itemize}
 \end{enumerate}
 %
 \section{Example}
+%
+After describing the general structure of \toolname , and discussing the different types of checks the previous section explained in a general way how to add a new validator. 
+This section uses an example to illustrate the general way. 
 \begin{itemize}
 	\item documentation of creating a check
 \end{itemize}
