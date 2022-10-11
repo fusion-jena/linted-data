@@ -62,7 +62,7 @@ Each of the abstract classes overwrites the \function{execute} of its superclass
 \class{Check} is a superclass of \class{FileCheck} and used to capture the attributes of a check. 
 It can be used to extend the tool later with different types of checks. 
 \\
-Each of the \class{FileChecks} has one level it applies to, this could also be modelled via the subclass relation, but with the enum \enum{Level}, the user can pass as an argument what kind of validations he wants to execute. 
+Each of the \class{FileCheck}s has one level it applies to, this could also be modelled via the subclass relation, but with the enum \enum{Level}, the user can pass as an argument what kind of validations he wants to execute. 
 A new validator mustn't have the \enum{Level} \enum{ALL}, this value is only for the user input. 
 Also each one has a \enum{TargetLanguage}. 
 This attribute is used to assign the validator to the corresponding Testsuite in the result. 
@@ -95,8 +95,8 @@ When a new validator is added, it must be added to the method \function{Runner.c
 %
 In the following section the classes of the package \package{check} are described more in detail. 
 \begin{itemize}
-	\item image of the class diagram
 	\item should the classes be described more in detail?
+	\item more details on failure? $\rightarrow$ most important class from JUnitXML
 \end{itemize}
 %
 \section{Check types}
@@ -113,32 +113,26 @@ The failures detected in those classes can't be detected after parsing the file 
 \\
 A validator should be realised as a subclass of \class{MultiGraphCheck} if the problem can be detected after parsing the file, but it is necessary to have access to all models contained in the dataset. 
 \\
-When a problem affects only a single model from Jena contained in the dataset. 
+When a problem affects only a single model from Jena, contained in the dataset, at the same time, then the corresponding validator should be realised as a \class{GraphCheck}. 
 At this level, it is not possible to access any other model. 
+The checks are performed on all models of a dataset, the default model as well as named models. 
 If this is necessary, the validator should be a subclass of \class{MultiGraphCheck}. 
 \\
+Checks that can be formulated as a SPARQL query, are a subclass of \class{SPARQLCheck}. 
 Although implementing a validator as a subclass of \class{SPARQLCheck} might not be the best efficient solution, it should be the superclass to choose. 
 If the validator is implemented as SPARQL query, this query can be reused in other frameworks as well. 
- 
+
+This abstract class \class{SPARQLCheck} has an attribute in which the query is stored as String. 
+Within the \function{execute}, that needs to be implemented, only the result of the query execution is available. 
+The execution of the query itself is done in the superclass. 
+\\
+A concrete check is a subclass of the class representing its level. 
+For example the validation, if values can be exactly represented as \texttt{xsd:double} or \texttt{xsd:float} needs for example only the triples of one model at the same time. 
+On the basis of this, \class{RoundedValues}, which represents this validation, is a subclass of \class{GraphCheck}.  
+\\
+The next section describes the procedure when implementing a new validator. 
 \begin{itemize}
-	\item describe the different types of test
-	\item SPARQL checks might be implemented more efficient as a different type, but should be implemented as them $\rightarrow$ can be used in other frameworks 
-	\item multi graph level 
-	\begin{itemize}
-		\item file parsed as dataset
-		\item information extracted from all models 
-	\end{itemize}
-	\item graph level 
-	\begin{itemize}
-		\item executed on default model and all named models
-		\item check always performs on only one model at the same time $\rightarrow$ no information about other models at this point
-	\end{itemize}
-	\item SPARQL level
-	\begin{itemize}
-		\item executed on a single model 
-		\item query = string $\rightarrow$ attribute
-		\item \function{execute} $\rightarrow$ only processing of the query result into failures
-	\end{itemize}		 
+	\item describe the different types of test	 
 \end{itemize}
 %
 \section{Implementation of a new validator}
