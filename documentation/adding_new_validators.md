@@ -1,7 +1,14 @@
 # How to add a new validator to LintedData  
 
 ## 1. Structure  
-<!--describe the structure of this document-->
+
+The aim of this document is that the reader is then able to extend the tool on his own.
+Therefore at first the general structure of the classes within the tool are explained.
+Afterwards the different types of checks, that are modelled, are presented.
+<!--Which way? -->
+The 4th section is a general description which steps need to be followed, to add a new validator to the tool.
+In the last section for each chek type an example is given. It is discussed, why the check needs to be implemented at this level.
+But the implementation of the checks are not content of this section.   
 
 ## 2. General architecture  
 
