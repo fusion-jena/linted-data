@@ -21,11 +21,10 @@ The general structure of the classes, used to implement the LintedData, is displ
 
 The classes belong to three different packages:
 
-<!-- TODO Cite -> Link -->
 | Package         | Description     |
 |--------------|-----------|
 | *checks* | This package contains all the validators.     |
-| *JUnitXML*      | All classes in this package are used to build the structure of \cite{JUnitXML_ibm}  |
+| *JUnitXML*      | All classes in this package are used to build the structure of [JUnitXML](https://www.ibm.com/docs/en/developer-for-zos/14.1.0?topic=formats-junit-xml-format)  |
 | *Main* | The classes from this package are used to execute the tool. |
 
 The different classes in the package `checks` are described in section 3.
@@ -43,8 +42,7 @@ This attribute is used to assign the validator to the corresponding Testsuite in
 The abstract subclasses of the different levels each implement the abstract `execute` method of its superclass.
 In these implementations the argument, that is not `failureDescription`, is further processed and along with the `failureDescription` passed to the new abstract method `execute`.  
 
-The package `JUnitXML` contains classes that are needed to represent the elements from \cite{JUnitXML_ibm}.
-<!-- TODO cite -> link -->
+The package `JUnitXML` contains classes that are needed to represent the elements from  [JUnitXML](https://www.ibm.com/docs/en/developer-for-zos/14.1.0?topic=formats-junit-xml-format).
 To prevent misunderstandings, elements of *Testsuites* are represented with instances of the class `TestsuiteManager`.
 When adding a new validator, no changes need to be done to this package.
 
@@ -72,11 +70,10 @@ The aim of this section is it, to understand, when to implement which type of ch
 As seen in the class diagram in the previous section, the different types of validators are implemented as subclass from `Check`.
 
 <!--TODO don't like this sentence -->
-<!--TODO cite -> link -->
 `FileCheck` is the first "real" check that applies to the structure of the tool.
 All non abstract subclasses of this class need to process the file in its raw format.
-The failures detected in those classes can't be detected after parsing the file into a Jena dataset \cite{apache_jena}.  
 A validator should be realised as a subclass of `MultiGraphCheck` if the problem can be detected after parsing the file, but it is necessary to have access to all models contained in the dataset.
+The failures detected in those classes can't be detected after parsing the file into a [Jena](https://jena.apache.org/) dataset.  
 
 When a problem affects only a single model from Jena, contained in the dataset, at the same time, then the corresponding validator should be realised as a `GraphCheck`.
 At this level, it is not possible to access any other model.
@@ -115,8 +112,8 @@ They have the following arguments:
 
 | Argument         | Description |
 |--------------|-----------------------|
-| `level` | As described before, corresponding value of the enum \enum{level}  |
-| `targetLanguage`      | Determines corresponding \class{Testuite}, a value of \enum{TargetLanguage}. |
+| `level` | As described before, corresponding value of the enum `level`  |
+| `targetLanguage`      | Determines corresponding `Testuite`, a value of `TargetLanguage`. |
 | `severity` | How important it is to fix an occurring failure of this validator, see section 2 for a description of the different values. |
 | `name`| This attribute does not describe the validator, but is a general description of the occurring failures found by the validator. |
 
