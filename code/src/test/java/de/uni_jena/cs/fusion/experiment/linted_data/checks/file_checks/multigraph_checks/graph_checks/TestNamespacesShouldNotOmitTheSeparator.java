@@ -1,4 +1,4 @@
-package de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.multigraph_checks;
+package de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.multigraph_checks.graph_checks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -15,20 +15,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.CheckNamespacesShouldNotOmitTheHash;
+import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.CheckNamespacesShouldNotOmitTheSeperator;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.Severity;
 
-public class TestNamespacesShouldNotOmitTheHash {
+public class TestNamespacesShouldNotOmitTheSeparator {
 	
-	private CheckNamespacesShouldNotOmitTheHash check;
+	private CheckNamespacesShouldNotOmitTheSeperator check;
 	
 	@BeforeEach
 	private void initalisation() {
-		check = new CheckNamespacesShouldNotOmitTheHash();
+		check = new CheckNamespacesShouldNotOmitTheSeperator();
 	}
 	
 	@Test
-	public void allNamespacesEndWithHash_1() {
+	public void allNamespacesEndWithSeperator_1() {
 		Model model = ModelFactory.createDefaultModel();
 		model.setNsPrefix("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 		model.setNsPrefix("skos", "http://www.w3.org/2004/02/skos/core#");
@@ -41,7 +41,7 @@ public class TestNamespacesShouldNotOmitTheHash {
 	}
 		
 	@Test
-	public void allNamespacesEndWithHash_2() {
+	public void allNamespacesEndWithSeperator_2() {
 		Model model = ModelFactory.createMemModelMaker().createModel("model2");
 		Resource res = model.createResource("http://www.w3.org/2004/02/skos/core#JohnSmith");
 		res.addLiteral(VCARD.FN, "John Smith");
@@ -58,7 +58,7 @@ public class TestNamespacesShouldNotOmitTheHash {
 		res = model.createResource("http://my-test.com/onto#JohnSmith");
 		res.addLiteral(VCARD.FN, "John Smith");
 		model.setNsPrefix("Thesaurus", "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#");
-		model.setNsPrefix("skos", "http://www.w3.org/2004/02/skos/core");
+		model.setNsPrefix("skos", "http://www.w3.org/2004/02/skos/core/");
 		model.setNsPrefix("taxslim", "http://purl.obolibrary.org/obo/ncbitaxon/subsets/taxslim#");
 		failures = check.execute(model, "");
 		assertNotNull(failures);
@@ -66,7 +66,7 @@ public class TestNamespacesShouldNotOmitTheHash {
 	}
 	
 	@Test
-	public void namespacesOmitHash_1() {
+	public void namespacesOmitTheSeperator_1() {
 		Model model = ModelFactory.createDefaultModel();
 		model.setNsPrefix("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 		model.setNsPrefix("skos", "http://www.w3.org/2004/02/skos/core");
@@ -78,7 +78,7 @@ public class TestNamespacesShouldNotOmitTheHash {
 		Failure f = failures.get(0);
 		assertEquals(Severity.WARN, f.getSeverity());
 		assertEquals("http://www.w3.org/2004/02/skos/core", f.getFailureElement());
-		assertEquals("\nthe namespace http://www.w3.org/2004/02/skos/core omits the # at the end", f.getText());
+		assertEquals("\nthe namespace http://www.w3.org/2004/02/skos/core omits the seperator at the end", f.getText());
 		
 		model = ModelFactory.createMemModelMaker().createModel("model2");
 		res = model.createResource("http://purl.obolibrary.org/obo/ncbitaxon/subsets/taxslim#JohnSmith");
@@ -95,7 +95,7 @@ public class TestNamespacesShouldNotOmitTheHash {
 		f = failures.get(0);
 		assertEquals(Severity.WARN, f.getSeverity());
 		assertEquals("http://www.w3.org/2004/02/skos/core", f.getFailureElement());
-		assertEquals("\nthe namespace http://www.w3.org/2004/02/skos/core omits the # at the end", f.getText());
+		assertEquals("\nthe namespace http://www.w3.org/2004/02/skos/core omits the seperator at the end", f.getText());
 	}
 	
 	@Test
@@ -114,7 +114,7 @@ public class TestNamespacesShouldNotOmitTheHash {
 		Failure f = failures.get(0);
 		assertEquals(Severity.WARN, f.getSeverity());
 		assertEquals("http://www.w3.org/2004/02/skos/core", f.getFailureElement());
-		assertEquals("\nthe namespace http://www.w3.org/2004/02/skos/core omits the # at the end", f.getText());
+		assertEquals("\nthe namespace http://www.w3.org/2004/02/skos/core omits the seperator at the end", f.getText());
 				
 		model = ModelFactory.createDefaultModel();
 		res = model.createResource("http://my-test.com/onto#JohnSmith");
@@ -130,7 +130,7 @@ public class TestNamespacesShouldNotOmitTheHash {
 		f = failures.get(0);
 		assertEquals(Severity.WARN, f.getSeverity());
 		assertEquals("http://www.w3.org/2001/vcard-rdf/3.0", f.getFailureElement());
-		assertEquals("\nthe namespace http://www.w3.org/2001/vcard-rdf/3.0 omits the # at the end", f.getText());
+		assertEquals("\nthe namespace http://www.w3.org/2001/vcard-rdf/3.0 omits the seperator at the end", f.getText());
 	}
 	
 	@Test
@@ -153,25 +153,11 @@ public class TestNamespacesShouldNotOmitTheHash {
 		Failure f = failures.get(0);
 		assertEquals(Severity.WARN, f.getSeverity());
 		assertEquals("http://example.com", f.getFailureElement());
-		assertEquals("\nthe namespace http://example.com omits the # at the end", f.getText());
+		assertEquals("\nthe namespace http://example.com omits the seperator at the end", f.getText());
 		f = failures.get(1);
 		assertEquals(Severity.WARN, f.getSeverity());
 		assertEquals("http://www.w3.org/2004/02/skos/core", f.getFailureElement());
-		assertEquals("\nthe namespace http://www.w3.org/2004/02/skos/core omits the # at the end", f.getText());
+		assertEquals("\nthe namespace http://www.w3.org/2004/02/skos/core omits the seperator at the end", f.getText());
 	}
 	
-	/**
-	 * prefix IRI omits / but is later used in an URI
-	 */
-	@Test
-	public void namespacesOmitHash_4() {
-		Model model = ModelFactory.createDefaultModel();
-		model.setNsPrefix("skos", "http://www.w3.org/2004/02/skos/core");
-		Resource res = model.createResource("http://www.w3.org/2004/02/skos/core/JohnSmith");
-		res.addLiteral(VCARD.FN, "John Smith");
-		
-		List<Failure> failures = check.execute(model, "");
-		assertNotNull(failures);
-		assertEquals(0, failures.size());
-	}
 }
