@@ -14,6 +14,14 @@ import de.uni_jena.cs.fusion.experiment.linted_data.types.Level;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
 
+/**
+ * each namespace should be referred by exactly one prefix
+ * 
+ * checks whether each namespace IRI is associated with a set of prefixes of
+ * size 1
+ * <p>
+ * for each namespace with more than one prefix a failure is created
+ */
 public final class CheckNamespacesShouldNotBeReferredByMultiplePrefixes extends GraphCheck {
 
 	public CheckNamespacesShouldNotBeReferredByMultiplePrefixes() {
