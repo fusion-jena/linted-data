@@ -25,7 +25,7 @@ public final class CheckMissingDomainRangeDefinition extends SPARQLCheck {
 	private static String readQuery() {
 		BufferedReader r = null;
 		try {
-			r = new BufferedReader(new FileReader("CheckDomainRangeDefinition.rq"));
+			r = new BufferedReader(new FileReader(CheckMissingDomainRangeDefinition.class.getClassLoader().getResource("CheckDomainRangeDefinition.rq").getFile()));
 		} catch (FileNotFoundException e) {
 		}
 		StringBuilder builder = new StringBuilder();
