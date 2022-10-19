@@ -33,7 +33,7 @@ import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
 public final class CheckSeveralClassesWithTheSameLabel extends MultiGraphCheck {
 	
 	private final String query;
-	private final String label = "?label";
+	private final String label = "label";
 	
 	public CheckSeveralClassesWithTheSameLabel() {
 		super(Level.MULTIGRAPH, TargetLanguage.RDFS, Severity.INFO, "Other classes have the same label");

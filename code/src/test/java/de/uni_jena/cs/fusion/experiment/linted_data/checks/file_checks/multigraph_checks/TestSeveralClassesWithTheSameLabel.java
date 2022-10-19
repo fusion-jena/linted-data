@@ -23,7 +23,7 @@ public class TestSeveralClassesWithTheSameLabel {
 	private CheckSeveralClassesWithTheSameLabel check = new CheckSeveralClassesWithTheSameLabel();
 	
 	@Test
-	public void eachLabelOnce() {
+	public void eachLabelOnce_1() {
 		Dataset dataset = DatasetFactory.createGeneral();
 		Model m = ModelFactory.createDefaultModel();
 		m.add(m.createResource("http://example.org#John"), RDFS.label, "John");
@@ -33,6 +33,24 @@ public class TestSeveralClassesWithTheSameLabel {
 		m.add(m.getResource("http://example.org#Tom"), RDFS.label, "Tommy");
 		dataset.addNamedModel("named-model", m);
 		
+		assertTrue(dataset.containsNamedModel("named-model"));
+		List<Failure> failures = check.execute(dataset, "");
+		assertNotNull(failures);
+		assertEquals(0, failures.size());
+	}
+	
+	@Test
+	public void eachLabelOnce() {
+		Dataset dataset = DatasetFactory.createGeneral();
+		OntModel m = ModelFactory.createOntologyModel();
+		OntClass c = m.createClass("http://example.org#Person");
+		c.addLabel("Person", "en");
+		dataset.setDefaultModel(m);
+		m = ModelFactory.createOntologyModel();
+		c = m.createClass("http://example.org#HumanBeeing");
+		c.addLabel("Human beeing", null);
+		dataset.addNamedModel("named-model", m);
+				
 		assertTrue(dataset.containsNamedModel("named-model"));
 		List<Failure> failures = check.execute(dataset, "");
 		assertNotNull(failures);
