@@ -45,7 +45,7 @@ public final class CheckSeveralClassesWithTheSameLabel extends MultiGraphCheck {
 					this.getClass().getClassLoader().getResource("CheckSeveralClassesWithTheSameLabel.rq").getFile()));
 			String currentLine = br.readLine();
 			while(currentLine != null) {
-				text += currentLine;
+				text += currentLine + "\n";
 				currentLine = br.readLine();
 			}
 		}catch(IOException e) {
@@ -70,14 +70,15 @@ public final class CheckSeveralClassesWithTheSameLabel extends MultiGraphCheck {
 		List<Failure> failures = new ArrayList<Failure>();
 		while(results.hasNext()) {
 			QuerySolution qs = results.next();
-			System.out.println(qs.toString());
-			System.out.println(qs.get(label));
-			String description = failureDescription + "\n" + qs.get("label").toString() + " is shared by two or more classes";
-			Failure failure = new Failure(name, severity, qs.get("label").toString(), description);
+			String description = failureDescription + "\n" + qs.get(label).toString() + " is shared by two or more classes";
+			Failure failure = new Failure(name, severity, qs.get(label).toString(), description);
 			failures.add(failure);
 		}
 
 		return failures;
 	}
 
+	public String getQuery() {
+		return query;
+	}
 }
