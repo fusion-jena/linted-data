@@ -1,6 +1,10 @@
 package de.uni_jena.cs.fusion.experiment.linted_data.util;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,7 +30,7 @@ public abstract class FileUtil {
 	public static final boolean checkInputFileExtension(File file) {
 		return checkFileExtension(file, Arrays.asList("owl", "ttl", "rdf", "xml", "nt", "nq", "trig"));
 	}
-	
+
 	/**
 	 * check if the output file is an xml document
 	 * 
@@ -36,24 +40,24 @@ public abstract class FileUtil {
 	public static final boolean checkOutputFileExtension(File file) {
 		return checkFileExtension(file, Arrays.asList("xml"));
 	}
-	
+
 	/**
 	 * check if the file is in a valid format
 	 * 
-	 * @param file its extension will be checked
+	 * @param file       its extension will be checked
 	 * @param extensions valid file extensions
 	 * @return true if the file extension is in extensions, else false
 	 */
 	public static final boolean checkFileExtension(File file, List<String> extensions) {
 		String[] partOfFileName = file.getName().split("\\.");
-		// the file extension is the substring after the last . 
+		// the file extension is the substring after the last .
 		String fileExtension = partOfFileName[partOfFileName.length - 1];
-		
+
 		return extensions.contains(fileExtension);
 	}
-	
+
 	public static final Lang getLang(File file, List<Lang> allowedLanguages) {
-		for(Lang language : allowedLanguages) {
+		for (Lang language : allowedLanguages) {
 			Dataset dataset = DatasetFactory.create();
 			try {
 				RDFParser.source(file.getAbsolutePath()).forceLang(language).parse(dataset);
@@ -63,5 +67,27 @@ public abstract class FileUtil {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * reads a file line by line and returns its content as String
+	 * 
+	 * @param file that will be parsed
+	 * @return String representation of the file content
+	 * @throws IOException in case that the file not exists, or an error occurs
+	 *                     while reading the file or when closing the reader
+	 */
+	public static final String readFile(File file) throws IOException {
+		BufferedReader r = new BufferedReader(new FileReader(file));
+		StringBuilder builder = new StringBuilder();
+
+		String currentLine = r.readLine();
+		while (currentLine != null) {
+			builder.append(currentLine);
+			builder.append("\n");
+			currentLine = r.readLine();
+		}
+		r.close();
+		return builder.toString();
 	}
 }

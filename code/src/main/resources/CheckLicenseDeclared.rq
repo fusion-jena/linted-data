@@ -1,0 +1,12 @@
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX schema: <http://schema.org/>
+PREFIX cc: <http://creativecommons.org/ns#>
+
+
+ASK
+WHERE{
+  ?x a owl:Ontology.
+  {?x dc:rights ?license.} UNION {?x dcterms:license ?license.} UNION {?x schema:license ?license.} UNION{?x cc:license ?license}.
+}
