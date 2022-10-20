@@ -21,6 +21,21 @@ public class TestLicenseDeclared {
 		List<Failure> failures = check.execute(file, "");
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
+		
+		file = new File(this.getClass().getClassLoader().getResource("CheckLicenseDeclared/LicenseDeclared_02.ttl").getPath());
+		failures = check.execute(file, "");
+		assertNotNull(failures);
+		assertEquals(0, failures.size());
+		
+		file = new File(this.getClass().getClassLoader().getResource("CheckLicenseDeclared/LicenseDeclared_03.ttl").getPath());
+		failures = check.execute(file, "");
+		assertNotNull(failures);
+		assertEquals(0, failures.size());
+		
+		file = new File(this.getClass().getClassLoader().getResource("CheckLicenseDeclared/LicenseDeclared_04.rdf").getPath());
+		failures = check.execute(file, "");
+		assertNotNull(failures);
+		assertEquals(0, failures.size());
 	}
 	
 	@Test
@@ -34,5 +49,22 @@ public class TestLicenseDeclared {
 		assertEquals(Severity.INFO, failure.getSeverity());
 		assertEquals("\nModel: Default Model\nUse one the following licenses: dc:rights, dcterms:license, schema:license, cc:license to add a license",failure.getText());
 		assertEquals("", failure.getFailureElement());
+	}
+	
+	@Test
+	public void no_license_declared() {
+		CheckLicenseDeclared check = new CheckLicenseDeclared();
+		File file = new File(this.getClass().getClassLoader().getResource("CheckLicenseDeclared/noLicenseDeclared.trig").getPath());
+		List<Failure> failures = check.execute(file, "");
+		assertNotNull(failures);
+		assertEquals(3, failures.size());
+		Failure failure = failures.get(0);
+		assertEquals(Severity.INFO, failure.getSeverity());
+		assertEquals("\nModel: Default Model\nUse one the following licenses: dc:rights, dcterms:license, schema:license, cc:license to add a license",failure.getText());
+		assertEquals("", failure.getFailureElement());
+		failure = failures.get(1);
+		assertEquals("\nModel: http://example.org/alice\nUse one the following licenses: dc:rights, dcterms:license, schema:license, cc:license to add a license",failure.getText());
+		failure = failures.get(2);
+		assertEquals("\nModel: http://example.org/bob\nUse one the following licenses: dc:rights, dcterms:license, schema:license, cc:license to add a license",failure.getText());
 	}
 }

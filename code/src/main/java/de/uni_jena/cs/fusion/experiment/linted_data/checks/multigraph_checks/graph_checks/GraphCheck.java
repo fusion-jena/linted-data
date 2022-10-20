@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.apache.jena.query.Dataset;
 import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.Resource;
 
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.MultiGraphCheck;
@@ -34,14 +33,13 @@ public abstract class GraphCheck extends MultiGraphCheck {
 			failures.addAll(this.execute(dataset.getDefaultModel(), currentFailureDescription));
 		}
 		// check the named models
-		Iterator<Resource> it = dataset.listModelNames();
+		Iterator<String> it = dataset.listNames();
 		while (it.hasNext()) {
-			Resource r = it.next();
+			String name = it.next();
 			String currentFailureDescription = failureDescription + "\n";
-			currentFailureDescription += "Model: " + r.getLocalName();
-			failures.addAll(this.execute(r.getModel(), currentFailureDescription));
+			currentFailureDescription += "Model: " + name;
+			failures.addAll(this.execute(dataset.getNamedModel(name), currentFailureDescription));
 		}
-
 		return failures;
 	}
 

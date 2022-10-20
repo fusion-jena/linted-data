@@ -1,0 +1,624 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/rs/ontologies/INBIO#"
+     xml:base="http://www.semanticweb.org/rs/ontologies/INBIO"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:obo="http://purl.obolibrary.org/obo/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:ccon="http://cerrado.linkeddata.es/ecology/ccon#"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:cc="http://creativecommons.org/ns#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:INBIO="http://www.semanticweb.org/rs/ontologies/INBIO#"
+     xmlns:taxslim="http://purl.obolibrary.org/obo/ncbitaxon/subsets/taxslim#"
+     xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#"
+     xmlns:Thesaurus="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+     xmlns:ncbitaxon="http://purl.obolibrary.org/obo/ncbitaxon#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/rs/ontologies/INBIO">
+        <owl:versionIRI rdf:resource="http://www.semanticweb.org/rs/ontologies/INBIO/1.0"/>
+        <cc:license>https://www.apache.org/licenses/LICENSE-2.0.html</cc:license>
+        <rdfs:label>hierarchy of hypotheses</rdfs:label>
+        <rdfs:label>invasion biology</rdfs:label>
+    </owl:Ontology>
+
+
+
+    <!--
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+
+
+    <!-- http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#A8 -->
+
+    <owl:AnnotationProperty rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#A8"/>
+
+
+
+    <!-- http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#NHC0 -->
+
+    <owl:AnnotationProperty rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#NHC0"/>
+
+
+
+    <!-- http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P106 -->
+
+    <owl:AnnotationProperty rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P106"/>
+
+
+
+    <!-- http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P207 -->
+
+    <owl:AnnotationProperty rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P207"/>
+
+
+
+    <!-- http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P322 -->
+
+    <owl:AnnotationProperty rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P322"/>
+
+
+
+    <!-- http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P378 -->
+
+    <owl:AnnotationProperty rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P378"/>
+
+
+
+    <!-- http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P383 -->
+
+    <owl:AnnotationProperty rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P383"/>
+
+
+
+    <!-- http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P384 -->
+
+    <owl:AnnotationProperty rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P384"/>
+
+
+
+    <!-- http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P385 -->
+
+    <owl:AnnotationProperty rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P385"/>
+
+
+
+    <!-- http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P386 -->
+
+    <owl:AnnotationProperty rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P386"/>
+
+
+
+    <!-- http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P90 -->
+
+    <owl:AnnotationProperty rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P90"/>
+
+
+
+    <!-- http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P97 -->
+
+    <owl:AnnotationProperty rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P97"/>
+
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000112 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000112"/>
+
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000114 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000114"/>
+
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000115 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000115"/>
+
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000116 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000116">
+        <obo:IAO_0000114 rdf:resource="http://purl.obolibrary.org/obo/IAO_0000122"/>
+        <obo:IAO_0000119 xml:lang="en">GROUP:OBI:&lt;http://purl.obfoundry.org/obo/obi&gt;</obo:IAO_0000119>
+        <oboInOwl:created_by xml:lang="en">PERSON:Daniel Schober</oboInOwl:created_by>
+        <rdfs:isDefinedBy rdf:resource="http://purl.obolibrary.org/obo/iao.owl"/>
+        <rdfs:label xml:lang="en">editor note</rdfs:label>
+    </owl:AnnotationProperty>
+
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000119 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000119"/>
+
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000232 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000232"/>
+
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000412 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000412"/>
+
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000424 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000424"/>
+
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000589 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000589"/>
+
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000600 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000600"/>
+
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000601 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000601"/>
+
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000602 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000602"/>
+
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0010000 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0010000"/>
+
+
+
+    <!-- http://purl.obolibrary.org/obo/RO_0001900 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/RO_0001900"/>
+
+
+
+    <!-- http://purl.obolibrary.org/obo/RO_0002581 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/RO_0002581">
+        <rdfs:label>is a defining property chain axiom</rdfs:label>
+        <skos:definition>If R &lt;- P o Q is a defining property chain axiom, then it also holds that R -&gt; P o Q. Note that this cannot be expressed directly in OWL</skos:definition>
+    </owl:AnnotationProperty>
+
+
+
+    <!-- http://purl.obolibrary.org/obo/RO_0002582 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/RO_0002582">
+        <rdfs:label>is a defining property chain axiom where second argument is reflexive</rdfs:label>
+        <skos:definition>If R &lt;- P o Q is a defining property chain axiom, then (1) R -&gt; P o Q holds and (2) Q is either reflexive or locally reflexive. A corollary of this is that P SubPropertyOf R.</skos:definition>
+    </owl:AnnotationProperty>
+
+
+
+    <!-- http://purl.obolibrary.org/obo/ncbitaxon#has_rank -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/ncbitaxon#has_rank"/>
+
+
+
+    <!-- http://purl.obolibrary.org/obo/ncbitaxon/subsets/taxslim#has_rank -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/ncbitaxon/subsets/taxslim#has_rank"/>
+
+
+
+    <!-- http://purl.org/dc/elements/1.1/date -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/date"/>
+
+
+
+    <!-- http://purl.org/dc/elements/1.1/license -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/license"/>
+
+
+
+    <!-- http://purl.org/dc/elements/1.1/source -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/source"/>
+
+
+
+    <!-- http://www.geneontology.org/formats/oboInOwl#created_by -->
+
+    <owl:AnnotationProperty rdf:about="http://www.geneontology.org/formats/oboInOwl#created_by"/>
+
+
+
+    <!-- http://www.geneontology.org/formats/oboInOwl#creation_date -->
+
+    <owl:AnnotationProperty rdf:about="http://www.geneontology.org/formats/oboInOwl#creation_date"/>
+
+
+
+    <!-- http://www.geneontology.org/formats/oboInOwl#hasAlternativeId -->
+
+    <owl:AnnotationProperty rdf:about="http://www.geneontology.org/formats/oboInOwl#hasAlternativeId"/>
+
+
+
+    <!-- http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym -->
+
+    <owl:AnnotationProperty rdf:about="http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym"/>
+
+
+
+    <!-- http://www.geneontology.org/formats/oboInOwl#hasDbXref -->
+
+    <owl:AnnotationProperty rdf:about="http://www.geneontology.org/formats/oboInOwl#hasDbXref"/>
+
+
+
+    <!-- http://www.geneontology.org/formats/oboInOwl#hasExactSynonym -->
+
+    <owl:AnnotationProperty rdf:about="http://www.geneontology.org/formats/oboInOwl#hasExactSynonym"/>
+
+
+
+    <!-- http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym -->
+
+    <owl:AnnotationProperty rdf:about="http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym"/>
+
+
+
+    <!-- http://www.geneontology.org/formats/oboInOwl#hasOBONamespace -->
+
+    <owl:AnnotationProperty rdf:about="http://www.geneontology.org/formats/oboInOwl#hasOBONamespace"/>
+
+
+
+    <!-- http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym -->
+
+    <owl:AnnotationProperty rdf:about="http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym"/>
+
+
+
+    <!-- http://www.geneontology.org/formats/oboInOwl#hasSynonymType -->
+
+    <owl:AnnotationProperty rdf:about="http://www.geneontology.org/formats/oboInOwl#hasSynonymType"/>
+
+
+
+    <!-- http://www.geneontology.org/formats/oboInOwl#id -->
+
+    <owl:AnnotationProperty rdf:about="http://www.geneontology.org/formats/oboInOwl#id"/>
+
+
+
+    <!-- http://www.geneontology.org/formats/oboInOwl#inSubset -->
+
+    <owl:AnnotationProperty rdf:about="http://www.geneontology.org/formats/oboInOwl#inSubset"/>
+
+
+
+    <!-- http://www.semanticweb.org/rs/ontologies/INBIO#A40 -->
+
+    <owl:AnnotationProperty rdf:about="http://www.semanticweb.org/rs/ontologies/INBIO#A40"/>
+
+
+
+    <!-- http://www.semanticweb.org/rs/ontologies/INBIO#A8 -->
+
+    <owl:AnnotationProperty rdf:about="http://www.semanticweb.org/rs/ontologies/INBIO#A8"/>
+
+
+
+    <!-- http://www.semanticweb.org/rs/ontologies/INBIO#NHC0 -->
+
+    <owl:AnnotationProperty rdf:about="http://www.semanticweb.org/rs/ontologies/INBIO#NHC0"/>
+
+
+
+    <!-- http://www.semanticweb.org/rs/ontologies/INBIO#P208 -->
+
+    <owl:AnnotationProperty rdf:about="http://www.semanticweb.org/rs/ontologies/INBIO#P208"/>
+
+
+
+    <!-- http://www.semanticweb.org/rs/ontologies/INBIO#P90 -->
+
+    <owl:AnnotationProperty rdf:about="http://www.semanticweb.org/rs/ontologies/INBIO#P90"/>
+
+
+
+    <!-- http://www.w3.org/2000/01/rdf-schema#comment -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2000/01/rdf-schema#comment"/>
+
+
+
+    <!-- http://www.w3.org/2000/01/rdf-schema#label -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2000/01/rdf-schema#label"/>
+
+
+
+    <!-- http://www.w3.org/2004/02/skos/core#altLabel -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#altLabel"/>
+
+
+
+    <!-- http://www.w3.org/2004/02/skos/core#definition -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#definition"/>
+
+
+
+    <!-- http://xmlns.com/foaf/0.1/page -->
+
+    <owl:AnnotationProperty rdf:about="http://xmlns.com/foaf/0.1/page"/>
+
+
+
+    <!--
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+
+
+    <!-- http://cerrado.linkeddata.es/ecology/ccon#affects -->
+
+    <owl:ObjectProperty rdf:about="http://cerrado.linkeddata.es/ecology/ccon#affects">
+        <owl:inverseOf rdf:resource="http://cerrado.linkeddata.es/ecology/ccon#isAffectedBy"/>
+        <oboInOwl:hasExactSynonym rdf:datatype="http://www.w3.org/2001/XMLSchema#string">influences</oboInOwl:hasExactSynonym>
+        <rdfs:label>affects</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://cerrado.linkeddata.es/ecology/ccon#decreases -->
+
+    <owl:ObjectProperty rdf:about="http://cerrado.linkeddata.es/ecology/ccon#decreases">
+        <rdfs:subPropertyOf rdf:resource="http://cerrado.linkeddata.es/ecology/ccon#affects"/>
+        <rdfs:domain rdf:resource="http://cerrado.linkeddata.es/ecology/ccon#Precipitation"/>
+        <rdfs:label>decreases</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://cerrado.linkeddata.es/ecology/ccon#hasComponent -->
+
+    <owl:ObjectProperty rdf:about="http://cerrado.linkeddata.es/ecology/ccon#hasComponent">
+        <owl:inverseOf rdf:resource="http://cerrado.linkeddata.es/ecology/ccon#isPartOf"/>
+        <rdfs:label>has component</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://cerrado.linkeddata.es/ecology/ccon#hasDistribution -->
+
+    <owl:ObjectProperty rdf:about="http://cerrado.linkeddata.es/ecology/ccon#hasDistribution">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/rs/ontologies/INBIO#isRangeOf"/>
+        <rdfs:domain rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C45293"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/rs/ontologies/INBIO#area"/>
+        <rdfs:label>has distribution</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://cerrado.linkeddata.es/ecology/ccon#hasGrowth -->
+
+    <owl:ObjectProperty rdf:about="http://cerrado.linkeddata.es/ecology/ccon#hasGrowth">
+        <owl:inverseOf rdf:resource="http://cerrado.linkeddata.es/ecology/ccon#isGrowthOf"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/rs/ontologies/INBIO#population"/>
+        <rdfs:range rdf:resource="http://cerrado.linkeddata.es/ecology/ccon#GrowthRate"/>
+        <rdfs:label xml:lang="en">has growth</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://cerrado.linkeddata.es/ecology/ccon#hasMortality -->
+
+    <owl:ObjectProperty rdf:about="http://cerrado.linkeddata.es/ecology/ccon#hasMortality">
+        <owl:inverseOf rdf:resource="http://cerrado.linkeddata.es/ecology/ccon#isMortalityOf"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/rs/ontologies/INBIO#population"/>
+        <rdfs:range rdf:resource="http://cerrado.linkeddata.es/ecology/ccon#Mortality"/>
+        <rdfs:label>has mortality</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://cerrado.linkeddata.es/ecology/ccon#hasNatality -->
+
+    <owl:ObjectProperty rdf:about="http://cerrado.linkeddata.es/ecology/ccon#hasNatality">
+        <owl:inverseOf rdf:resource="http://cerrado.linkeddata.es/ecology/ccon#isNatalityOf"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/rs/ontologies/INBIO#population"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/rs/ontologies/INBIO#natality"/>
+        <rdfs:label>has natality</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://cerrado.linkeddata.es/ecology/ccon#hasNumberOfIndividuals -->
+
+    <owl:ObjectProperty rdf:about="http://cerrado.linkeddata.es/ecology/ccon#hasNumberOfIndividuals">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/rs/ontologies/INBIO#population"/>
+        <rdfs:range rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C127787"/>
+        <rdfs:label xml:lang="en">has number of individuals</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://cerrado.linkeddata.es/ecology/ccon#hasRecruitment -->
+
+    <owl:ObjectProperty rdf:about="http://cerrado.linkeddata.es/ecology/ccon#hasRecruitment">
+        <owl:inverseOf rdf:resource="http://cerrado.linkeddata.es/ecology/ccon#isRecruitmentOf"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/rs/ontologies/INBIO#population"/>
+        <rdfs:range rdf:resource="http://cerrado.linkeddata.es/ecology/ccon#Recruitment"/>
+        <rdfs:label>has recruitment</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+
+    <!-- http://cerrado.linkeddata.es/ecology/ccon#isNatalityOf -->
+
+    <owl:ObjectProperty rdf:about="http://cerrado.linkeddata.es/ecology/ccon#isNatalityOf">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/rs/ontologies/INBIO#natality"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/rs/ontologies/INBIO#population"/>
+        <rdfs:label>is natality of</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://cerrado.linkeddata.es/ecology/ccon#isPartOf -->
+
+    <owl:ObjectProperty rdf:about="http://cerrado.linkeddata.es/ecology/ccon#isPartOf">
+        <rdfs:label>is part of</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://cerrado.linkeddata.es/ecology/ccon#isRecruitmentOf -->
+
+    <owl:ObjectProperty rdf:about="http://cerrado.linkeddata.es/ecology/ccon#isRecruitmentOf">
+        <rdfs:domain rdf:resource="http://cerrado.linkeddata.es/ecology/ccon#Recruitment"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/rs/ontologies/INBIO#population"/>
+        <rdfs:label>is recruitment of</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://cerrado.linkeddata.es/ecology/ccon#isStatusOf -->
+
+    <owl:ObjectProperty rdf:about="http://cerrado.linkeddata.es/ecology/ccon#isStatusOf">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/rs/ontologies/INBIO#hasStatus"/>
+        <rdfs:domain rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25688"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/rs/ontologies/INBIO#process"/>
+        <rdfs:label>is status of</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#characteristicFor -->
+
+    <owl:ObjectProperty rdf:about="http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#characteristicFor">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:comment>The characteristicFor property gives the entity of the characteristic.</rdfs:comment>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://ecoinformatics.org/oboe/oboe.1.1/oboe-core.owl#characteristicFor</rdfs:comment>
+        <rdfs:label>characteristic for</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#hasMeasurement -->
+
+    <owl:ObjectProperty rdf:about="http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#hasMeasurement">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The hasMeasurement property gives the measurements of the observed entity.</rdfs:comment>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://ecoinformatics.org/oboe/oboe.1.1/oboe-core.owl#hasMeasurement</rdfs:comment>
+        <rdfs:label>has measurement</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://purl.obolibrary.org/obo/BFO_0000050 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/BFO_0000050">
+        <owl:equivalentProperty>
+            <rdf:Description>
+                <owl:inverseOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000051"/>
+            </rdf:Description>
+        </owl:equivalentProperty>
+        <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002131"/>
+        <owl:inverseOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000051"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <obo:IAO_0000116 xml:lang="en">Everything is part of itself. Any part of any part of a thing is itself part of that thing. Two distinct things cannot be part of each other.</obo:IAO_0000116>
+        <obo:IAO_0000116 xml:lang="en">Occurrents are not subject to change and so parthood between occurrents holds for all the times that the part exists. Many continuants are subject to change, so parthood between continuants will only hold at certain times, but this is difficult to specify in OWL. See https://code.google.com/p/obo-relations/wiki/ROAndTime</obo:IAO_0000116>
+        <obo:IAO_0000116 xml:lang="en">Parthood requires the part and the whole to have compatible classes: only an occurrent can be part of an occurrent; only a process can be part of a process; only a continuant can be part of a continuant; only an independent continuant can be part of an independent continuant; only an immaterial entity can be part of an immaterial entity; only a specifically dependent continuant can be part of a specifically dependent continuant; only a generically dependent continuant can be part of a generically dependent continuant. (This list is not exhaustive.)
+
+A continuant cannot be part of an occurrent: use &apos;participates in&apos;. An occurrent cannot be part of a continuant: use &apos;has participant&apos;. A material entity cannot be part of an immaterial entity: use &apos;has location&apos;. A specifically dependent continuant cannot be part of an independent continuant: use &apos;inheres in&apos;. An independent continuant cannot be part of a specifically dependent continuant: use &apos;bearer of&apos;.</obo:IAO_0000116>
+        <obo:RO_0001900 rdf:resource="http://purl.obolibrary.org/obo/RO_0001901"/>
+        <rdfs:label xml:lang="en">part of</rdfs:label>
+        <rdfs:label xml:lang="en">part_of</rdfs:label>
+        <rdfs:seeAlso rdf:resource="http://ontologydesignpatterns.org/wiki/Community:Parts_and_Collections"/>
+        <rdfs:seeAlso rdf:resource="http://ontologydesignpatterns.org/wiki/Submissions:PartOf"/>
+        <rdfs:seeAlso>http://www.obofoundry.org/ro/#OBO_REL:part_of</rdfs:seeAlso>
+        <skos:definition xml:lang="en">a core relation that holds between a part and its whole</skos:definition>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://purl.obolibrary.org/obo/BFO_0000051 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/BFO_0000051">
+        <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002131"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <obo:IAO_0000116 xml:lang="en">Everything has itself as a part. Any part of any part of a thing is itself part of that thing. Two distinct things cannot have each other as a part.</obo:IAO_0000116>
+        <obo:IAO_0000116 xml:lang="en">Occurrents are not subject to change and so parthood between occurrents holds for all the times that the part exists. Many continuants are subject to change, so parthood between continuants will only hold at certain times, but this is difficult to specify in OWL. See https://code.google.com/p/obo-relations/wiki/ROAndTime</obo:IAO_0000116>
+        <obo:IAO_0000116 xml:lang="en">Parthood requires the part and the whole to have compatible classes: only an occurrent have an occurrent as part; only a process can have a process as part; only a continuant can have a continuant as part; only an independent continuant can have an independent continuant as part; only a specifically dependent continuant can have a specifically dependent continuant as part; only a generically dependent continuant can have a generically dependent continuant as part. (This list is not exhaustive.)
+
+A continuant cannot have an occurrent as part: use &apos;participates in&apos;. An occurrent cannot have a continuant as part: use &apos;has participant&apos;. An immaterial entity cannot have a material entity as part: use &apos;location of&apos;. An independent continuant cannot have a specifically dependent continuant as part: use &apos;bearer of&apos;. A specifically dependent continuant cannot have an independent continuant as part: use &apos;inheres in&apos;.</obo:IAO_0000116>
+        <obo:RO_0001900 rdf:resource="http://purl.obolibrary.org/obo/RO_0001901"/>
+        <rdfs:label xml:lang="en">has part</rdfs:label>
+        <skos:definition xml:lang="en">a core relation that holds between a whole and its part</skos:definition>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://purl.obolibrary.org/obo/BFO_0000066 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/BFO_0000066">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/rs/ontologies/INBIO#process"/>
+        <rdfs:range rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000050"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000066"/>
+        </owl:propertyChainAxiom>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000066"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000050"/>
+        </owl:propertyChainAxiom>
+        <rdfs:comment>Paraphrase of definition: a relation between a process and an independent continuant, in which the process takes place entirely within the independent continuant</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://purl.obolibrary.org/obo/bfo.owl"/>
+        <rdfs:label xml:lang="en">occurs in</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://purl.obolibrary.org/obo/BFO_0000075 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/BFO_0000075">
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://purl.obolibrary.org/obo/omrse.owl</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">is aggregate of</rdfs:label>
+    </owl:ObjectProperty>
+
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
