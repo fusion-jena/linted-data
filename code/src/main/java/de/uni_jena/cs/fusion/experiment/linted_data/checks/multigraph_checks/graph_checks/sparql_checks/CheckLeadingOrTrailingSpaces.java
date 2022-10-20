@@ -18,7 +18,7 @@ import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
  * \s doesn't exist in SPARQL so the equivalent form [\r\n\t\f\v ] is used
  * \v also doesn't exist in SPARQL and is hence not checked
  */
-public class CheckLeadingOrTrailingSpaces extends SPARQLCheck {
+public class CheckLeadingOrTrailingSpaces extends SPARQLSelectCheck {
 	
 	private static final String literal = "literal";
 	private static final String subject = "s";
@@ -35,7 +35,7 @@ public class CheckLeadingOrTrailingSpaces extends SPARQLCheck {
 				"	}\n" + 
 				"	}\n" + 
 				"  	FILTER (regex(?" + literal + ", \"^[\\r\\n\\t\\f ]|[\\r\\n\\t\\f ]$\"))\n" + 
-				"}" 
+				"}"
 				); 
 	}	
 	
@@ -46,11 +46,10 @@ public class CheckLeadingOrTrailingSpaces extends SPARQLCheck {
 			String description = failureDescription + "\n";
 			QuerySolution qs = rs.next();
 			description += qs.get(subject).toString() + " " + qs.get(predicate).toString() + " " + qs.get(object).toString() + "\n";
-			Failure f = new Failure(this.name, this.severity, qs.getLiteral("literal").getLexicalForm(), description);
+			Failure f = new Failure(this.name, this.severity, qs.getLiteral(literal).getLexicalForm(), description);
 			failures.add(f);
 		}
 		return failures;
 	}
-
 
 }

@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.jena.query.QueryType;
-import org.apache.jena.query.ResultSet;
-
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.Level;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.Severity;
@@ -16,13 +13,12 @@ import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
  * 
  *
  */
-public class CheckLicenseDeclared extends SPARQLCheck {
+public class CheckLicenseDeclared extends SPARQLAskCheck {
 
 	public CheckLicenseDeclared() {
 		super(Level.SPARQL, TargetLanguage.RDFS, Severity.INFO,
 				"The ontology metadata omits information about the license that applies to the ontology",
-				new File(CheckLicenseDeclared.class.getClassLoader().getResource("CheckLicenseDeclared.rq").getPath()),
-				QueryType.ASK);
+				new File(CheckLicenseDeclared.class.getClassLoader().getResource("CheckLicenseDeclared.rq").getPath()));
 	}
 
 	@Override
@@ -35,12 +31,5 @@ public class CheckLicenseDeclared extends SPARQLCheck {
 		}
 		return failures;
 	}
-
-	/**
-	 * unused method
-	 */
-	@Override
-	protected List<Failure> execute(ResultSet rs, String failureDescription) {
-		return null;
-	}
+	
 }
