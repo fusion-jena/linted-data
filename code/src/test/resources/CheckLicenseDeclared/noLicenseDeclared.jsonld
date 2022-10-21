@@ -1,0 +1,28 @@
+[ {
+  "@id" : "http://www.semanticweb.org/test-ontology/",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Ontology" ]
+}, {
+  "@id" : "http://www.semanticweb.org/test-ontology/class-a",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Class A"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/test-ontology/dataproperty-a",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Dataproperty A"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/test-ontology/individual-a",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.semanticweb.org/test-ontology/dataproperty-a" : [ {
+    "@type" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "@value" : "false"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@value" : "first individual"
+  } ]
+} ]

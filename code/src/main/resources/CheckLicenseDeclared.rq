@@ -5,8 +5,8 @@ PREFIX schema: <http://schema.org/>
 PREFIX cc: <http://creativecommons.org/ns#>
 
 
-ASK
+SELECT ?ontology
 WHERE{
-  ?x a owl:Ontology.
-  {?x dc:rights ?license.} UNION {?x dcterms:license ?license.} UNION {?x schema:license ?license.} UNION{?x cc:license ?license}.
+  ?ontology a owl:Ontology.
+  FILTER NOT EXISTS{ {?ontology dc:rights ?license.} UNION {?ontology dcterms:license ?license.} UNION {?ontology schema:license ?license.} UNION {?ontology cc:license ?license}.}
 }

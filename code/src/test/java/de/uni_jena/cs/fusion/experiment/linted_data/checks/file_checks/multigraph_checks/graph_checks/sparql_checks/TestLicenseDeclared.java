@@ -46,25 +46,32 @@ public class TestLicenseDeclared {
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure failure = failures.get(0);
-		assertEquals(Severity.INFO, failure.getSeverity());
-		assertEquals("\nModel: Default Model\nUse one the following licenses: dc:rights, dcterms:license, schema:license, cc:license to add a license",failure.getText());
-		assertEquals("", failure.getFailureElement());
+		assertEquals(Severity.ERROR, failure.getSeverity());
+		assertEquals("\nModel: Default Model\nOntology http://www.semanticweb.org/rs/ontologies/INBIO should use one the following properties to add a license dc:rights, dcterms:license, schema:license, cc:license", failure.getText());
+		assertEquals("http://www.semanticweb.org/rs/ontologies/INBIO", failure.getFailureElement());
 	}
 	
 	@Test
 	public void no_license_declared() {
 		CheckLicenseDeclared check = new CheckLicenseDeclared();
-		File file = new File(this.getClass().getClassLoader().getResource("CheckLicenseDeclared/noLicenseDeclared.trig").getPath());
+		File file = new File(this.getClass().getClassLoader().getResource("CheckLicenseDeclared/noLicenseDeclared.ttl").getPath());
 		List<Failure> failures = check.execute(file, "");
 		assertNotNull(failures);
-		assertEquals(3, failures.size());
+		assertEquals(1, failures.size());
 		Failure failure = failures.get(0);
-		assertEquals(Severity.INFO, failure.getSeverity());
-		assertEquals("\nModel: Default Model\nUse one the following licenses: dc:rights, dcterms:license, schema:license, cc:license to add a license",failure.getText());
-		assertEquals("", failure.getFailureElement());
-		failure = failures.get(1);
-		assertEquals("\nModel: http://example.org/alice\nUse one the following licenses: dc:rights, dcterms:license, schema:license, cc:license to add a license",failure.getText());
-		failure = failures.get(2);
-		assertEquals("\nModel: http://example.org/bob\nUse one the following licenses: dc:rights, dcterms:license, schema:license, cc:license to add a license",failure.getText());
+		assertEquals(Severity.ERROR, failure.getSeverity());
+		assertEquals("\nModel: Default Model\nOntology http://www.semanticweb.org/test-ontology/ should use one the following properties to add a license dc:rights, dcterms:license, schema:license, cc:license",failure.getText());
+		assertEquals("http://www.semanticweb.org/test-ontology/", failure.getFailureElement());
+	
+		file = new File(this.getClass().getClassLoader().getResource("CheckLicenseDeclared/noLicenseDeclared.jsonld").getPath());
+		failures = check.execute(file, "");
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		failure = failures.get(0);
+		assertEquals(Severity.ERROR, failure.getSeverity());
+		assertEquals("\nModel: Default Model\nOntology http://www.semanticweb.org/test-ontology/ should use one the following properties to add a license dc:rights, dcterms:license, schema:license, cc:license",failure.getText());
+		assertEquals("http://www.semanticweb.org/test-ontology/", failure.getFailureElement());
+	
+		
 	}
 }
