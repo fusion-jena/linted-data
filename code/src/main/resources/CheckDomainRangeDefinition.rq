@@ -2,15 +2,12 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
-SELECT DISTINCT ?p ?type
+SELECT DISTINCT ?p
 WHERE {
-  VALUES ?type {owl:ObjectProperty owl:DatatypeProperty}.
-  ?p a ?type.
   # Subquery where range is missing
   {
     SELECT ?p
     WHERE {
-      ?p a ?type.
       ?p rdfs:domain ?d.
       FILTER NOT EXISTS{?p rdfs:range ?r}. 
     }
@@ -20,7 +17,6 @@ WHERE {
   {
     SELECT ?p
     WHERE {
-      ?p a ?type.
       ?p rdfs:range ?r.
       FILTER NOT EXISTS{?p rdfs:domain ?d}. 
     }
@@ -30,6 +26,7 @@ WHERE {
   {
     SELECT ?p
     WHERE {
+	  VALUES ?type {owl:ObjectProperty owl:DatatypeProperty}.
       ?p a ?type. 
       FILTER NOT EXISTS{?p rdfs:domain ?d. 
         ?p rdfs:range ?r. }.  

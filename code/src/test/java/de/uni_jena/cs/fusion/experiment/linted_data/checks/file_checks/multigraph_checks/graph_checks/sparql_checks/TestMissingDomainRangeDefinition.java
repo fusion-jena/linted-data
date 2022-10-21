@@ -63,11 +63,11 @@ public void definedDomainMissingRange() throws URISyntaxException {
 	failures = createCheck(path);
 	assertNotNull(failures);
 	assertEquals(2, failures.size());
-	failure = failures.get(0);
+	failure = failures.get(1);
 	assertEquals(failure.getFailureElement(), "http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-5#ExampleOP");
 	assertEquals(Severity.WARN, failure.getSeverity());
 	assertEquals("\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-5#ExampleOP has no domain, range or neither", failure.getText());
-	failure = failures.get(1);
+	failure = failures.get(0);
 	assertEquals(failure.getFailureElement(), "http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-5#ExampleDP");
 	assertEquals(Severity.WARN, failure.getSeverity());
 	assertEquals("\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-5#ExampleDP has no domain, range or neither", failure.getText());
@@ -97,11 +97,11 @@ public void definedRangeMissingDomain() throws URISyntaxException {
 	failures = createCheck(path);
 	assertNotNull(failures);
 	assertEquals(2, failures.size());
-	failure = failures.get(0);
+	failure = failures.get(1);
 	assertEquals(failure.getFailureElement(), "http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-5#ExampleOP");
 	assertEquals(Severity.WARN, failure.getSeverity());
 	assertEquals("\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-5#ExampleOP has no domain, range or neither", failure.getText());
-	failure = failures.get(1);
+	failure = failures.get(0);
 	assertEquals(failure.getFailureElement(), "http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-5#ExampleDP");
 	assertEquals(Severity.WARN, failure.getSeverity());
 	assertEquals("\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-5#ExampleDP has no domain, range or neither", failure.getText());
