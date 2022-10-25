@@ -19,6 +19,7 @@ import de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.FileCheck
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.CheckURIcontainsFileExtension;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.CheckLexicalRepresentationOfFloatingPointDatatypes;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.CheckNamespacesShouldNotOmitTheSeperator;
+import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckInverseRelationshipForSymmetricProperty;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckLeadingOrTrailingSpaces;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckLicenseDeclared;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRDFcontainers;
@@ -145,6 +146,7 @@ public class Runner {
 		allChecks.add(new CheckPrefixesReferToOneNamespace());
 		allChecks.add(new CheckNamespacesShouldNotOmitTheSeperator());
 		allChecks.add(new CheckLicenseDeclared());
+		allChecks.add(new CheckInverseRelationshipForSymmetricProperty());
 		return allChecks;
 	}
 
