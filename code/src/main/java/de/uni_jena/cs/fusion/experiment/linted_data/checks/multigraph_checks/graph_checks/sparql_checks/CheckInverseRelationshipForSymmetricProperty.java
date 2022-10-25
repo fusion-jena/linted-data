@@ -33,7 +33,6 @@ public class CheckInverseRelationshipForSymmetricProperty extends SPARQLSelectCh
 	protected List<Failure> execute(ResultSet resultSet, String failureDescription) {
 		List<Failure> failures = new ArrayList<Failure>();
 		while (resultSet.hasNext()) {
-			System.out.println(0);
 			QuerySolution qs = resultSet.next();
 			Failure failure = new Failure(name, severity, qs.get("inverse").toString(),
 					failureDescription + "\n" + qs.get("inverse").toString() + " is defined as inverse property of the symmetric property "
