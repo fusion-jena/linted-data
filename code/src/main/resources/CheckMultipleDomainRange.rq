@@ -1,0 +1,16 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+
+SELECT DISTINCT ?property
+WHERE {
+  {
+  	?property rdfs:domain ?domain1.
+    ?property rdfs:domain ?domain2.
+    FILTER (?domain1 != ?domain2)
+  } UNION 
+  {
+  	?property rdfs:range ?range1. 
+    ?property rdfs:range ?range2.
+    FILTER (?range1 != ?range2)
+  }
+}
