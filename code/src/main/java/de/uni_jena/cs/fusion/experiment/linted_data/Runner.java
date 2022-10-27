@@ -16,7 +16,6 @@ import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Testsuite;
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.TestsuiteManager;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.CheckPrefixesReferToOneNamespace;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.FileCheck;
-import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.CheckURIcontainsFileExtension;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.CheckLexicalRepresentationOfFloatingPointDatatypes;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.CheckNamespacesShouldNotOmitTheSeperator;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckInverseRelationshipForSymmetricProperty;
@@ -141,7 +140,6 @@ public class Runner {
 	private List<FileCheck> createAllChecks() {
 		List<FileCheck> allChecks = new ArrayList<FileCheck>();
 		allChecks.add(new CheckLeadingOrTrailingSpaces());
-		allChecks.add(new CheckURIcontainsFileExtension());
 		allChecks.add(new CheckLexicalRepresentationOfFloatingPointDatatypes());
 		allChecks.add(new CheckRDFcontainers());
 		allChecks.add(new CheckPrefixesReferToOneNamespace());

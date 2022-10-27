@@ -1,0 +1,13 @@
+SELECT ?fileExtension ?iri
+WHERE {
+  VALUES ?fileExtension {"rt" "trdf" "shaclc" "shc" "rdf" "owl" "xml" "ttl" "trix" "nt" "jsonld" "n3" "rj" "trig" "rpb" "pbrdf" "jsonld10" "jsonld11" "nq"}. 
+  {?iri ?iri2 ?iri3 .} UNION {?iri2 ?iri ?iri3.} UNION {?iri2 ?iri3 ?iri.}.
+  FILTER ((isURI(?iri) || isIRI(?iri)) && CONTAINS(STR(?iri), CONCAT(".", ?fileExtension)))
+}
+# to create the list of values:
+#		List<String> fileExtensions = new ArrayList<String>();
+#		RDFLanguages.getRegisteredLanguages().stream().map(Lang::getFileExtensions).flatMap(List::stream)
+#				.forEach(extension -> {
+#					fileExtensions.add('"' + extension + '"');
+#				});
+#		System.out.println(fileExtensions.toString().replaceAll(",", "").replace("[", "{").replace("]", "}"));
