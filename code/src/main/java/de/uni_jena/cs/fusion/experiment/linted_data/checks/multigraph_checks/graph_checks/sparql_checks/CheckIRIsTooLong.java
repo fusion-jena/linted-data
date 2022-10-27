@@ -37,7 +37,6 @@ public final class CheckIRIsTooLong extends SPARQLSelectCheck {
 
 		while (resultSet.hasNext()) {
 			QuerySolution qs = resultSet.next();
-			System.out.println(qs.toString());
 			Failure failure = new Failure(name, severity, qs.get("iri").toString(),
 					failureDescription + "\n" + qs.get("iri").toString() + " has a local name that has "
 							+ qs.get("numExcessCharacters").asLiteral().getInt() + " more characters than 30");

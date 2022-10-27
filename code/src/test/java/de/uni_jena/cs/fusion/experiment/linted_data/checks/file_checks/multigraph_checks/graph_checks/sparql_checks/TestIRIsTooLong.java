@@ -94,7 +94,8 @@ class TestIRIsTooLong {
 		OntModel model = ModelFactory.createOntologyModel();
 		model.createProperty("http://my-example.org/property-1_NAME");
 		model.createOntProperty("http://my-example.org/property-1ü-has-a*long_NAME-when-adding:more_characters");
-		assertNotNull(model.getProperty("http://my-example.org/property-1ü-has-a*long_NAME-when-adding:more_characters"));
+		assertNotNull(
+				model.getProperty("http://my-example.org/property-1ü-has-a*long_NAME-when-adding:more_characters"));
 		model.createOntProperty("http://cerrado.linkeddata.es/ecology/ccon#affects");
 		model.createSymmetricProperty("http://example.org#ä-symmetric-property:withALongLocaleName");
 		model.createSymmetricProperty("http://example.org#ä-symmetric-property");
@@ -147,7 +148,7 @@ class TestIRIsTooLong {
 		p.addRange(c2);
 		i.setPropertyValue(p, i);
 		c2.createIndividual("http://my-example.com#Q345");
-		
+
 		List<Failure> failures = check.execute(model, "");
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
@@ -162,6 +163,60 @@ class TestIRIsTooLong {
 		assertEquals("http://example.com#i-nd-ivi-dual-2-ö-adding+more:characters", f.getFailureElement());
 		assertEquals(
 				"\nhttp://example.com#i-nd-ivi-dual-2-ö-adding+more:characters has a local name that has 10 more characters than 30",
+				f.getText());
+	}
+
+	/**
+	 * class, property and individual IRIs are too long
+	 */
+	@Test
+	void allIRIsTooLong() {
+		CheckIRIsTooLong check = new CheckIRIsTooLong();
+
+		OntModel model = ModelFactory.createOntologyModel();
+		model.createOntProperty("http://my-example.org/property-1_NAME+w1th-ä-löng:locale:name");
+		OntProperty p = model.createOntProperty("http://cerrado.linkeddata.es/ecology/ccon#affects");
+		OntClass c1 = model.createClass("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16632");
+		c1.addLabel("Geographic Area", "en");
+		OntClass c2 = model.createClass("http://cerrado.linkeddata.es/ecology/ccon#Temperature");
+		p.hasDomain(c2);
+		p.hasRange(c1);
+		OntClass c3 = model.createClass("http://my-example.org/very-long-class-name_that+will_create_a_failure");
+		model.add(c1, model.createDatatypeProperty("http://purl.obolibrary.org/obo/IAO_0000004"),
+				"Some long nonsense name that is longer than 30 characters");
+		model.createDatatypeProperty("http://example.com#datatypepropertythathasaverylongname5665");
+		Individual i1 = c1.createIndividual("http://example.com#inidvidual-1");
+		i1.addComment("This is an individual for testing", null);
+		Individual i2 = c2.createIndividual("http://example.com#Inidvidual-115");
+		i2.addProperty(p, i1);
+		c3.createIndividual("http://foo.bar#individual-with-a-very-long-locale--name:1234");
+
+		List<Failure> failures = check.execute(model, "");
+		assertNotNull(failures);
+		assertEquals(4, failures.size());
+		Failure f = failures.get(2);
+		assertEquals(Severity.INFO, f.getSeverity());
+		assertEquals("http://my-example.org/property-1_NAME+w1th-ä-löng:locale:name", f.getFailureElement());
+		assertEquals(
+				"\nhttp://my-example.org/property-1_NAME+w1th-ä-löng:locale:name has a local name that has 9 more characters than 30",
+				f.getText());
+		f = failures.get(3);
+		assertEquals(Severity.INFO, f.getSeverity());
+		assertEquals("http://my-example.org/very-long-class-name_that+will_create_a_failure", f.getFailureElement());
+		assertEquals(
+				"\nhttp://my-example.org/very-long-class-name_that+will_create_a_failure has a local name that has 17 more characters than 30",
+				f.getText());
+		f = failures.get(0);
+		assertEquals(Severity.INFO, f.getSeverity());
+		assertEquals("http://example.com#datatypepropertythathasaverylongname5665", f.getFailureElement());
+		assertEquals(
+				"\nhttp://example.com#datatypepropertythathasaverylongname5665 has a local name that has 10 more characters than 30",
+				f.getText());
+		f = failures.get(1);
+		assertEquals(Severity.INFO, f.getSeverity());
+		assertEquals("http://foo.bar#individual-with-a-very-long-locale--name:1234", f.getFailureElement());
+		assertEquals(
+				"\nhttp://foo.bar#individual-with-a-very-long-locale--name:1234 has a local name that has 15 more characters than 30",
 				f.getText());
 	}
 
