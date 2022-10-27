@@ -1,0 +1,30 @@
+SELECT (STRLEN(?nameAfterSeperator)-30 AS ?numExcessCharacters) ?iri 
+WHERE {
+  {
+  	SELECT DISTINCT (?nameAfterHashtag AS ?nameAfterSeperator) ?iri
+    WHERE{
+      {
+        SELECT DISTINCT (STRAFTER(str(?iri), '#') AS ?nameAfterHashtag) ?iri
+        WHERE {
+          {?iri ?iri2 ?iri3.} UNION {?iri2 ?iri ?iri3.} UNION {?iri2 ?iri3 ?iri.}. 
+          FILTER ( isURI(?iri) || isIRI(?iri) )
+        }
+      }
+      FILTER ( ?nameAfterHashtag != "" )
+    }
+  } UNION 
+  {
+  	SELECT DISTINCT (REPLACE(str(?iri), "(.+/)+(.+)", "$2" ) AS ?nameAfterSeperator) ?iri
+    WHERE{
+      {
+        SELECT DISTINCT (STRAFTER(str(?iri), '#') AS ?nameAfterHashtag) ?iri
+        WHERE {
+          {?iri ?iri2 ?iri3.} UNION {?iri2 ?iri ?iri3.} UNION {?iri2 ?iri3 ?iri.}. 
+          FILTER ( isURI(?iri) || isIRI(?iri) )
+        }
+      }
+      FILTER ( ?nameAfterHashtag = "" )
+    }
+  }
+  FILTER ( STRLEN(?nameAfterSeperator) > 30 )
+}
