@@ -13,18 +13,19 @@ import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckIRIsTooLong;
+import de.uni_jena.cs.fusion.experiment.linted_data.types.Severity;
 
 class TestIRIsTooLong {
 
+	/**
+	 * all IRIs have a local name with less than 30 characters
+	 */
 	@Test
 	void noIRITooLong() {
-		/*
-		 * all IRIs have a local name with less than 30 characters
-		 */
 		CheckIRIsTooLong check = new CheckIRIsTooLong();
 
 		OntModel model = ModelFactory.createOntologyModel();
-		model.createProperty("http://my-example.org/property-1_NAME");
+		model.createOntProperty("http://my-example.org/property-1_NAME");
 		List<Failure> failures = check.execute(model, "");
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
@@ -53,5 +54,28 @@ class TestIRIsTooLong {
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 	}
-
+	
+	@Test
+	void classIRIsTooLong() {
+		CheckIRIsTooLong check = new CheckIRIsTooLong();
+		
+		OntModel model = ModelFactory.createOntologyModel();
+		model.createOntProperty("http://my-example.org/property-1_NAME");
+		model.createOntProperty("http://cerrado.linkeddata.es/ecology/ccon#affects");
+		model.createClass("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16632");
+		OntClass c1 = model.createClass("http://my-example.org/very-long-class-name_that+will_create_a_failure");
+		c1.createIndividual("http://example.com#inidvidual-1");
+		model.createClass("http://example.org#this_lokal-n4m3-15-t00-l0ng_12345678123456789");
+		List<Failure> failures = check.execute(model, "");
+		assertNotNull(failures);
+		assertEquals(2, failures.size());
+		Failure f = failures.get(1);
+		assertEquals(Severity.INFO, f.getSeverity());
+		assertEquals("http://my-example.org/very-long-class-name_that+will_create_a_failure", f.getFailureElement());
+		assertEquals("\nhttp://my-example.org/very-long-class-name_that+will_create_a_failure has a local name that has 17 more characters than 30", f.getText());
+		f = failures.get(0);
+		assertEquals(Severity.INFO, f.getSeverity());
+		assertEquals("http://example.org#this_lokal-n4m3-15-t00-l0ng_12345678123456789", f.getFailureElement());
+		assertEquals("\nhttp://example.org#this_lokal-n4m3-15-t00-l0ng_12345678123456789 has a local name that has 15 more characters than 30", f.getText());
+	}
 }
