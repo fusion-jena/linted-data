@@ -1,0 +1,64 @@
+[ {
+  "@id" : "http://www.city.ac.uk/ds/inm713/gr#",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Ontology" ],
+  "http://www.city.ac.uk/ds/inm713/gr#Creator" : [ {
+    "@value" : "Author with .jsonld in his name"
+  }, {
+    "@value" : "Foo Bar"
+  } ]
+}, {
+  "@id" : "http://www.city.ac.uk/ds/inm713/gr#City",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ]
+}, {
+  "@id" : "http://www.city.ac.uk/ds/inm713/gr#Creator",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
+}, {
+  "@id" : "http://www.city.ac.uk/ds/inm713/gr#LocatedIn",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty", "http://www.w3.org/2002/07/owl#FunctionalProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "de",
+    "@value" : "Verknuepft eine Adresse mit der Stadt"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.city.ac.uk/ds/inm713/gr#address"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "liegt in"
+  }, {
+    "@language" : "en",
+    "@value" : "located in"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.city.ac.uk/ds/inm713/gr#City"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#topObjectProperty"
+  } ]
+}, {
+  "@id" : "http://www.city.ac.uk/ds/inm713/gr#address",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ]
+}, {
+  "@id" : "http://www.city.ac.uk/ds/inm713/gr#hasAddress",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "de",
+    "@value" : "verknuepft ein Lokal mit seiner Adresse"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.city.ac.uk/ds/inm713/gr.jsonld#Local"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "has address"
+  }, {
+    "@language" : "de",
+    "@value" : "hat Adresse"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.city.ac.uk/ds/inm713/gr#address"
+  } ]
+}, {
+  "@id" : "http://www.city.ac.uk/ds/inm713/gr.jsonld#Local",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ]
+} ]
