@@ -139,8 +139,8 @@ public class TestURIcontainsFileExtension {
 
 	@Test
 	void URIcontains_jsonld10() throws Exception {
-		File file = new File(
-				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/jsonld10_01.ttl").getFile());
+		File file = new File(this.getClass().getClassLoader()
+				.getResource("CheckURIcontainsFileExtension/jsonld10_01.ttl").getFile());
 		List<Failure> failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
@@ -150,8 +150,8 @@ public class TestURIcontainsFileExtension {
 				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.jsonld10#Local contains the file extension jsonld10",
 				f.getText());
 
-		file = new File(
-				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/jsonld10_02.jsonld10").getFile());
+		file = new File(this.getClass().getClassLoader()
+				.getResource("CheckURIcontainsFileExtension/jsonld10_02.jsonld10").getFile());
 		failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
@@ -161,8 +161,8 @@ public class TestURIcontainsFileExtension {
 				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.jsonld10#Local contains the file extension jsonld10",
 				f.getText());
 
-		file = new File(
-				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/jsonld10_03.jsonld10").getFile());
+		file = new File(this.getClass().getClassLoader()
+				.getResource("CheckURIcontainsFileExtension/jsonld10_03.jsonld10").getFile());
 		failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
@@ -175,8 +175,8 @@ public class TestURIcontainsFileExtension {
 
 	@Test
 	void URIcontains_jsonld11() throws Exception {
-		File file = new File(
-				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/jsonld11_01.ttl").getFile());
+		File file = new File(this.getClass().getClassLoader()
+				.getResource("CheckURIcontainsFileExtension/jsonld11_01.ttl").getFile());
 		List<Failure> failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
@@ -185,9 +185,9 @@ public class TestURIcontainsFileExtension {
 		assertEquals("\nFile: " + file.getPath()
 				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.jsonld11_i#Local contains the file extension jsonld11",
 				f.getText());
-		
-		file = new File(
-				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/jsonld11_02.jsonld11").getFile());
+
+		file = new File(this.getClass().getClassLoader()
+				.getResource("CheckURIcontainsFileExtension/jsonld11_02.jsonld11").getFile());
 		failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
@@ -197,18 +197,17 @@ public class TestURIcontainsFileExtension {
 				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.jsonld10#Local contains the file extension jsonld10",
 				f.getText());
 
-		file = new File(
-				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/jsonld11_03.jsonld11").getFile());
+		file = new File(this.getClass().getClassLoader()
+				.getResource("CheckURIcontainsFileExtension/jsonld11_03.jsonld11").getFile());
 		failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		f = failures.get(0);
 		assertEquals("http://www.example/foo.jsonld11#Country", f.getFailureElement());
 		assertEquals("\nFile: " + file.getPath()
-		+ "\nModel: Default Model\nhttp://www.example/foo.jsonld11#Country contains the file extension jsonld11",
-		f.getText());
-		
-		
+				+ "\nModel: Default Model\nhttp://www.example/foo.jsonld11#Country contains the file extension jsonld11",
+				f.getText());
+
 	}
 
 	@Test
@@ -295,7 +294,17 @@ public class TestURIcontainsFileExtension {
 	}
 
 	@Test
-	void noFileExtensionInURI() {
-		fail("not yet implemented");
+	void noFileExtensionInURI() throws Exception {
+		File file = new File(this.getClass().getClassLoader()
+				.getResource("CheckURIcontainsFileExtension/noFileExtension_01.ttl").getFile());
+		List<Failure> failures = check.startExecution(file);
+		assertNotNull(failures);
+
+		assertEquals(0, failures.size());
+		file = new File(this.getClass().getClassLoader()
+				.getResource("CheckURIcontainsFileExtension/noFileExtension_02.rdf").getFile());
+		failures = check.startExecution(file);
+		assertNotNull(failures);
+		assertEquals(0, failures.size());
 	}
 }

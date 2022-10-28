@@ -1,0 +1,881 @@
+@prefix : <http://www.city.ac.uk/ds/inm713/gr#> .
+@prefix gr: <http://www.city.ac.uk/ds/inm713/gr#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.city.ac.uk/ds/inm713/gr#> .
+
+<http://www.city.ac.uk/ds/inm713/gr#> rdf:type owl:Ontology ;
+                                                       gr:Creator "Foo.ttl .jsonld"^^xsd:string ,
+                                                                  ".owl .rj"^^xsd:string .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://www.city.ac.uk/ds/inm713/gr#Creator
+gr:Creator rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.city.ac.uk/ds/inm713/gr#LocatedIn
+gr:LocatedIn rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdf:type owl:FunctionalProperty ;
+             rdfs:domain gr:address ;
+             rdfs:range gr:City ;
+             rdfs:comment "Verknuepft eine Adresse mit der Stadt.ttl"@de ;
+             rdfs:label "liegt in"@de ,
+                        "located in"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#hasAddress
+gr:hasAddress rdf:type owl:ObjectProperty ;
+              rdfs:domain gr:Local ;
+              rdfs:range gr:address ;
+              rdfs:comment "verknuepft ein Lokal mit seiner Adresse"@de ;
+              rdfs:label "has address"@en ,
+                         "hat Adresse"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#hasBase
+gr:hasBase rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf gr:hasIngredient ;
+           rdfs:domain gr:Pizza ;
+           rdfs:range gr:pizzaBase ;
+           rdfs:comment "Welchen Pizzaboden eine Pizza hat"@de ;
+           rdfs:label "has pizza base"@en ,
+                      "hat Pizzaboden"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#hasCategory
+gr:hasCategory rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty ;
+               rdfs:domain <http://my-example.org/test.ttl23#class-a> ;
+               rdfs:range gr:category ;
+               rdfs:comment "Beziehung zwischen Restaurant und Kategorie"@de ;
+               rdfs:label "gehoert Kategorie an"@de ,
+                          "has category"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#hasCurrency
+gr:hasCurrency rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty ;
+               rdf:type owl:FunctionalProperty ;
+               rdfs:domain gr:Price ;
+               rdfs:range gr:Currency ;
+               rdfs:comment "Waehrung in der Bezahlt wird"@de ;
+               rdfs:label "has currency"@en ,
+                          "hat Waehrung"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#hasIngredient
+<http://www.city.ac.uk/ds/inm713/test.jsonld111/hasIngredient> rdf:type owl:ObjectProperty ;
+                 rdfs:domain gr:Pizza ;
+                 rdfs:range gr:ingredient ;
+                 rdfs:comment "Besagt das eine Pizza die verlinkte Zutat hat"@de ;
+                 rdfs:label "has ingredient"@en ,
+                            "hat Zutat"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#hasPrice
+gr:hasPrice rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf owl:topObjectProperty ;
+            rdfs:domain gr:Pizza ;
+            rdfs:range gr:Price ;
+            rdfs:comment "Das Subect besitzt einen Preis in einer Waehrung."@de ;
+            rdfs:label "has price"@en ,
+                       "hat Preis"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#hasTopping
+gr:hasTopping rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf gr:hasIngredient ;
+              owl:inverseOf gr:isToppingOf ;
+              rdfs:domain gr:Pizza ;
+              rdfs:range gr:topping ;
+              rdfs:comment "Gibt an, womit eine Pizza belegt ist"@de ;
+              rdfs:label "has topping"@en ,
+                         "hat Belag"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#isToppingOf
+gr:isToppingOf rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty ;
+               rdfs:domain gr:topping ;
+               rdfs:range gr:Pizza ;
+               rdfs:comment "Gibt an, dass eine Zutat, Belag einer Pizza ist"@de ;
+               rdfs:label "Ist Belag von"@de ,
+                          "is topping of"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#partOfCountry
+gr:partOfCountry rdf:type owl:ObjectProperty ,
+                          owl:FunctionalProperty ;
+                 rdfs:domain gr:State ;
+                 rdfs:range gr:Country ;
+                 rdfs:comment "Verbindet einen Staat mit dem Land in dem es liegt"@de ;
+                 rdfs:label "state of"@en ,
+                            "teil eines Landes"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#partOfState
+gr:partOfState rdf:type owl:ObjectProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain gr:City ;
+               rdfs:range gr:State ;
+               rdfs:comment "Verbindet eine Stadt mit dem Staat in dem sie liegt"@de ;
+               rdfs:label "liegt in Staat"@de ,
+                          "part of state"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#serves
+gr:serves rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf owl:topObjectProperty ;
+          rdfs:domain gr:Local ;
+          rdfs:range gr:Pizza ;
+          rdfs:comment "das Subject serviert ein oder mehrer Gerichte."@de ;
+          rdfs:label "serves"@en ,
+                     "serviert"@de .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.city.ac.uk/ds/inm713/gr#Name
+gr:Name rdf:type owl:DatatypeProperty ;
+        rdfs:domain [ rdf:type owl:Class ;
+                      owl:unionOf ( gr:City
+                                    gr:Country
+                                    gr:Currency
+                                    gr:Local
+                                    gr:Pizza
+                                    gr:State
+                                  )
+                    ] ;
+        rdfs:range xsd:string ;
+        rdfs:comment "Name von Verschiedenen Dingen. (wie zum Beispiel des Restaurants)"^^xsd:string ;
+        rdfs:label "Name"@de ,
+                   "name"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#StreetName
+gr:StreetName rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdf:type owl:FunctionalProperty ;
+              rdfs:domain gr:address ;
+              rdfs:range xsd:string ;
+              rdfs:comment "Name der Strasse des Restaurants."@de ;
+              rdfs:label "Strassenname"@de ,
+                         "streetname"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#countryIdentifier
+gr:countryIdentifier rdf:type owl:DatatypeProperty ,
+                              owl:FunctionalProperty ;
+                     rdfs:domain gr:Country ;
+                     rdfs:range xsd:string ;
+                     rdfs:comment """Ein Identifier fuer Laender
+2 Zeichen lang
+ISO 3166-1 alpha-2 code"""@de ;
+                     rdfs:label "Laenderidentifizierer"@de ,
+                                "country identifier"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#hasPostCode
+gr:hasPostCode rdf:type owl:DatatypeProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain gr:address ;
+               rdfs:range xsd:string ;
+               rdfs:comment "Wird genutzt um den Ort iner Stadt zu kodieren."@de ;
+               rdfs:label "Postleitzahl"@de ,
+                          "postcode"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#hasValue
+gr:hasValue rdf:type owl:DatatypeProperty ,
+                     owl:FunctionalProperty ;
+            rdfs:domain gr:Price ;
+            rdfs:range xsd:double ;
+            rdfs:comment "Der Wert, welcher fuer einen Preis in der jeweiligen Waehurng gezahlt werden muss."@de ;
+            rdfs:label "Wert"@de ,
+                       "value"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#itemDescription
+gr:itemDescription rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf owl:topDataProperty ;
+                   rdf:type owl:FunctionalProperty ;
+                   rdfs:domain gr:Pizza ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "Beschreibung des Gerichtes"@de ;
+                   rdfs:label "Gerichtsbeschreibung"@de ,
+                              "dish description"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#soldQuantity
+gr:soldQuantity rdf:type owl:DatatypeProperty ;
+                rdfs:domain gr:Pizza ;
+                rdfs:range xsd:int ;
+                rdfs:comment "Wie oft eine Pizza verkauft wrude"@de ;
+                rdfs:label "Anzahl verkaufter Pizzen"@de ,
+                           "quantity sold pizzas"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.city.ac.uk/ds/inm713/gr#City
+gr:City rdf:type owl:Class ;
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                          owl:onProperty gr:partOfState ;
+                          owl:allValuesFrom gr:State
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty gr:Name ;
+                          owl:allValuesFrom xsd:string
+                        ] ;
+        rdfs:comment "City"@en ,
+                     "Stadt in einem Staat, kann auch ohne diesen existieren"@de ;
+        rdfs:label "Stadt"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#Country
+gr:Country rdf:type owl:Class ;
+           rdfs:subClassOf [ rdf:type owl:Restriction ;
+                             owl:onProperty gr:Name ;
+                             owl:allValuesFrom xsd:string
+                           ] ;
+           rdfs:comment "Land in dem ein Restaurant stehen kann"@de ;
+           rdfs:label "Country"@en ,
+                      "Land"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#Currency
+gr:Currency rdf:type owl:Class ;
+            rdfs:subClassOf [ rdf:type owl:Restriction ;
+                              owl:onProperty gr:Name ;
+                              owl:allValuesFrom xsd:string
+                            ] ;
+            rdfs:comment "Currency"@en ,
+                         "Waehrung eines Landes"@de ;
+            rdfs:label "Waehrung"^^xsd:string .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#Local
+gr:Local rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty gr:hasAddress ;
+                           owl:allValuesFrom gr:address
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty gr:serves ;
+                           owl:allValuesFrom gr:Pizza
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty gr:Name ;
+                           owl:allValuesFrom xsd:string
+                         ] ;
+         rdfs:comment "Ein Unternehmen, welches Gerichte Verkauft."@de ;
+         rdfs:label "Eatery"@en ,
+                    "Lokal"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#Pizza
+gr:Pizza rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty gr:hasBase ;
+                           owl:allValuesFrom gr:pizzaBase
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty gr:hasPrice ;
+                           owl:allValuesFrom gr:Price
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty gr:hasTopping ;
+                           owl:allValuesFrom gr:topping
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty gr:soldQuantity ;
+                           owl:someValuesFrom xsd:int
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty gr:Name ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty gr:itemDescription ;
+                           owl:allValuesFrom xsd:string
+                         ] ;
+         rdfs:comment "Eine beliebig belegte Pizza"@de ;
+         rdfs:label "Pizza"@de ,
+                    "Pizza"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#Price
+gr:Price rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty gr:hasCurrency ;
+                           owl:allValuesFrom gr:Currency
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty gr:hasCurrency ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass gr:Currency
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty gr:hasValue ;
+                           owl:allValuesFrom xsd:double
+                         ] ;
+         rdfs:comment "Kosten fuer ein Gericht. Besteht aus der Waehrung und einem Wert."@de ,
+                      "Price"@en ;
+         rdfs:label "Preis"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#State
+gr:State rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty gr:partOfCountry ;
+                           owl:allValuesFrom gr:Country
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty gr:Name ;
+                           owl:allValuesFrom xsd:string
+                         ] ;
+         rdfs:comment "Ein Teil eines Landes"@de ;
+         rdfs:label "Staat"@de ,
+                    "State"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#address
+gr:address rdf:type owl:Class ;
+           rdfs:subClassOf [ rdf:type owl:Restriction ;
+                             owl:onProperty gr:LocatedIn ;
+                             owl:allValuesFrom gr:City
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty gr:StreetName ;
+                             owl:allValuesFrom xsd:string
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty gr:hasPostCode ;
+                             owl:allValuesFrom xsd:string
+                           ] ;
+           rdfs:comment "Adresse eines Lokals"@de ;
+           rdfs:label "Address"@en ,
+                      "Adresse"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#americanRestaurant
+gr:americanRestaurant rdf:type owl:Class ;
+                      rdfs:subClassOf gr:restaurant ;
+                      rdfs:comment "Restauants mit amerikanischen Gerichten"@de ;
+                      rdfs:label "American restaurant"@en ,
+                                 "Amerikanisches Restaurant"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#bacon
+gr:bacon rdf:type owl:Class ;
+         rdfs:subClassOf gr:meatTopping ;
+         rdfs:comment "Gebratener Schinken"@de ;
+         rdfs:label "Bacon"@de ,
+                    "Bacon"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#barbecuePizza
+gr:barbecuePizza rdf:type owl:Class ;
+                 owl:equivalentClass [ owl:intersectionOf ( gr:Pizza
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty gr:hasTopping ;
+                                                              owl:someValuesFrom gr:bacon
+                                                            ]
+                                                          ) ;
+                                       rdf:type owl:Class
+                                     ] ;
+                 rdfs:comment "Pizza mit Barbecue-Sosse und Bacon"@de ;
+                 rdfs:label "Barbecue pizza"@en ,
+                            "Gegrillte Pizza"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#beef
+gr:beef rdf:type owl:Class ;
+        rdfs:subClassOf gr:meatTopping ;
+        rdfs:comment "gebratenes Rindfleisch"@de ;
+        rdfs:label "Beef"@en ,
+                   "Rindfleisch"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#buffaloChickenPizza
+gr:buffaloChickenPizza rdf:type owl:Class ;
+                       owl:equivalentClass [ owl:intersectionOf ( gr:Pizza
+                                                                  [ rdf:type owl:Restriction ;
+                                                                    owl:onProperty gr:hasTopping ;
+                                                                    owl:someValuesFrom gr:chicken
+                                                                  ]
+                                                                  [ rdf:type owl:Restriction ;
+                                                                    owl:onProperty gr:hasTopping ;
+                                                                    owl:someValuesFrom gr:mozarella
+                                                                  ]
+                                                                  [ rdf:type owl:Restriction ;
+                                                                    owl:onProperty gr:hasTopping ;
+                                                                    owl:someValuesFrom gr:tomato
+                                                                  ]
+                                                                ) ;
+                                             rdf:type owl:Class
+                                           ] ;
+                       rdfs:comment "Pizza belegt mit Bueffel-Mozarella und Huehnchen"@de ;
+                       rdfs:label "Bueffel Huehnchen Pizza"@de ,
+                                  "Buffalo Chicken Pizza"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#burgerBuns
+gr:burgerBuns rdf:type owl:Class ;
+              rdfs:subClassOf gr:pizzaBase ;
+              rdfs:comment "Der Teig fuer Pizza Burger"@de ;
+              rdfs:label "Burger Broetchen"@de ,
+                         "Burger Buns"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#category
+gr:category rdf:type owl:Class ;
+            rdfs:subClassOf [ rdf:type owl:Restriction ;
+                              owl:onProperty gr:Name ;
+                              owl:allValuesFrom xsd:string
+                            ] ;
+            rdfs:comment "Die Kategorie des Restaurants"@de ;
+            rdfs:label "Category"@en ,
+                       "Kategorie"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#cheesePizza
+gr:cheesePizza rdf:type owl:Class ;
+               owl:equivalentClass [ owl:intersectionOf ( gr:vegetarianPizza
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty gr:hasTopping ;
+                                                            owl:someValuesFrom gr:cheeseTopping
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] ;
+               rdfs:comment "Eine Pizza die nur mit Kaese belegt ist sowie mindestens zweimal mit Kaese belegt."@de ;
+               rdfs:label "Cheesy pizza"@en ,
+                          "Kaese Pizza"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#cheeseTopping
+gr:cheeseTopping rdf:type owl:Class ;
+                 rdfs:subClassOf gr:nonMeatTopping ;
+                 rdfs:comment "Belag aus Kaese"@de ;
+                 rdfs:label "Cheese topping"@en ,
+                            "Kaesebelag"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#chicken
+gr:chicken rdf:type owl:Class ;
+           rdfs:subClassOf gr:meatTopping ;
+           rdfs:comment "Huehnerfleisch in Stueckchen"@de ;
+           rdfs:label "Chicken"@en ,
+                      "Huehnchen"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#chilli
+gr:chilli rdf:type owl:Class ;
+          rdfs:subClassOf gr:vegetableTopping ;
+          rdfs:comment "Chilli"@en ,
+                       "Peperoni in Scheiben geschnitten"@de ;
+          rdfs:label "Peperoni"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#chilliPizza
+gr:chilliPizza rdf:type owl:Class ;
+               owl:equivalentClass [ owl:intersectionOf ( gr:vegetarianPizza
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty gr:hasTopping ;
+                                                            owl:someValuesFrom gr:cheeseTopping
+                                                          ]
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty gr:hasTopping ;
+                                                            owl:someValuesFrom gr:chilli
+                                                          ]
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty gr:hasTopping ;
+                                                            owl:someValuesFrom gr:tomato
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] ;
+               rdfs:comment "Eine Pizza belegt mit Peperoni, Tomaten und Kaese"@de ;
+               rdfs:label "Chilli pizza"@en ,
+                          "Peperoni Pizza"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#crispyPizzaDough
+gr:crispyPizzaDough rdf:type owl:Class ;
+                    rdfs:subClassOf gr:pizzaDough ;
+                    rdfs:comment "Duenner, knuspriger Pizzateig"@de ;
+                    rdfs:label "Knuspriger Pizzateig"@de ,
+                               "crispy pizza dough"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#gouda
+gr:gouda rdf:type owl:Class ;
+         rdfs:subClassOf gr:cheeseTopping ;
+         rdfs:comment "Geriebener Gouda"@de ;
+         rdfs:label "Gouda"@de ,
+                    "Gouda"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#ham
+gr:ham rdf:type owl:Class ;
+       rdfs:subClassOf gr:meatTopping ;
+       rdfs:comment "Schinkenstreifen"@de ;
+       rdfs:label "Ham"@en ,
+                  "Schinken"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#ingredient
+gr:ingredient rdf:type owl:Class ;
+              rdfs:comment "Zutaten fuer eine Pizza, sowohl Boden als auch Belag"@de ;
+              rdfs:label "Ingredient"@en ,
+                         "Zutat"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#italianRestaurant
+gr:italianRestaurant rdf:type owl:Class ;
+                     rdfs:subClassOf gr:restaurant ;
+                     rdfs:comment "Restaurants mit italienischen Gerichten"@de ;
+                     rdfs:label "Italian restaurant"@en ,
+                                "Italienisches Restaurant"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#margherita
+gr:margherita rdf:type owl:Class ;
+              owl:equivalentClass [ owl:intersectionOf ( gr:vegetarianPizza
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty gr:hasTopping ;
+                                                           owl:someValuesFrom gr:cheeseTopping
+                                                         ]
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty gr:hasTopping ;
+                                                           owl:someValuesFrom gr:tomato
+                                                         ]
+                                                       ) ;
+                                    rdf:type owl:Class
+                                  ] ;
+              rdfs:comment "Eine Pizza mit Tomatensosse und Kaese"@de ;
+              rdfs:label "Margherita"@de ,
+                         "Margherita"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#meatTopping
+gr:meatTopping rdf:type owl:Class ;
+               rdfs:subClassOf gr:topping ;
+               owl:disjointWith gr:nonMeatTopping ;
+               rdfs:comment "Belag der von toten Tieren stammt"@de ;
+               rdfs:label "Fleischbelag"@de ,
+                          "Meat topping"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#mozarella
+gr:mozarella rdf:type owl:Class ;
+             rdfs:subClassOf gr:cheeseTopping ;
+             rdfs:comment "Mozarella aus Bueffelmilch"@de ;
+             rdfs:label "Mozzarella"@de ,
+                        "Mozzarella"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#mushroom
+gr:mushroom rdf:type owl:Class ;
+            rdfs:subClassOf gr:vegetableTopping ;
+            rdfs:comment "Geschnittener Pilz"@de ;
+            rdfs:label "Mushroom"@en ,
+                       "Pilz"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#nonMeatTopping
+gr:nonMeatTopping rdf:type owl:Class ;
+                  rdfs:subClassOf gr:topping ;
+                  rdfs:comment "Belag welcher kein Fleisch beinhaltet."@de ;
+                  rdfs:label "Fleischloser Belag"^^xsd:string ,
+                             "Meatless topping"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#onion
+gr:onion rdf:type owl:Class ;
+         rdfs:subClassOf gr:vegetableTopping ;
+         rdfs:comment "Zwiebelringe"@de ;
+         rdfs:label "Onion"@en ,
+                    "Zwiebel"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#parmesan
+gr:parmesan rdf:type owl:Class ;
+            rdfs:subClassOf gr:cheeseTopping ;
+            rdfs:comment "geriebener Parmesankaese"@de ;
+            rdfs:label "Parmesan"@de ,
+                       "Parmesan"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#peperoni
+gr:peperoni rdf:type owl:Class ;
+            rdfs:subClassOf gr:meatTopping ;
+            rdfs:comment "Peperoni"@en ;
+            rdfs:label "Salami"@de ,
+                       "Salamischeiben"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#pepper
+gr:pepper rdf:type owl:Class ;
+          rdfs:subClassOf gr:vegetableTopping ;
+          rdfs:comment "Paprikastreifen"@de ;
+          rdfs:label "Paprika"@de ,
+                     "Pepper"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#pepperoniPizza
+gr:pepperoniPizza rdf:type owl:Class ;
+                  owl:equivalentClass [ owl:intersectionOf ( gr:Pizza
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty gr:hasTopping ;
+                                                               owl:someValuesFrom gr:peperoni
+                                                             ]
+                                                           ) ;
+                                        rdf:type owl:Class
+                                      ] ;
+                  rdfs:subClassOf gr:Pizza ;
+                  rdfs:comment "Pizza belegt mit Salami"@de ;
+                  rdfs:label "Pepperoni pizza"@en ,
+                             "Salami Pizza"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#pineapple
+gr:pineapple rdf:type owl:Class ;
+             rdfs:subClassOf gr:vegetableTopping ;
+             rdfs:comment "Ananasscheiben aus der Konserve"@de ;
+             rdfs:label "Ananas"@de ,
+                        "Pineapple"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#pizzaBase
+gr:pizzaBase rdf:type owl:Class ;
+             rdfs:subClassOf gr:ingredient ;
+             rdfs:comment "Der Boden einer Pizza"@de ;
+             rdfs:label "Pizza base"@en ,
+                        "Pizzaboden"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#pizzaBurger
+gr:pizzaBurger rdf:type owl:Class ;
+               owl:equivalentClass [ owl:intersectionOf ( gr:Pizza
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty gr:hasTopping ;
+                                                            owl:someValuesFrom gr:gouda
+                                                          ]
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty gr:hasTopping ;
+                                                            owl:someValuesFrom gr:tomato
+                                                          ]
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty gr:hasBase ;
+                                                            owl:allValuesFrom gr:burgerBuns
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] ;
+               rdfs:comment "Burgerbroetchen mit Tomatensosse, Kaese und Zwiebeln"@de ;
+               rdfs:label "Pizza Burger"@de ,
+                          "Pizza Burger"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#pizzaDough
+gr:pizzaDough rdf:type owl:Class ;
+              rdfs:subClassOf gr:pizzaBase ;
+              rdfs:comment "Normaler Pizzateig"@de ;
+              rdfs:label "Pizza dough"@en ,
+                         "Pizzateig"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#pizzaHawaii
+gr:pizzaHawaii rdf:type owl:Class ;
+               owl:equivalentClass [ owl:intersectionOf ( gr:Pizza
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty gr:hasTopping ;
+                                                            owl:someValuesFrom gr:gouda
+                                                          ]
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty gr:hasTopping ;
+                                                            owl:someValuesFrom gr:ham
+                                                          ]
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty gr:hasTopping ;
+                                                            owl:someValuesFrom gr:pineapple
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] ;
+               rdfs:comment "Pizza mit Ananas, Schinken und Kaese"@de ;
+               rdfs:label "Pizza Hawaii"@de ,
+                          "Pizza Hawaii"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#pizzaPlace
+gr:pizzaPlace rdf:type owl:Class ;
+              rdfs:subClassOf gr:category ;
+              rdfs:comment "Ein Ort der hauptsaechlich Pizza verkauft"@de ;
+              rdfs:label "Pizza place"@en ,
+                         "Pizzaort"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#restaurant
+gr:restaurant rdf:type owl:Class ;
+              rdfs:subClassOf gr:category ;
+              rdfs:comment "Kategorie Restaurant"@de ;
+              rdfs:label "Restaurant"@de ,
+                         "Restaurant"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#tomato
+gr:tomato rdf:type owl:Class ;
+          rdfs:subClassOf gr:vegetableTopping ;
+          rdfs:comment "Gewuerzte Tomatensosse"@de ;
+          rdfs:label "Tomate"@de ,
+                     "Tomatoe"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#topping
+gr:topping rdf:type owl:Class ;
+           rdfs:subClassOf gr:ingredient ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty gr:Name ;
+                             owl:allValuesFrom xsd:string
+                           ] ;
+           rdfs:comment "Zutaten, die auf eine Pizza gelegt werden koennen"@de ;
+           rdfs:label "Belag"@de ,
+                      "Topping"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#veganPizza
+gr:veganPizza rdf:type owl:Class ;
+              owl:equivalentClass [ owl:intersectionOf ( gr:vegetarianPizza
+                                                         [ rdf:type owl:Class ;
+                                                           owl:complementOf [ rdf:type owl:Restriction ;
+                                                                              owl:onProperty gr:hasTopping ;
+                                                                              owl:allValuesFrom gr:cheeseTopping
+                                                                            ]
+                                                         ]
+                                                       ) ;
+                                    rdf:type owl:Class
+                                  ] ;
+              rdfs:comment "Pizza die von Veganern gegessen werden kann"@de ,
+                           "Vegan pizza"@en ;
+              rdfs:label "Vegane Pizza"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#vegetableTopping
+gr:vegetableTopping rdf:type owl:Class ;
+                    rdfs:subClassOf gr:nonMeatTopping ;
+                    rdfs:comment "Pizzabelag aus Gemuese oder Obst"@de ;
+                    rdfs:label "Pflanzlicherbelag"^^xsd:string ,
+                               "Vegetable topping"@en .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#vegetarianPizza
+gr:vegetarianPizza rdf:type owl:Class ;
+                   owl:equivalentClass [ owl:intersectionOf ( gr:Pizza
+                                                              [ rdf:type owl:Class ;
+                                                                owl:complementOf [ rdf:type owl:Restriction ;
+                                                                                   owl:onProperty gr:hasTopping ;
+                                                                                   owl:allValuesFrom gr:meatTopping
+                                                                                 ]
+                                                              ]
+                                                            ) ;
+                                         rdf:type owl:Class
+                                       ] ;
+                   rdfs:comment "Eine Pizza die von Vegatierern gegessen werden kann"@de ;
+                   rdfs:label "Vegetarian pizza"@en ,
+                              "vegetarische Pizza"@de .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#veggiePizza
+gr:veggiePizza rdf:type owl:Class ;
+               owl:equivalentClass [ owl:intersectionOf ( gr:vegetarianPizza
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty gr:hasTopping ;
+                                                            owl:someValuesFrom gr:cheeseTopping
+                                                          ]
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty gr:hasTopping ;
+                                                            owl:someValuesFrom gr:tomato
+                                                          ]
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty gr:hasTopping ;
+                                                            owl:someValuesFrom gr:vegetableTopping
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] ;
+               rdfs:comment "Pizza mit Gemuese belegt"@de ,
+                            "Veggie Pizza"@en ;
+               rdfs:label "Veggie Pizza"@de .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.city.ac.uk/ds/inm713/gr#Goada
+gr:Goada rdf:type owl:NamedIndividual ,
+                  gr:gouda .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#Goudaaaa
+gr:Goudaaaa rdf:type owl:NamedIndividual ,
+                     gr:cheeseTopping .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#Peperonie
+gr:Peperonie rdf:type owl:NamedIndividual ,
+                      gr:chilli .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#Pizaaaaa
+gr:Pizaaaaa rdf:type owl:NamedIndividual ,
+                     gr:Pizza ;
+            gr:hasTopping gr:baaacon .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#Pizza2
+gr:Pizza2 rdf:type owl:NamedIndividual ,
+                   gr:Pizza ;
+          gr:hasTopping gr:Goudaaaa ,
+                        gr:Tomateee .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#Tomateee
+gr:Tomateee rdf:type owl:NamedIndividual ,
+                     gr:tomato .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#VeganeP
+gr:VeganeP rdf:type owl:NamedIndividual ,
+                    gr:Pizza ;
+           <http://www.city.ac.uk/ds/inm.rdfabcde#test> gr:Peperonie ,
+                         gr:Tomateee .
+
+
+###  http://www.city.ac.uk/ds/inm713/gr#baaacon
+gr:baaacon rdf:type owl:NamedIndividual ,
+                    gr:bacon .
+
+
+[ gr:Name "Pizzaort"
+] .
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
