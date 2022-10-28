@@ -148,8 +148,41 @@ public class TestURIcontainsFileExtension {
 	}
 
 	@Test
-	void URIcontains_ttl() {
-		fail("not yet implemented");
+	void URIcontains_ttl() throws Exception {
+		File file = new File(
+				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/ttl_01.ttl").getFile());
+		List<Failure> failures = check.startExecution(file);
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		Failure f = failures.get(0);
+		assertEquals("http://www.city.ac.uk/ds/inm713/gr.ttl#Local", f.getFailureElement());
+		assertEquals("\nFile: " + file.getPath()
+				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.ttl#Local contains the file extension ttl",
+				f.getText());
+
+		file = new File(
+				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/ttl_02.ttl").getFile());
+		failures = check.startExecution(file);
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		f = failures.get(0);
+		assertEquals("http://www.example/foo.ttl#Country", f.getFailureElement());
+		assertEquals(
+				"\nFile: " + file.getPath()
+						+ "\nModel: Default Model\nhttp://www.example/foo.ttl#Country contains the file extension ttl",
+				f.getText());
+
+		file = new File(
+				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/ttl_03.ttl").getFile());
+		failures = check.startExecution(file);
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		f = failures.get(0);
+		assertEquals("http://www.example/foo.ttl#Name", f.getFailureElement());
+		assertEquals(
+				"\nFile: " + file.getPath()
+						+ "\nModel: Default Model\nhttp://www.example/foo.ttl#Name contains the file extension ttl",
+				f.getText());
 	}
 
 	@Test
