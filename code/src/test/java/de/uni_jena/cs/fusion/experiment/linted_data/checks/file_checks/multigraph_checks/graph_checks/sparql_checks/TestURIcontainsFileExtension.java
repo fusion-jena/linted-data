@@ -1,16 +1,70 @@
 package de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.multigraph_checks.graph_checks.sparql_checks;
 
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.List;
+
+import org.apache.jena.ontology.DatatypeProperty;
+import org.apache.jena.ontology.Individual;
+import org.apache.jena.ontology.OntClass;
+import org.apache.jena.ontology.OntModel;
+import org.apache.jena.ontology.OntProperty;
+import org.apache.jena.rdf.model.ModelFactory;
 import org.junit.jupiter.api.Test;
+
+import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
+import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckURIcontainsFileExtension;
 
 
 public class TestURIcontainsFileExtension {
 
+	private CheckURIcontainsFileExtension check = new CheckURIcontainsFileExtension();
+	
 	@Test
 	void URIcontains_nt() {
-		fail("not yet implemented");
+		OntModel model = ModelFactory.createOntologyModel();
+		OntProperty p = model.createOntProperty("http://my-example.org/test.nt#property-a");
+		p.addDomain(model.createClass("http://example.com/test/class-a"));
+		p.addRange(model.createClass("http://example.com/test/class-b"));
+		p.addLabel("this is a test.nt label", null);
+		
+		List<Failure> failures = check.execute(model, "");
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		Failure f = failures.get(0);
+		assertEquals("http://my-example.org/test.nt#property-a", f.getFailureElement());
+		assertEquals("\nhttp://my-example.org/test.nt#property-a contains the file extension nt", f.getText());
+		
+		model = ModelFactory.createOntologyModel();
+		p = model.createSymmetricProperty("http://example.com/test/property-a");
+		DatatypeProperty dp = model.createDatatypeProperty("http://my-example.org/test.nt#datatype-property-a");
+		OntClass c1 = model.createClass("http://example.com/test/class-a");
+		Individual i = c1.createIndividual();
+		i.addLiteral(dp, 2580L);
+		c1.addComment("this comment contains the file extension .nt", "en");
+		failures = check.execute(model, "");
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		f = failures.get(0);
+		assertEquals("http://my-example.org/test.nt#datatype-property-a", f.getFailureElement());
+		assertEquals("\nhttp://my-example.org/test.nt#datatype-property-a contains the file extension nt", f.getText());
+		
+		model = ModelFactory.createOntologyModel();
+		c1 = model.createClass();
+		i = c1.createIndividual("http://my-example.org/test.nt#individual-1");
+		i.addLabel("individual with .nt", null);
+		c1.addComment("dieser kommentar enthaelt .nt", "de");
+		model.createProperty("http://example.com/test/property-a");
+		failures = check.execute(model, "");
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		f = failures.get(0);
+		assertEquals("http://my-example.org/test.nt#individual-1", f.getFailureElement());
+		assertEquals("\nhttp://my-example.org/test.nt#individual-1 contains the file extension nt", f.getText());
+		
 	}
 
 	@Test
