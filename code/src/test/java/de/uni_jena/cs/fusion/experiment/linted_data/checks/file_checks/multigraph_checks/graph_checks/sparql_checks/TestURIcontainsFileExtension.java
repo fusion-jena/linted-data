@@ -236,18 +236,130 @@ public class TestURIcontainsFileExtension {
 	}
 
 	@Test
-	void URIcontains_rdf() {
-		fail("not yet implemented");
+	void URIcontains_rdf() throws Exception {
+		File file = new File(
+				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/rdf_01.rdf").getFile());
+		List<Failure> failures = check.startExecution(file);
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		Failure f = failures.get(0);
+		assertEquals("http://www.city.ac.uk/ds/inm713/gr.rdf-15#Local", f.getFailureElement());
+		assertEquals("\nFile: " + file.getPath()
+				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.rdf-15#Local contains the file extension rdf",
+				f.getText());
+
+		file = new File(
+				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/rdf_02.rdf").getFile());
+		failures = check.startExecution(file);
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		f = failures.get(0);
+		assertEquals("http://www.example/foo.ttl#Country", f.getFailureElement());
+		assertEquals(
+				"\nFile: " + file.getPath()
+						+ "\nModel: Default Model\nhttp://www.example/foo.ttl#Country contains the file extension ttl",
+				f.getText());
+
+		file = new File(
+				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/rdf_03.rdf").getFile());
+		failures = check.startExecution(file);
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		f = failures.get(0);
+		assertEquals("http://www.example/foo.xml-58#Name", f.getFailureElement());
+		assertEquals(
+				"\nFile: " + file.getPath()
+						+ "\nModel: Default Model\nhttp://www.example/foo.xml-58#Name contains the file extension xml",
+				f.getText());
 	}
 
 	@Test
-	void URIcontains_owl() {
-		fail("not yet implemented");
+	void URIcontains_owl() throws Exception {
+		File file = new File(
+				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/owl_01.owl").getFile());
+		List<Failure> failures = check.startExecution(file);
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		Failure f = failures.get(0);
+		assertEquals("http://www.city.ac.uk/ds/inm713/gr.owl#Local", f.getFailureElement());
+		assertEquals("\nFile: " + file.getPath()
+				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.owl#Local contains the file extension owl",
+				f.getText());
+		
+		file = new File(
+				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/owl_02.owl").getFile());
+		failures = check.startExecution(file);
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		f = failures.get(0);
+		assertEquals("http://www.city.ac.uk/ds/inm713/foo.owl-23#Country", f.getFailureElement());
+		assertEquals(
+				"\nFile: " + file.getPath()
+						+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/foo.owl-23#Country contains the file extension owl",
+				f.getText());
+
+		file = new File(
+				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/owl_03.ttl").getFile());
+		failures = check.startExecution(file);
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		f = failures.get(0);
+		assertEquals("http://www.example/foo.owl#Name", f.getFailureElement());
+		assertEquals(
+				"\nFile: " + file.getPath()
+						+ "\nModel: Default Model\nhttp://www.example/foo.owl#Name contains the file extension owl",
+				f.getText());
+		
 	}
 
 	@Test
-	void URIcontains_xml() {
-		fail("not yet implemented");
+	void URIcontains_xml() throws Exception {
+		File file = new File(
+				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/xml_01.xml").getFile());
+		List<Failure> failures = check.startExecution(file);
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		Failure f = failures.get(0);
+		assertEquals("http://www.city.ac.uk/ds/inm713/gr.xml_t#Local", f.getFailureElement());
+		assertEquals("\nFile: " + file.getPath()
+				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.xml_t#Local contains the file extension xml",
+				f.getText());
+		
+		file = new File(
+				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/xml_02.xml").getFile());
+		failures = check.startExecution(file);
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		f = failures.get(0);
+		assertEquals("http://www.example/foo.xml#Country", f.getFailureElement());
+		assertEquals(
+				"\nFile: " + file.getPath()
+						+ "\nModel: Default Model\nhttp://www.example/foo.xml#Country contains the file extension xml",
+				f.getText());
+
+		file = new File(
+				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/xml_03.ttl").getFile());
+		failures = check.startExecution(file);
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		f = failures.get(0);
+		assertEquals("http://www.example/foo.xml#Name", f.getFailureElement());
+		assertEquals(
+				"\nFile: " + file.getPath()
+						+ "\nModel: Default Model\nhttp://www.example/foo.xml#Name contains the file extension xml",
+				f.getText());
+		
+		file = new File(
+				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/xml_03.ttl").getFile());
+		failures = check.startExecution(file);
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		f = failures.get(0);
+		assertEquals("http://www.example/foo.xml#Name", f.getFailureElement());
+		assertEquals(
+				"\nFile: " + file.getPath()
+						+ "\nModel: Default Model\nhttp://www.example/foo.xml#Name contains the file extension xml",
+				f.getText());
 	}
 
 	@Test
