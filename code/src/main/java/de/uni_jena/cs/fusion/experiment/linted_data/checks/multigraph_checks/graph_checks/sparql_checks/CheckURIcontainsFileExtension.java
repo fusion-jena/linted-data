@@ -29,11 +29,10 @@ public final class CheckURIcontainsFileExtension extends SPARQLSelectCheck {
 		List<Failure> failures = new ArrayList<Failure>();
 		while(resultSet.hasNext()) {
 			QuerySolution qs = resultSet.next();
-			System.out.println(qs.toString());
 			Failure failure = new Failure(name, severity, qs.get("iri").toString(), failureDescription + "\n" + qs.get("iri").toString() + " contains the file extension " + qs.get("fileExtension").toString());
 			failures.add(failure);
 		}
-		return null;
+		return failures;
 	}
 
 
