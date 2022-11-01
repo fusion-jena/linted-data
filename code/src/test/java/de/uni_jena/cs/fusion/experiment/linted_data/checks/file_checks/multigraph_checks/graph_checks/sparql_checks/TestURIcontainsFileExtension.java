@@ -18,6 +18,10 @@ import org.junit.jupiter.api.Test;
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckURIcontainsFileExtension;
 
+/**
+ * The file extension at the end of the function name indicates the file format
+ * as well as the found extensions
+ */
 public class TestURIcontainsFileExtension {
 
 	private CheckURIcontainsFileExtension check = new CheckURIcontainsFileExtension();
@@ -114,7 +118,45 @@ public class TestURIcontainsFileExtension {
 
 	@Test
 	void URIcontains_n3() {
-		fail("not yet implemented");
+		OntModel model = ModelFactory.createOntologyModel();
+		OntProperty p = model.createOntProperty("http://my-example.org/test.n3#property-a");
+		p.addDomain(model.createClass("http://example.com/test/class-a"));
+		p.addRange(model.createClass("http://example.com/test/class-b"));
+		p.addLabel("this is a test.nt label", null);
+
+		List<Failure> failures = check.execute(model, "");
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		Failure f = failures.get(0);
+		assertEquals("http://my-example.org/test.n3#property-a", f.getFailureElement());
+		assertEquals("\nhttp://my-example.org/test.n3#property-a contains the file extension n3", f.getText());
+
+		model = ModelFactory.createOntologyModel();
+		p = model.createSymmetricProperty("http://example.com/test/property-a");
+		DatatypeProperty dp = model.createDatatypeProperty("http://my-example.org/test.n3#datatype-property-a");
+		OntClass c1 = model.createClass("http://example.com/test/class-a");
+		Individual i = c1.createIndividual();
+		i.addLiteral(dp, 2580L);
+		c1.addComment("this comment contains the file extension .n3", "en");
+		failures = check.execute(model, "");
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		f = failures.get(0);
+		assertEquals("http://my-example.org/test.n3#datatype-property-a", f.getFailureElement());
+		assertEquals("\nhttp://my-example.org/test.n3#datatype-property-a contains the file extension n3", f.getText());
+
+		model = ModelFactory.createOntologyModel();
+		c1 = model.createClass();
+		i = c1.createIndividual("http://my-example.org/test.n3#individual-1");
+		i.addLabel("individual with .nt", null);
+		c1.addComment("dieser kommentar enthaelt .n3", "de");
+		model.createProperty("http://example.com/test-owl./property-a");
+		failures = check.execute(model, "");
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		f = failures.get(0);
+		assertEquals("http://my-example.org/test.n3#individual-1", f.getFailureElement());
+		assertEquals("\nhttp://my-example.org/test.n3#individual-1 contains the file extension n3", f.getText());
 	}
 
 	@Test
