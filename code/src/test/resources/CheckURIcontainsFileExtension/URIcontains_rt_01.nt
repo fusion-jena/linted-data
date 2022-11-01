@@ -1,0 +1,4 @@
+_:p1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://my-example.org#testr.rt#pizza> .
+<http://my-example.org/test.rt/individual-1> <http://example.rt/test#property-b> _:p1 .
+<http://example.com/test.nq4#individual-45> <http://example.rt/test#property-b> <http://example.org/test#individual-b> . 
+<http://example.com/test.nq4#individual-45> <http://www.w3.org/2000/01/rdf-schema#label> "this is a label containing .nt".

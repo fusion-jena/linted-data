@@ -1,0 +1,2 @@
+<http://www.city.ac.uk/ds/inm713/gr#pizza-423.nq> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://my-example.org/test.nq#pizza> .
+<http://my-example.org/test.nq/individual-1> <http://example.org/test/property-b> <http://www.city.ac.uk/ds/inm713/gr#pizza-423.nq> .

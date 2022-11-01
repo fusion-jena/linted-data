@@ -1,0 +1,4 @@
+<http://example.org/test#individual-1> <http://example.org/test/property-1> <http://my-example.org/test.rpb#individual-1> .
+<http://example.org/test#individual-1> <http://example.org/test/datatype-property-b> ".rpb within a literal" . 
+<http://example.org/test#individual-1> <http://example.org/test/datatype-property-a> "0.5"^^<http://www.w3.org/2001/XMLSchema#double> .
+<http://my-example.org/test.jsonld112#individual-1> <http://my-example.org/test.rpb#property-b> <http://my-example.org/test.rpb#individual-2> . 
