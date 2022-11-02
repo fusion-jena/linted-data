@@ -1,4 +1,4 @@
-<http://my-example.org/test.trix/#property-a> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://my-example.org/test.trix/property-a> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 # <http://my-example.org/test.trix#datatype-property-b> 
  <http://my-example.org/test.trix/property-a> <http://www.w3.org/2002/07/owl#equivalentProperty> <http://example.org/test/property-a> .
  

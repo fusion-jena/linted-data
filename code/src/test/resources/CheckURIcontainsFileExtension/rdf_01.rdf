@@ -56,10 +56,10 @@
     
 
 
-    <!-- http://www.city.ac.uk/ds/inm713/gr#hasAddress -->
+    <!-- http://www.city.ac.uk/ds.rdf.1/inm713/gr#hasAddress -->
 
-    <owl:ObjectProperty rdf:about="http://www.city.ac.uk/ds/inm713/gr#hasAddress">
-        <rdfs:domain rdf:resource="http://www.city.ac.uk/ds/inm713/gr.rdf-15#Local"/>
+    <owl:ObjectProperty rdf:about="http://www.city.ac.uk/ds.rdf.1/inm713/gr#hasAddress">
+        <rdfs:domain rdf:resource="http://www.city.ac.uk/ds/inm713/gr.rdf#Local"/>
         <rdfs:range rdf:resource="http://www.city.ac.uk/ds/inm713/gr#address"/>
         <rdfs:comment xml:lang="de">verknuepft ein Lokal mit seiner Adresse</rdfs:comment>
         <rdfs:label xml:lang="en">has address</rdfs:label>
@@ -91,9 +91,9 @@
     
 
 
-    <!-- http://www.city.ac.uk/ds/inm713/gr.rdf-15#Local -->
+    <!-- http://www.city.ac.uk/ds/inm713/gr.rdf#Local -->
 
-    <owl:Class rdf:about="http://www.city.ac.uk/ds/inm713/gr.rdf-15#Local"/>
+    <owl:Class rdf:about="http://www.city.ac.uk/ds/inm713/gr.rdf#Local"/>
 </rdf:RDF>
 
 

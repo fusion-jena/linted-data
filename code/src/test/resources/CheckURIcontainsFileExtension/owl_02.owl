@@ -117,21 +117,21 @@
     
 
 
-    <!-- http://www.city.ac.uk/ds/inm713/foo.owl-23#Country -->
+    <!-- http://www.city.ac.uk/ds/inm713/foo.owl#Country -->
 
-    <owl:Class rdf:about="http://www.city.ac.uk/ds/inm713/foo.owl-23#Country"/>
+    <owl:Class rdf:about="http://www.city.ac.uk/ds/inm713/foo.owl#Country"/>
     
 
 
-    <!-- http://www.city.ac.uk/ds/inm713/gr#Local -->
+    <!-- http://www.city.ac.uk/ds/inm713/gr#Local.owl -->
 
-    <owl:Class rdf:about="http://www.city.ac.uk/ds/inm713/gr#Local"/>
+    <owl:Class rdf:about="http://www.city.ac.uk/ds/inm713/gr#Local.owl"/>
     
 
 
-    <!-- http://www.city.ac.uk/ds/inm713/gr#Pizza -->
+    <!-- http://www.city.ac.uk/ds/inm.owl713/gr#Pizza -->
 
-    <owl:Class rdf:about="http://www.city.ac.uk/ds/inm713/gr#Pizza"/>
+    <owl:Class rdf:about="http://www.city.ac.uk/ds/inm.owl713/gr#Pizza"/>
     
 
 
@@ -147,7 +147,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.city.ac.uk/ds/inm713/gr#partOfCountry"/>
-                <owl:allValuesFrom rdf:resource="http://www.city.ac.uk/ds/inm713/foo.owl-23#Country"/>
+                <owl:allValuesFrom rdf:resource="http://www.city.ac.uk/ds/inm713/foo.owl#Country"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -222,7 +222,7 @@
     <!-- http://www.city.ac.uk/ds/inm713/gr#Local_781 -->
 
     <owl:NamedIndividual rdf:about="http://www.city.ac.uk/ds/inm713/gr#Local_781">
-        <rdf:type rdf:resource="http://www.city.ac.uk/ds/inm713/gr#Local"/>
+        <rdf:type rdf:resource="http://www.city.ac.uk/ds/inm713/gr#Local.owl"/>
         <Name>buca di beppo</Name>
         <hasAddress rdf:resource="http://www.city.ac.uk/ds/inm713/gr#address_781"/>
         <hasCategory rdf:resource="http://www.city.ac.uk/ds/inm713/gr#category_33_6"/>

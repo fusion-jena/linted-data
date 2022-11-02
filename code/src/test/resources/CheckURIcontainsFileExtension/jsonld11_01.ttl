@@ -24,7 +24,7 @@ gr:LocatedIn rdf:type owl:ObjectProperty ;
 
 ###  http://www.city.ac.uk/ds/inm713/gr.jsonld11#hasAddress
 gr:hasAddress rdf:type owl:ObjectProperty ;
-              rdfs:domain <http://www.city.ac.uk/ds/inm713/gr.jsonld11_i#Local> ;
+              rdfs:domain <http://www.city.ac.uk/ds/inm713/gr.jsonld11#Local> ;
               rdfs:range gr:address ;
               rdfs:comment "verknuepft ein Lokal mit seiner Adresse"@de ;
               rdfs:label "has address"@en ,

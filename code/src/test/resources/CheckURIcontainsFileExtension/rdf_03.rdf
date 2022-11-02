@@ -65,9 +65,9 @@
     
 
 
-    <!-- http://www.example/foo.xml-58#Name -->
+    <!-- http://www.example/foo.xml#Name -->
 
-    <owl:AnnotationProperty rdf:about="http://www.example/foo.xml-58#Name"/>
+    <owl:AnnotationProperty rdf:about="http://www.example/foo.xml#Name"/>
     
 
 

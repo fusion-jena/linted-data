@@ -1,3 +1,4 @@
 <http://example.org/test#individual-1> <http://example.org/test/property-1> <http://my-example.org/test.trix-u#individual-1> .
+<http://example.org/test#individual-1> <http://example.org/test/property-1> <http://my-example.org/test.trix#individual-2> .
 <http://example.org/test#individual-1> <http://example.org/test/datatype-property-b> ".trix within a literal" . 
 <http://example.org/test#individual-1> <http://example.org/test/datatype-property-a> "0.5"^^<http://www.w3.org/2001/XMLSchema#double> .

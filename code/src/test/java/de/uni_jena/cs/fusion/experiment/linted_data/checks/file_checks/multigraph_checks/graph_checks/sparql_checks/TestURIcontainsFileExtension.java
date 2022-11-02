@@ -87,9 +87,9 @@ public class TestURIcontainsFileExtension {
 		failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
-		assertEquals("http://my-example.org/test.trix#individual-1", failures.get(0).getFailureElement());
+		assertEquals("http://my-example.org/test.trix#individual-2", failures.get(0).getFailureElement());
 		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://my-example.org/test.trix#individual-1 contains the file extension trix",
+				+ "\nModel: Default Model\nhttp://my-example.org/test.trix#individual-2 contains the file extension trix",
 				failures.get(0).getText());
 	}
 
@@ -121,18 +121,18 @@ public class TestURIcontainsFileExtension {
 		List<Failure> failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(3, failures.size());
-		Failure f = failures.get(0);
+		Failure f = failures.get(1);
 		assertEquals("http://my-example.org/test.rpb#individual-1", f.getFailureElement());
 		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://my-example.org/test.rpb#individual-1 contains the file extension rbp",
+				+ "\nModel: Default Model\nhttp://my-example.org/test.rpb#individual-1 contains the file extension rpb",
 				f.getText());
-		f = failures.get(2);
+		f = failures.get(0);
 		assertEquals("http://my-example.org/test.rpb#property-b", f.getFailureElement());
 		assertEquals("\nFile: " + file.getPath()
 				+ "\nModel: Default Model\nhttp://my-example.org/test.rpb#property-b contains the file extension rpb",
 				f.getText());
-		f = failures.get(1);
-		assertEquals("http://my-example.org/test.trix#individual-1", f.getFailureElement());
+		f = failures.get(2);
+		assertEquals("http://my-example.org/test.rpb#individual-2", f.getFailureElement());
 		assertEquals("\nFile: " + file.getPath()
 				+ "\nModel: Default Model\nhttp://my-example.org/test.rpb#individual-2 contains the file extension rpb",
 				f.getText());
@@ -166,18 +166,13 @@ public class TestURIcontainsFileExtension {
 				.getResource("CheckURIcontainsFileExtension/URIcontains_nq_01.nt").getFile());
 		List<Failure> failures = check.startExecution(file);
 		assertNotNull(failures);
-		assertEquals(3, failures.size());
-		Failure f = failures.get(0);
-		assertEquals("http://www.city.ac.uk/ds/inm713/gr#pizza-423.nq", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr#pizza-423.nq contains the file extension nq",
-				f.getText());
-		f = failures.get(2);
+		assertEquals(2, failures.size());
+		Failure f = failures.get(1);
 		assertEquals("http://my-example.org/test.nq#pizza", f.getFailureElement());
 		assertEquals("\nFile: " + file.getPath()
 				+ "\nModel: Default Model\nhttp://my-example.org/test.nq#pizza contains the file extension nq",
 				f.getText());
-		f = failures.get(1);
+		f = failures.get(0);
 		assertEquals("http://my-example.org/test.nq/individual-1", f.getFailureElement());
 		assertEquals("\nFile: " + file.getPath()
 		+ "\nModel: Default Model\nhttp://my-example.org/test.nq/individual-1 contains the file extension nq",
@@ -447,9 +442,9 @@ public class TestURIcontainsFileExtension {
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure f = failures.get(0);
-		assertEquals("http://www.city.ac.uk/ds/inm713/gr.jsonld11_i#Local", f.getFailureElement());
+		assertEquals("http://www.city.ac.uk/ds/inm713/gr.jsonld11#Local", f.getFailureElement());
 		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.jsonld11_i#Local contains the file extension jsonld11",
+				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.jsonld11#Local contains the file extension jsonld11",
 				f.getText());
 
 		file = new File(this.getClass().getClassLoader()
@@ -484,9 +479,9 @@ public class TestURIcontainsFileExtension {
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure f = failures.get(0);
-		assertEquals("http://www.city.ac.uk/ds/inm713/gr.rdf-15#Local", f.getFailureElement());
+		assertEquals("http://www.city.ac.uk/ds/inm713/gr.rdf#Local", f.getFailureElement());
 		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.rdf-15#Local contains the file extension rdf",
+				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.rdf#Local contains the file extension rdf",
 				f.getText());
 
 		file = new File(
@@ -507,10 +502,10 @@ public class TestURIcontainsFileExtension {
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		f = failures.get(0);
-		assertEquals("http://www.example/foo.xml-58#Name", f.getFailureElement());
+		assertEquals("http://www.example/foo.xml#Name", f.getFailureElement());
 		assertEquals(
 				"\nFile: " + file.getPath()
-						+ "\nModel: Default Model\nhttp://www.example/foo.xml-58#Name contains the file extension xml",
+						+ "\nModel: Default Model\nhttp://www.example/foo.xml#Name contains the file extension xml",
 				f.getText());
 	}
 
@@ -533,9 +528,9 @@ public class TestURIcontainsFileExtension {
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		f = failures.get(0);
-		assertEquals("http://www.city.ac.uk/ds/inm713/foo.owl-23#Country", f.getFailureElement());
+		assertEquals("http://www.city.ac.uk/ds/inm713/foo.owl#Country", f.getFailureElement());
 		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/foo.owl-23#Country contains the file extension owl",
+				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/foo.owl#Country contains the file extension owl",
 				f.getText());
 
 		file = new File(
@@ -560,9 +555,9 @@ public class TestURIcontainsFileExtension {
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure f = failures.get(0);
-		assertEquals("http://www.city.ac.uk/ds/inm713/gr.xml_t#Local", f.getFailureElement());
+		assertEquals("http://www.city.ac.uk/ds/inm713/gr.xml#Local", f.getFailureElement());
 		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.xml_t#Local contains the file extension xml",
+				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.xml#Local contains the file extension xml",
 				f.getText());
 
 		file = new File(
