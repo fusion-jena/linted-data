@@ -1,0 +1,11 @@
+SELECT DISTINCT ?literal ?subject ?predicate ?object
+WHERE {
+	{ 
+	SELECT (STR(?object) AS ?literal) ?subject ?predicate ?object
+	WHERE {
+		?subject ?predicate ?object.
+		FILTER(isLiteral(?object)) 
+		}
+	}
+	FILTER (regex(?literal, "^[\\r\\n\\t\\f ]|[\\r\\n\\t\\f ]$"))
+}
