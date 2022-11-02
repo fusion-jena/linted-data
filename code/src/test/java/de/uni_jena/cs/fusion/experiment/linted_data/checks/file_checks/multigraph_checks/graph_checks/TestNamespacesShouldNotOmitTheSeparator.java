@@ -11,7 +11,6 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.VCARD;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
@@ -20,13 +19,11 @@ import de.uni_jena.cs.fusion.experiment.linted_data.types.Severity;
 
 public class TestNamespacesShouldNotOmitTheSeparator {
 	
-	private CheckNamespacesShouldNotOmitTheSeperator check;
+	private CheckNamespacesShouldNotOmitTheSeperator check = new CheckNamespacesShouldNotOmitTheSeperator();
 	
-	@BeforeEach
-	private void initalisation() {
-		check = new CheckNamespacesShouldNotOmitTheSeperator();
-	}
-	
+	/**
+	 * all namespace IRIs end with #
+	 */
 	@Test
 	public void allNamespacesEndWithSeperator_1() {
 		Model model = ModelFactory.createDefaultModel();
@@ -39,15 +36,20 @@ public class TestNamespacesShouldNotOmitTheSeparator {
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 	}
-		
+	
+	/**
+	 * named model instead of default model 
+	 * <p>
+	 * namespace IRIs end with # or /
+	 */
 	@Test
 	public void allNamespacesEndWithSeperator_2() {
 		Model model = ModelFactory.createMemModelMaker().createModel("model2");
-		Resource res = model.createResource("http://www.w3.org/2004/02/skos/core#JohnSmith");
+		Resource res = model.createResource("http://www.w3.org/2004/02/skos/core/JohnSmith");
 		res.addLiteral(VCARD.FN, "John Smith");
-		model.setNsPrefix("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
-		model.setNsPrefix("skos", "http://www.w3.org/2004/02/skos/core#");
-		model.setNsPrefix("taxslim", "http://purl.obolibrary.org/obo/ncbitaxon/subsets/taxslim#");
+		model.setNsPrefix("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns/");
+		model.setNsPrefix("skos", "http://www.w3.org/2004/02/skos/core/");
+		model.setNsPrefix("taxslim", "http://purl.obolibrary.org/obo/ncbitaxon/subsets/taxslim/");
 		
 		
 		List<Failure> failures = check.execute(model, "");
