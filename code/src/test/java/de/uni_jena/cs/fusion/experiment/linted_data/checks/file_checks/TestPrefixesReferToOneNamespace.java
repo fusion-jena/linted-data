@@ -141,66 +141,12 @@ public class TestPrefixesReferToOneNamespace {
 		assertEquals(failure.getSeverity(), Severity.WARN);
 		assertEquals(failure.getText(),
 				"\nex has the 2 namespaces: [http://www.2ndexample.org/document#, http://www.example.org/vocabulary#]");
-	
 
-	@Test
-	public void N3_oneNamespacePerPrefix() throws IOException{
-		String text = "@prefix my: <http://my.ontology#> . \n" + 
-			"@prefix : <n3_notation#> .\n" +
-			"my:Peter :suffers my:acrophobia.\n";
-		List<Failure> failures = executeCheck(".n3", text);
-		assertNotNull(failures);
-		assertEquals(0, failures.size());
-		
-		text = "  @prefix my: <http://my.ontology#> . \n" + 
-				"@prefix apple : <n3_notation#>.\n" +
-				"my:Peter apple:suffers my:acrophobia.                 \n" +
-				"    my:foo apple:bar my:alice.\n";
-		failures = executeCheck(".n3", text);
-		assertNotNull(failures);
-		assertEquals(0, failures.size());
-	}
-	
-	@Test
-	public void N3_MultipleNamespacesPerPrefix() throws IOException{
-		String text = "@prefix my: <http://my.ontology#> . \n" + 
-			"@prefix : <n3_notation#> .\n" +
-			"@prefix my: <http://test.org/notation/> .\n" +
-			"my:Peter :suffers my:acrophobia.\n";
-		List<Failure> failures = executeCheck(".n3", text);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		Failure failure = failures.get(0);
-		assertEquals(failure.getFailureElement(), "my");
-		assertEquals(failure.getSeverity(), Severity.WARN);
-		assertEquals(failure.getText(),
-				"\nmy has the 2 namespaces: [http://my.ontology#, http://test.org/notation/]");
-		
-		text = "@prefix my: <http://my.ontology#> . \n" + 
-				"@prefix apple : <http://my_second.ontology#>.\n" +
-				"@prefix test_ns : <http://my_third.ontology#>.\n" +
-				"@prefix foo : <http://my_last.ontology/>.\n" +
-				"@prefix apple : <http://my_third.ontology#>.      \n" +
-				"@prefix foo : <http://foo.ontology#>.\n" +
-				"my:Peter apple:suffers my:acrophobia.                 \n" +
-				"my:foo apple:bar my:alice.\n" +
-				"test_ns:s foo:bar apple:o .";
-		failures = executeCheck(".n3", text);
 		// one prefix refering multiple times to the same IRI and to at least one
 		// different
 		failures = executeCheck("CheckPrefixesReferToOneNamespace/TriG_MultipleNamespacesPerPrefix_03.trig");
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
-		failure = failures.get(0);
-		assertEquals(failure.getFailureElement(), "apple");
-		assertEquals(failure.getSeverity(), Severity.WARN);
-		assertEquals(failure.getText(),
-				"\napple has the 2 namespaces: [http://my_second.ontology#, http://my_third.ontology#]");
-		failure = failures.get(1);
-		assertEquals(failure.getFailureElement(), "foo");
-		assertEquals(failure.getSeverity(), Severity.WARN);
-		assertEquals(failure.getText(),
-				"\nfoo has the 2 namespaces: [http://my_last.ontology/, http://foo.ontology#]");
 		assertTrue(TestUtil.contains(failures, "ex",
 				"\nex has the 2 namespaces: [http://www.2ndexample.org/document#, http://www.example.org/vocabulary#]",
 				Severity.WARN));
@@ -251,75 +197,11 @@ public class TestPrefixesReferToOneNamespace {
 		failure = failures.get(0);
 		assertEquals(failure.getFailureElement(), "foo");
 		assertEquals(failure.getSeverity(), Severity.WARN);
-		assertEquals(failure.getText(), 
-				"\nfoo has the 2 namespaces: [http://onto-foo.bar#, http://foo.bar/]");
-		
-		failures =  executeCheck("JSONLD_multipleNamespacesPerPrefix_03.jsonld11");
-		assertNotNull(failures);
-		assertEquals(2, failures.size());
-		failure = failures.get(1);
-		assertEquals(failure.getFailureElement(), "foaf");
-		assertEquals(failure.getSeverity(), Severity.WARN);
-		assertEquals(failure.getText(), 
-				"\nfoaf has the 2 namespaces: [http://xmlns.com/foaf/0.1/, http://foo.bar2#]");
-		failure = failures.get(0);
-		assertEquals(failure.getFailureElement(), "foo");
-		assertEquals(failure.getSeverity(), Severity.WARN);
-		assertEquals(failure.getText(), 
-				"\nfoo has the 2 namespaces: [http://onto-foo.bar#, http://foo.bar/]");
-		failures =  executeCheck("JSONLD_multipleNamespacesPerPrefix_04.jsonld11");
-		assertNotNull(failures);
-		assertEquals(2, failures.size());
-		failure = failures.get(0);
-		assertEquals(failure.getFailureElement(), "foo");
-		assertEquals(failure.getSeverity(), Severity.INFO);
-		assertEquals("\nfoo has 3 times the namespace http://onto-foo.bar#", failure.getText());
-		failure = failures.get(1);
-		assertEquals(failure.getSeverity(), Severity.WARN);
-		assertEquals(failure.getText(), 
-				"\nfoaf has the 2 namespaces: [http://xmlns.com/foaf/0.1/, http://foo.bar2#]");
-	}
 		assertEquals(failure.getText(), "\nfoo has the 2 namespaces: [http://onto-foo.bar#, http://foo.bar/]");
 
-	@Test
-	public void RDFXML_onePrefixPerNamespace() throws URISyntaxException, IOException {
-		List<Failure> failures = executeCheck("RDFXML_oneNamespacePerPrefix_01.owl");
-		assertNotNull(failures);
-		assertEquals(0, failures.size());
-		
-		failures = executeCheck("RDFXML_oneNamespacePerPrefix_02.xml");
-		assertNotNull(failures);
-		assertEquals(0, failures.size());
-		
-		failures = executeCheck("RDFXML_oneNamespacePerPrefix_03.xml");
-		assertNotNull(failures);
-		assertEquals(0, failures.size());
-	}
-	
-	@Test
-	public void RDFXML_multipleNamespacesPerPrefix() throws URISyntaxException, IOException {
-		CheckPrefixesReferToOneNamespace check = new CheckPrefixesReferToOneNamespace();
-		List<Failure> failures = check.execute(new File(this.getClass().getClassLoader().getResource("RDFXML_multipleNamespacesPerPrefix_01.owl").toURI()), "");
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		Failure failure = failures.get(0);
-		assertEquals(Severity.WARN, failure.getSeverity());
-		assertEquals("ccon", failure.getFailureElement());
-		assertEquals("\nccon has the 2 namespaces: [http://cerrado.linkeddata.es/ecology/ccon#, http://cerrado.linkeddata.es/ecology/ccon#2]",failure.getText());
-		
 		failures = executeCheck("CheckPrefixesReferToOneNamespace/JSONLD_multipleNamespacesPerPrefix_03.jsonld11");
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
-		failure = failures.get(0);
-		assertEquals(Severity.INFO, failure.getSeverity());
-		assertEquals(failure.getText(), "\nbar has 3 times the namespace http://www.city.ac.uk/ds/inm713/bar#");
-		assertEquals("bar", failure.getFailureElement());
-		failure = failures.get(1);
-		assertEquals(Severity.WARN, failure.getSeverity());
-		assertEquals("foo", failure.getFailureElement());
-		assertEquals("\nfoo has the 2 namespaces: [http://www.city.ac.uk/ds/inm713/foo#, http://www.city.ac.uk/ds/inm713/foo2#]",failure.getText());
-		
-		failures = check.execute(new File(this.getClass().getClassLoader().getResource("RDFXML_multipleNamespacesPerPrefix_03.xml").toURI()), "");
 		assertTrue(TestUtil.contains(failures, "foaf",
 				"\nfoaf has the 2 namespaces: [http://xmlns.com/foaf/0.1/, http://foo.bar2#]", Severity.WARN));
 		assertTrue(TestUtil.contains(failures, "foo",
@@ -330,14 +212,6 @@ public class TestPrefixesReferToOneNamespace {
 		failures = executeCheck("CheckPrefixesReferToOneNamespace/JSONLD_multipleNamespacesPerPrefix_04.jsonld11");
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
-		failure = failures.get(0);
-		assertEquals(Severity.INFO, failure.getSeverity());
-		assertEquals(failure.getText(), "\nbar has 3 times the namespace http://www.city.ac.uk/ds/inm713/bar#");
-		assertEquals("bar", failure.getFailureElement());
-		failure = failures.get(1);
-		assertEquals(Severity.WARN, failure.getSeverity());
-		assertEquals("bar", failure.getFailureElement());
-		assertEquals("\nbar has the 2 namespaces: [http://www.city.ac.uk/ds/inm713/bar#, http://www.city.ac.uk/ds/inm713/bar2#]",failure.getText());
 		assertTrue(TestUtil.contains(failures, "foo", "\nfoo has 3 times the namespace http://onto-foo.bar#",
 				Severity.INFO));
 		assertTrue(TestUtil.contains(failures, "foaf",
