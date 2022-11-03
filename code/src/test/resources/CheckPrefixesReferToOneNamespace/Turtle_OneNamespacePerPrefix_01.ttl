@@ -1,0 +1,3 @@
+ #hello PREFIX abc:<http://www.semanticweb.org/abc#>
+ PREFIX abc:<http://www.semanticweb.org/abc#>
+@prefix def:<http://www.semanticweb.org/def#> .

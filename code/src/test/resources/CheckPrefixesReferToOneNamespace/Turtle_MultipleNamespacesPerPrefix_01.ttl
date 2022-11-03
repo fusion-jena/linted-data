@@ -1,0 +1,5 @@
+PREFIX abc:<http://www.semanticweb.org/abc#>
+@prefix abc:<http://www.semanticweb.org/def#> . # this is a text for testing
+PREFIX ghi:<http://www.semanticweb.org/ghi#>
+@prefix jkl:<http://www.semanticweb.org/jkl#> .
+#this is nothing

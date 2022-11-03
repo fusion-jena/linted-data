@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.Severity;
+import de.uni_jena.cs.fusion.experiment.linted_data.util.TestUtil;
 
 public class TestPrefixesReferToOneNamespace {
 
@@ -41,7 +42,7 @@ public class TestPrefixesReferToOneNamespace {
 	 * @param text          content of the file
 	 * @return failures occured during the execution of
 	 *         CheckPrefixesReferToOneNamespace
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	private List<Failure> executeCheck(String fileExtension, String text) throws IOException {
 		File file = null;
@@ -55,37 +56,41 @@ public class TestPrefixesReferToOneNamespace {
 		Dataset dataset = DatasetFactory.create();
 		try {
 			RDFParser.source(file.getAbsolutePath()).parse(dataset);
-		}catch(RiotException e) {
-			fail("Error when parsing the text");
+		} catch (RiotException e) {
+			fail("Error when parsing the text\n" + text);
 		}
 		CheckPrefixesReferToOneNamespace check = new CheckPrefixesReferToOneNamespace();
 		return check.execute(file, "");
 	}
-	
+
 	private List<Failure> executeCheck(String path) throws IOException, URISyntaxException {
 		File file = new File(this.getClass().getClassLoader().getResource(path).toURI());
 		Dataset dataset = DatasetFactory.create();
 		try {
 			RDFParser.source(file.getAbsolutePath()).parse(dataset);
-		}catch(RiotException e) {
+		} catch (RiotException e) {
 			fail("Error when parsing " + path);
 		}
 		CheckPrefixesReferToOneNamespace check = new CheckPrefixesReferToOneNamespace();
 		return check.execute(file, "");
 	}
 
+	/**
+	 * defined multiple namespaces, each with its own prefix in turtle format
+	 */
 	@Test
-	public void TurtleOneNamespacePerPrefix() throws IOException {
-		List<Failure> failures = executeCheck(".ttl",
-				" #hello PREFIX abc:<http://www.semanticweb.org/abc#>\n PREFIX abc:<http://www.semanticweb.org/abc#>\n@prefix def:<http://www.semanticweb.org/def#> .");
+	public void TurtleOneNamespacePerPrefix() throws  URISyntaxException, IOException {
+		List<Failure> failures = executeCheck("CheckPrefixesReferToOneNamespace/Turtle_OneNamespacePerPrefix_01.ttl");
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 	}
 
+	/**
+	 * defined multiple namespaces, some with the same prefix in turtle format
+	 */
 	@Test
-	public void TurtleMultipleNamespacesPerPrefix() throws IOException {
-		List<Failure> failures = executeCheck(".ttl",
-				"PREFIX abc:<http://www.semanticweb.org/abc#>\n@prefix abc:<http://www.semanticweb.org/def#> . # this is a text for testing\nPREFIX ghi:<http://www.semanticweb.org/ghi#>\n@prefix jkl:<http://www.semanticweb.org/jkl#> .\n#this is nothing");
+	public void TurtleMultipleNamespacesPerPrefix() throws IOException, URISyntaxException {
+		List<Failure> failures = executeCheck("CheckPrefixesReferToOneNamespace/Turtle_MultipleNamespacesPerPrefix_01.ttl");
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure f = failures.get(0);
@@ -94,8 +99,7 @@ public class TestPrefixesReferToOneNamespace {
 		assertEquals(f.getText(),
 				"\nabc has the 2 namespaces: [http://www.semanticweb.org/abc#, http://www.semanticweb.org/def#]");
 
-		failures = executeCheck(".ttl",
-				"PREFIX abc:<http://www.semanticweb.org/abc#>   #this is an unnecessary comment\n@prefix def:<http://www.semanticweb.org/def#> .\nPREFIX ghi:<http://www.semanticweb.org/ghi#>\n@prefix def:<http://www.semanticweb.org/jkl#>\n\n@prefix def:<http://www.semanticweb.org/mno#>.");
+		failures = executeCheck("CheckPrefixesReferToOneNamespace/Turtle_MultipleNamespacesPerPrefix_02.ttl");
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		f = failures.get(0);
@@ -104,45 +108,42 @@ public class TestPrefixesReferToOneNamespace {
 		assertEquals(f.getText(),
 				"\ndef has the 3 namespaces: [http://www.semanticweb.org/def#, http://www.semanticweb.org/jkl#, http://www.semanticweb.org/mno#]");
 	}
-	
+
+	/*
+	 * defined a multiple namespaces, some of them occur multiple times with the
+	 * same IRI and some with different IRIs, in turtle format
+	 */
 	@Test
 	public void TurtleOnePrefixOneNamespaceMultipleTimes() throws IOException, URISyntaxException {
-		List<Failure> failures =  executeCheck("Turtle_OnePrefixOneNamespaceMultipleTimes_01.ttl");		
+		// one prefix -> same IRI multiple times
+		List<Failure> failures = executeCheck(
+				"CheckPrefixesReferToOneNamespace/Turtle_OnePrefixOneNamespaceMultipleTimes_01.ttl");
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure f = failures.get(0);
 		assertEquals("test1", f.getFailureElement());
 		assertEquals(Severity.INFO, f.getSeverity());
-		assertEquals(f.getText(),
-				"\ntest1 has 2 times the namespace http://www.test-1.org/o#");
-	
-		failures =  executeCheck("Turtle_OnePrefixOneNamespaceMultipleTimes_02.ttl");		
+		assertEquals(f.getText(), "\ntest1 has 2 times the namespace http://www.test-1.org/o#");
+
+		// one prefix -> same IRI multiple times + multiple IRIs
+		failures = executeCheck("CheckPrefixesReferToOneNamespace/Turtle_OnePrefixOneNamespaceMultipleTimes_02.ttl");
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
-		f = failures.get(0);
-		assertEquals("test1", f.getFailureElement());
-		assertEquals(Severity.INFO, f.getSeverity());
-		assertEquals(f.getText(),
-				"\ntest1 has 2 times the namespace http://www.test-1.org/o#");
-		f = failures.get(1);
-		assertEquals("test1", f.getFailureElement());
-		assertEquals(Severity.WARN, f.getSeverity());
-		assertEquals(f.getText(),
-				"\ntest1 has the 2 namespaces: [http://www.test-1.org/o#, http://www.test-2.org/o#]");
-		
-		failures =  executeCheck("Turtle_OnePrefixOneNamespaceMultipleTimes_03.ttl");		
+		assertTrue(TestUtil.contains(failures, "test1", "\ntest1 has 2 times the namespace http://www.test-1.org/o#",
+				Severity.INFO));
+		assertTrue(TestUtil.contains(failures, "test1",
+				"\ntest1 has the 2 namespaces: [http://www.test-1.org/o#, http://www.test-2.org/o#]", Severity.WARN));
+
+		// prefix a -> same IRI multiple times
+		// prefix b -> multiple IRIs
+		failures = executeCheck("CheckPrefixesReferToOneNamespace/Turtle_OnePrefixOneNamespaceMultipleTimes_03.ttl");
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
-		f = failures.get(1);
-		assertEquals("test1", f.getFailureElement());
-		assertEquals(Severity.INFO, f.getSeverity());
-		assertEquals(f.getText(),
-				"\ntest1 has 2 times the namespace http://www.test-1.org/o#");
-		f = failures.get(0);
-		assertEquals("test2", f.getFailureElement());
-		assertEquals(Severity.WARN, f.getSeverity());
-		assertEquals(f.getText(),
-				"\ntest2 has the 2 namespaces: [http://www.test-2.com/onto#, http://www.test-2.org/o#]");
+		assertTrue(TestUtil.contains(failures, "test1", "\ntest1 has 2 times the namespace http://www.test-1.org/o#",
+				Severity.INFO));
+		assertTrue(TestUtil.contains(failures, "test2",
+				"\ntest2 has the 2 namespaces: [http://www.test-2.com/onto#, http://www.test-2.org/o#]",
+				Severity.WARN));
 	}
 
 	@Test

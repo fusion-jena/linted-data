@@ -1,0 +1,6 @@
+PREFIX abc:<http://www.semanticweb.org/abc#>   #this is an unnecessary comment
+@prefix def:<http://www.semanticweb.org/def#> .
+PREFIX ghi:<http://www.semanticweb.org/ghi#>
+@prefix def:<http://www.semanticweb.org/jkl#>
+
+@prefix def:<http://www.semanticweb.org/mno#>.
