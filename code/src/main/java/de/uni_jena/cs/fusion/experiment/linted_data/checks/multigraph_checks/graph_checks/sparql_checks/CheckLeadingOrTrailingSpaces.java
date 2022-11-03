@@ -20,7 +20,7 @@ import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
  * <p>
  * \v also doesn't exist in SPARQL and is hence not checked
  */
-public class CheckLeadingOrTrailingSpaces extends SPARQLSelectCheck {
+public final class CheckLeadingOrTrailingSpaces extends SPARQLSelectCheck {
 
 	private static final String literal = "literal";
 	private static final String subject = "subject";
