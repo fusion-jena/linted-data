@@ -1,0 +1,16 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+@prefix ex: <http://example.org/>
+
+ex:a a rdf:Seq; 
+    rdf:_1 ex:a1 ; 
+    rdf:_2 ex:b2 .
+ex:b a rdf:Bag; 
+    rdf:_1 ex:b1 ;
+    rdf:_2 ex:b2 ;
+    rdf:_3 ex:b3 .
+ex:c a rdf:Alt; 
+    rdf:_1 ex:c1 .
+ex:d a rdf:Seq;  
+    rdf:_1 ex:d1 ; 
+    rdf:_2 ex:d2 .
