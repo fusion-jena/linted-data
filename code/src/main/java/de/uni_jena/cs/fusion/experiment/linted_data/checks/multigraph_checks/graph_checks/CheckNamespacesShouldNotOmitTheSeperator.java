@@ -14,21 +14,19 @@ import de.uni_jena.cs.fusion.experiment.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
 
 /**
- * prefix URIs should not omit the hash
- * 
- * collects all namespace definitions that don't end with a # or /
+ * Finds all namespace definitions where the IRI doesn't end with a # or /
  */
 public final class CheckNamespacesShouldNotOmitTheSeperator extends GraphCheck {
 
 	public CheckNamespacesShouldNotOmitTheSeperator() {
-		super(Level.MULTIGRAPH, TargetLanguage.RDFS, Severity.WARN, "namespaces should not omit the hash");
+		super(Level.MULTIGRAPH, TargetLanguage.RDFS, Severity.WARN, "Namespaces should not omit the seperator (#, /)");
 	}
 
 	@Override
 	public List<Failure> execute(Model model, String failureDescription) {
 		List<Failure> failures = new ArrayList<>();
 
-		// prefix URIs that omit the hash
+		// prefix URIs that omit / or #
 		Set<String> namespacesWithoutSeparator = new HashSet<String>();
 		Map<String, String> map = model.getNsPrefixMap();
 		for (String s : map.values()) {
@@ -42,7 +40,7 @@ public final class CheckNamespacesShouldNotOmitTheSeperator extends GraphCheck {
 		// for each namespace that omits the separator create a failure
 		for (String namespace : namespacesWithoutSeparator) {
 			Failure f = new Failure(name, severity, namespace,
-					failureDescription + "\nthe namespace " + namespace + " omits the seperator at the end");
+					failureDescription + "\nThe namespace " + namespace + " omits the seperator at the end");
 			failures.add(f);
 		}
 
