@@ -16,6 +16,11 @@ import de.uni_jena.cs.fusion.experiment.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
 import de.uni_jena.cs.fusion.experiment.linted_data.util.StringUtil;
 
+/**
+ * Check whether the lexical values of xsd:double and xsd:float can be exactly
+ * represented
+ *
+ */
 public class CheckLexicalRepresentationOfFloatingPointDatatypes extends GraphCheck {
 
 	public CheckLexicalRepresentationOfFloatingPointDatatypes() {
@@ -26,9 +31,10 @@ public class CheckLexicalRepresentationOfFloatingPointDatatypes extends GraphChe
 	@Override
 	public List<Failure> execute(Model model, String failureDescription) {
 		List<Failure> failures = new ArrayList<Failure>();
+
+		// iterate over all statements
 		StmtIterator statements = model.listStatements();
 		while (statements.hasNext()) {
-			// iterate over all statements
 			Statement statement = statements.next();
 			RDFNode object = statement.getObject();
 
@@ -44,12 +50,12 @@ public class CheckLexicalRepresentationOfFloatingPointDatatypes extends GraphChe
 			if (type.equals(XSDDatatype.XSDfloat)
 					&& !StringUtil.isPreciseRepresentableAsFloat(object.asLiteral().getLexicalForm())) {
 				Failure failure = new Failure(this.name, this.severity, object.asLiteral().toString(),
-						failureDescription + "\n" + statement.toString());
+						failureDescription + "\n" + statement.toString().replace("[", "").replace("]", "").replace(",", ""));
 				failures.add(failure);
 			} else if (type.equals(XSDDatatype.XSDdouble)
 					&& !StringUtil.isPreciseRepresentableAsDouble(object.asLiteral().getLexicalForm())) {
 				Failure failure = new Failure(this.name, this.severity, object.asLiteral().toString(),
-						failureDescription + "\n" + statement.toString().replace("[", "").replace("]", ""));
+						failureDescription + "\n" + statement.toString().replace("[", "").replace("]", "").replace(",", ""));
 				failures.add(failure);
 			}
 		}
