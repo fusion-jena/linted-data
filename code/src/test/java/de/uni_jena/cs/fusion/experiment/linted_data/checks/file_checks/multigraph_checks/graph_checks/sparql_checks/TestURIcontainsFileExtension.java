@@ -2,6 +2,7 @@ package de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.multigra
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckURIcontainsFileExtension;
+import de.uni_jena.cs.fusion.experiment.linted_data.util.TestUtil;
 
 /**
  * The file extension at the end of the function name indicates the file format
@@ -101,16 +103,11 @@ public class TestURIcontainsFileExtension {
 		List<Failure> failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
-		Failure f = failures.get(0);
-		assertEquals("http://my-example.org/test.trig#property-a", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://my-example.org/test.trig#property-a contains the file extension trig",
-				f.getText());
-		f = failures.get(1);
-		assertEquals("http://my-example.org/test.trig/individual-1", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://my-example.org/test.trig/individual-1 contains the file extension trig",
-				f.getText());
+		assertTrue(TestUtil.contains(failures, "http://my-example.org/test.trig#property-a", "\nFile: " + file.getPath()
+				+ "\nModel: Default Model\nhttp://my-example.org/test.trig#property-a contains the file extension trig"));
+		assertTrue(TestUtil.contains(failures, "http://my-example.org/test.trig/individual-1", "\nFile: "
+				+ file.getPath()
+				+ "\nModel: Default Model\nhttp://my-example.org/test.trig/individual-1 contains the file extension trig"));
 	}
 
 	@Test
@@ -121,21 +118,14 @@ public class TestURIcontainsFileExtension {
 		List<Failure> failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(3, failures.size());
-		Failure f = failures.get(1);
-		assertEquals("http://my-example.org/test.rpb#individual-1", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://my-example.org/test.rpb#individual-1 contains the file extension rpb",
-				f.getText());
-		f = failures.get(0);
-		assertEquals("http://my-example.org/test.rpb#property-b", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://my-example.org/test.rpb#property-b contains the file extension rpb",
-				f.getText());
-		f = failures.get(2);
-		assertEquals("http://my-example.org/test.rpb#individual-2", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://my-example.org/test.rpb#individual-2 contains the file extension rpb",
-				f.getText());
+		assertTrue(TestUtil.contains(failures, "http://my-example.org/test.rpb#individual-1", "\nFile: "
+				+ file.getPath()
+				+ "\nModel: Default Model\nhttp://my-example.org/test.rpb#individual-1 contains the file extension rpb"));
+		assertTrue(TestUtil.contains(failures, "http://my-example.org/test.rpb#property-b", "\nFile: " + file.getPath()
+				+ "\nModel: Default Model\nhttp://my-example.org/test.rpb#property-b contains the file extension rpb"));
+		assertTrue(TestUtil.contains(failures, "http://my-example.org/test.rpb#individual-2", "\nFile: "
+				+ file.getPath()
+				+ "\nModel: Default Model\nhttp://my-example.org/test.rpb#individual-2 contains the file extension rpb"));
 	}
 
 	@Test
@@ -146,17 +136,11 @@ public class TestURIcontainsFileExtension {
 		List<Failure> failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
-		Failure f = failures.get(1);
-		assertEquals("http://www.city.ac.uk/ds/inm713/gr.pbrdf#pizza-423", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.pbrdf#pizza-423 contains the file extension pbrdf",
-				f.getText());
-		f = failures.get(0);
-		assertEquals("http://my-example.org/test.rpb#property-b", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://my-example.org/test.rpb#property-b contains the file extension rpb",
-				f.getText());
-
+		assertTrue(TestUtil.contains(failures, "http://www.city.ac.uk/ds/inm713/gr.pbrdf#pizza-423", "\nFile: "
+				+ file.getPath()
+				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.pbrdf#pizza-423 contains the file extension pbrdf"));
+		assertTrue(TestUtil.contains(failures, "http://my-example.org/test.rpb#property-b", "\nFile: " + file.getPath()
+				+ "\nModel: Default Model\nhttp://my-example.org/test.rpb#property-b contains the file extension rpb"));
 	}
 
 	@Test
@@ -167,42 +151,26 @@ public class TestURIcontainsFileExtension {
 		List<Failure> failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
-		Failure f = failures.get(1);
-		assertEquals("http://my-example.org/test.nq#pizza", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://my-example.org/test.nq#pizza contains the file extension nq",
-				f.getText());
-		f = failures.get(0);
-		assertEquals("http://my-example.org/test.nq/individual-1", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-		+ "\nModel: Default Model\nhttp://my-example.org/test.nq/individual-1 contains the file extension nq",
-		f.getText());
-		
+		assertTrue(TestUtil.contains(failures, "http://my-example.org/test.nq#pizza", "\nFile: " + file.getPath()
+				+ "\nModel: Default Model\nhttp://my-example.org/test.nq#pizza contains the file extension nq"));
+		assertTrue(TestUtil.contains(failures, "http://my-example.org/test.nq/individual-1", "\nFile: " + file.getPath()
+				+ "\nModel: Default Model\nhttp://my-example.org/test.nq/individual-1 contains the file extension nq"));
 	}
 
 	@Test
-	void URIcontains_rt() throws Exception{
+	void URIcontains_rt() throws Exception {
 		// rt in subject, predicate and object iri
 		File file = new File(this.getClass().getClassLoader()
 				.getResource("CheckURIcontainsFileExtension/URIcontains_rt_01.nt").getFile());
 		List<Failure> failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(3, failures.size());
-		Failure f = failures.get(2);
-		assertEquals("http://my-example.org#testr.rt#pizza", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://my-example.org#testr.rt#pizza contains the file extension rt",
-				f.getText());
-		f = failures.get(0);
-		assertEquals("http://my-example.org/test.rt/individual-1", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://my-example.org/test.rt/individual-1 contains the file extension rt",
-				f.getText());
-		f = failures.get(1);
-		assertEquals("http://example.rt/test#property-b", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-		+ "\nModel: Default Model\nhttp://example.rt/test#property-b contains the file extension rt",
-		f.getText());
+		assertTrue(TestUtil.contains(failures, "http://my-example.org#testr.rt#pizza", "\nFile: " + file.getPath()
+						+ "\nModel: Default Model\nhttp://my-example.org#testr.rt#pizza contains the file extension rt"));
+		assertTrue(TestUtil.contains(failures, "http://my-example.org/test.rt/individual-1", "\nFile: " + file.getPath()
+				+ "\nModel: Default Model\nhttp://my-example.org/test.rt/individual-1 contains the file extension rt"));
+		assertTrue(TestUtil.contains(failures, "http://example.rt/test#property-b", "\nFile: " + file.getPath()
+						+ "\nModel: Default Model\nhttp://example.rt/test#property-b contains the file extension rt"));
 	}
 
 	@Test
@@ -213,16 +181,10 @@ public class TestURIcontainsFileExtension {
 		List<Failure> failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
-		Failure f = failures.get(0);
-		assertEquals("http://www.city.ac.uk/ds/inm713/gr.trdf#pizza-423", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.trdf#pizza-423 contains the file extension trdf",
-				f.getText());
-		f = failures.get(1);
-		assertEquals("http://my-example.org/test.rpb#property-b", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://my-example.org/test.rpb#property-b contains the file extension rpb",
-				f.getText());
+		assertTrue(TestUtil.contains(failures, "http://www.city.ac.uk/ds/inm713/gr.trdf#pizza-423", "\nFile: " + file.getPath()
+				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.trdf#pizza-423 contains the file extension trdf"));
+		assertTrue(TestUtil.contains(failures, "http://my-example.org/test.rpb#property-b", "\nFile: " + file.getPath()
+				+ "\nModel: Default Model\nhttp://my-example.org/test.rpb#property-b contains the file extension rpb"));
 	}
 
 	@Test
@@ -241,7 +203,7 @@ public class TestURIcontainsFileExtension {
 	}
 
 	@Test
-	void URIcontains_shc() throws Exception{
+	void URIcontains_shc() throws Exception {
 		// shc in predicate URI
 		File file = new File(this.getClass().getClassLoader()
 				.getResource("CheckURIcontainsFileExtension/URIcontains_shc_01.nt").getFile());
