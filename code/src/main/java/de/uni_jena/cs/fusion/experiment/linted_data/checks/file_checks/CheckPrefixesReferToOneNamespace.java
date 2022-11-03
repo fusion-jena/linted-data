@@ -30,7 +30,7 @@ import de.uni_jena.cs.fusion.experiment.linted_data.util.FileUtil;
  * these are standardised by the W3C, support prefixes and the document is valid
  * although a prefix is defined more than once
  */
-public class CheckPrefixesReferToOneNamespace extends FileCheck {
+public final class CheckPrefixesReferToOneNamespace extends FileCheck {
 
 	private static final List<Lang> languages = Arrays.asList(RDFLanguages.TURTLE, RDFLanguages.TRIG,
 			RDFLanguages.JSONLD, RDFLanguages.JSONLD10, RDFLanguages.JSONLD11);
