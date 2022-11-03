@@ -19,14 +19,14 @@ import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
  * {@link https://stackoverflow.com/questions/72434963/validating-rdfseq-with-sparql/}
  *
  */
-public class CheckRDFcontainers extends SPARQLSelectCheck {
+public final class CheckRDFcontainers extends SPARQLSelectCheck {
 
 	public CheckRDFcontainers() {
 		// SPARQL query from
 		// https://stackoverflow.com/questions/72434963/validating-rdfseq-with-sparql/72449757#72449757
 		super(Level.SPARQL, TargetLanguage.RDFS, Severity.WARN,
 				"The RDF container uses  one of illegal, repeated, missed out index numbers",
-				new File(CheckRDFcontainers.class.getClassLoader().getResource("CheckRDFContainers.rq").getPath()));
+				new File(CheckRDFcontainers.class.getClassLoader().getResource("CheckRDFcontainers.rq").getPath()));
 	}
 
 	@Override
@@ -35,14 +35,15 @@ public class CheckRDFcontainers extends SPARQLSelectCheck {
 
 		while (rs.hasNext()) {
 			QuerySolution qs = rs.next();
-			String text = "\n" + qs.get("container").toString() + " " + qs.get("containerMembershipProperty").toString()
+			String text = "\n" + qs.get("error").toString() + " in " + qs.get("container").toString() + " " + qs.get("containerMembershipProperty").toString()
 					+ " " + qs.get("item").toString();
-			Failure failure = new Failure(qs.get("error").toString(), this.severity, qs.get("item").toString(),
+			Failure failure = new Failure(name, this.severity, qs.get("item").toString(),
 					failureDescription + text);
 			failures.add(failure);
 		}
 
 		return failures;
 	}
+	
 
 }

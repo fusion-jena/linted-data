@@ -1,0 +1,36 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?container ?containerMembershipProperty ?item ?error WHERE {
+  {
+    ?container a rdf:Seq .
+  } UNION {
+    ?container a rdf:Bag .
+  } UNION {
+    ?container a rdf:Alt .
+  }
+  {
+    BIND("Duplicated Index" AS ?error)
+    ?container ?containerMembershipProperty ?item .
+    FILTER strstarts(str(?containerMembershipProperty),"http://www.w3.org/1999/02/22-rdf-syntax-ns#_")
+    FILTER EXISTS {
+      ?container ?containerMembershipProperty ?item2 .
+      FILTER (?item!=?item2)
+    }
+  } UNION {
+    BIND("Missing Predecessor" AS ?error)
+    ?container ?containerMembershipProperty ?item .
+    BIND(xsd:integer(STRAFTER(STR(?containerMembershipProperty),"http://www.w3.org/1999/02/22-rdf-syntax-ns#_")) - 1 AS ?index)
+    BIND(IRI(CONCAT("http://www.w3.org/1999/02/22-rdf-syntax-ns#_", STR(?index))) AS ?previousContainerMembershipProperty)
+    FILTER (?index >= 1)
+    FILTER NOT EXISTS {
+      ?container ?previousContainerMembershipProperty ?item3
+    }
+  } UNION {
+    BIND("Illegal Index" AS ?error)
+    ?container ?containerMembershipProperty ?item .
+    BIND(xsd:integer(STRAFTER(STR(?containerMembershipProperty),"http://www.w3.org/1999/02/22-rdf-syntax-ns#_")) AS ?index)
+    FILTER (?index < 1)
+  }
+}
+ORDER BY ?container ?containerMembershipProperty ?item
