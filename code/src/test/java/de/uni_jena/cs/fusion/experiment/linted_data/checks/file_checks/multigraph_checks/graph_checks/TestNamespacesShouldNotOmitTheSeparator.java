@@ -2,6 +2,7 @@ package de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.multigra
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.CheckNamespacesShouldNotOmitTheSeperator;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.Severity;
+import de.uni_jena.cs.fusion.experiment.linted_data.util.TestUtil;
 
 public class TestNamespacesShouldNotOmitTheSeparator {
 	
@@ -67,6 +69,11 @@ public class TestNamespacesShouldNotOmitTheSeparator {
 		assertEquals(0, failures.size());
 	}
 	
+	/**
+	 * named and default model
+	 * <p>
+	 * some namespace IRIs don't end with # or /
+	 */
 	@Test
 	public void namespacesOmitTheSeperator_1() {
 		Model model = ModelFactory.createDefaultModel();
@@ -80,7 +87,7 @@ public class TestNamespacesShouldNotOmitTheSeparator {
 		Failure f = failures.get(0);
 		assertEquals(Severity.WARN, f.getSeverity());
 		assertEquals("http://www.w3.org/2004/02/skos/core", f.getFailureElement());
-		assertEquals("\nthe namespace http://www.w3.org/2004/02/skos/core omits the seperator at the end", f.getText());
+		assertEquals("\nThe namespace http://www.w3.org/2004/02/skos/core omits the seperator at the end", f.getText());
 		
 		model = ModelFactory.createMemModelMaker().createModel("model2");
 		res = model.createResource("http://purl.obolibrary.org/obo/ncbitaxon/subsets/taxslim#JohnSmith");
@@ -97,9 +104,14 @@ public class TestNamespacesShouldNotOmitTheSeparator {
 		f = failures.get(0);
 		assertEquals(Severity.WARN, f.getSeverity());
 		assertEquals("http://www.w3.org/2004/02/skos/core", f.getFailureElement());
-		assertEquals("\nthe namespace http://www.w3.org/2004/02/skos/core omits the seperator at the end", f.getText());
+		assertEquals("\nThe namespace http://www.w3.org/2004/02/skos/core omits the seperator at the end", f.getText());
 	}
 	
+	/**
+	 * default model
+	 * <p>
+	 * some namespace IRIs don't end with # or /
+	 */
 	@Test
 	public void namespacesOmitHash_2() {
 		Model model = ModelFactory.createDefaultModel();
@@ -116,7 +128,7 @@ public class TestNamespacesShouldNotOmitTheSeparator {
 		Failure f = failures.get(0);
 		assertEquals(Severity.WARN, f.getSeverity());
 		assertEquals("http://www.w3.org/2004/02/skos/core", f.getFailureElement());
-		assertEquals("\nthe namespace http://www.w3.org/2004/02/skos/core omits the seperator at the end", f.getText());
+		assertEquals("\nThe namespace http://www.w3.org/2004/02/skos/core omits the seperator at the end", f.getText());
 				
 		model = ModelFactory.createDefaultModel();
 		res = model.createResource("http://my-test.com/onto#JohnSmith");
@@ -132,9 +144,16 @@ public class TestNamespacesShouldNotOmitTheSeparator {
 		f = failures.get(0);
 		assertEquals(Severity.WARN, f.getSeverity());
 		assertEquals("http://www.w3.org/2001/vcard-rdf/3.0", f.getFailureElement());
-		assertEquals("\nthe namespace http://www.w3.org/2001/vcard-rdf/3.0 omits the seperator at the end", f.getText());
+		assertEquals("\nThe namespace http://www.w3.org/2001/vcard-rdf/3.0 omits the seperator at the end", f.getText());
 	}
 	
+	/**
+	 * default model
+	 * <p>
+	 * some namespace IRIs don't end with # or /
+	 * <p>
+	 * more than one failure
+	 */
 	@Test
 	public void namespacesOmitHash_3() {
 		Model model = ModelFactory.createDefaultModel();
@@ -152,14 +171,8 @@ public class TestNamespacesShouldNotOmitTheSeparator {
 		List<Failure> failures = check.execute(model, "");
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
-		Failure f = failures.get(0);
-		assertEquals(Severity.WARN, f.getSeverity());
-		assertEquals("http://example.com", f.getFailureElement());
-		assertEquals("\nthe namespace http://example.com omits the seperator at the end", f.getText());
-		f = failures.get(1);
-		assertEquals(Severity.WARN, f.getSeverity());
-		assertEquals("http://www.w3.org/2004/02/skos/core", f.getFailureElement());
-		assertEquals("\nthe namespace http://www.w3.org/2004/02/skos/core omits the seperator at the end", f.getText());
+		assertTrue(TestUtil.contains(failures, "http://example.com", "\nThe namespace http://example.com omits the seperator at the end", Severity.WARN));
+		assertTrue(TestUtil.contains(failures, "http://www.w3.org/2004/02/skos/core", "\nThe namespace http://www.w3.org/2004/02/skos/core omits the seperator at the end", Severity.WARN));
 	}
 	
 }

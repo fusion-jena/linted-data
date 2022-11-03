@@ -36,7 +36,7 @@ public final class CheckNamespacesShouldNotOmitTheSeperator extends GraphCheck {
 				namespacesWithoutSeparator.add(s);
 			}
 		}
-		
+
 		// for each namespace that omits the separator create a failure
 		for (String namespace : namespacesWithoutSeparator) {
 			Failure f = new Failure(name, severity, namespace,
