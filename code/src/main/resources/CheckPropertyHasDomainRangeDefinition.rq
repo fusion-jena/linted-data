@@ -1,0 +1,24 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?property ?error
+WHERE {
+  {
+    SELECT ?property ?domainMissing ?rangeMissing
+    WHERE {
+      {?property a owl:ObjectProperty.} UNION {?property a owl:DatatypeProperty.}.
+      # check for the absence of a domain and range definition
+      BIND (NOT EXISTS {?property rdfs:domain ?d} AS ?domainMissing ).
+      BIND (NOT EXISTS {?property rdfs:range ?r} AS ?rangeMissing).
+      # select all properties where at least one of them is missing
+      FILTER (?domainMissing || ?rangeMissing).
+    }
+  }
+  # bind the error message to the variable
+  BIND(
+    IF(?domainMissing && ?rangeMissing, "has no domain and range defined",
+    IF(?domainMissing, "has no domain defined",
+    "has no range defined"))
+    AS ?error).
+}
