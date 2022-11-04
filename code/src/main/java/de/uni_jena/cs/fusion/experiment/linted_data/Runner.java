@@ -21,6 +21,7 @@ import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.gra
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckInverseRelationshipForSymmetricProperty;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckLeadingOrTrailingSpaces;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckLicenseDeclared;
+import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckPropertyHasMissingDomainRangeDefinition;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRDFcontainers;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckSelfInverseProperty;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckURIcontainsFileExtension;
@@ -149,6 +150,7 @@ public class Runner {
 		allChecks.add(new CheckInverseRelationshipForSymmetricProperty());
 		allChecks.add(new CheckSelfInverseProperty());
 		allChecks.add(new CheckURIcontainsFileExtension());
+		allChecks.add(new CheckPropertyHasMissingDomainRangeDefinition());
 		return allChecks;
 	}
 
