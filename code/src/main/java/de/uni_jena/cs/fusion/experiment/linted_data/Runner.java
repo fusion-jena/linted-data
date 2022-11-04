@@ -16,6 +16,7 @@ import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Testsuite;
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.TestsuiteManager;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.CheckPrefixesReferToOneNamespace;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.FileCheck;
+import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.CheckSeveralClassesWithTheSameLabel;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.CheckLexicalRepresentationOfFloatingPointDatatypes;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.CheckNamespacesShouldNotOmitTheSeperator;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckInverseRelationshipForSymmetricProperty;
@@ -149,6 +150,7 @@ public class Runner {
 		allChecks.add(new CheckInverseRelationshipForSymmetricProperty());
 		allChecks.add(new CheckSelfInverseProperty());
 		allChecks.add(new CheckURIcontainsFileExtension());
+		allChecks.add(new CheckSeveralClassesWithTheSameLabel());
 		return allChecks;
 	}
 
