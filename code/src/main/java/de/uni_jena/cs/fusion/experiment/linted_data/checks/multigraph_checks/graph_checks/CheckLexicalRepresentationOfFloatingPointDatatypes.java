@@ -21,7 +21,7 @@ import de.uni_jena.cs.fusion.experiment.linted_data.util.StringUtil;
  * represented
  *
  */
-public class CheckLexicalRepresentationOfFloatingPointDatatypes extends GraphCheck {
+public final class CheckLexicalRepresentationOfFloatingPointDatatypes extends GraphCheck {
 
 	public CheckLexicalRepresentationOfFloatingPointDatatypes() {
 		super(Level.GRAPH, TargetLanguage.RDFS, Severity.WARN,
