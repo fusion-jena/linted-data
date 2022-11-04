@@ -1,0 +1,4 @@
+<http://my-example.org/class-a> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class>.
+<http://my-example.org/pizza-23> <http://my-example.org/e0bce6f5-d21b-412f-a339-f331bc007f66-234u90_vcdx9u> <http://my-example.org/topping-1> .
+<http://my-example.org/pizza-23> <http://my-example.org/e0bce6f5-d21b-412f-a339-f331bc007f66-234u90_vcdx9u> <http://my-example.org/topping-34> .
+<http://my-example.org/pizza-47> <http://my-example.org/e0bce6f5-d21b-412f-a339-f331bc007f66-234u90_vcdx9u> <http://my-example.org/topping-45> .

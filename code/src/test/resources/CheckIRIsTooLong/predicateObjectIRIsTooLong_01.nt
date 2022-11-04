@@ -1,0 +1,4 @@
+<http://example.org#individual-1> <http://example.org#property-longIdentifier-9e7deb50-7329-435a> "long text:\nfc2bc4da-0464-4a64-8d5d-42b2162d2dfe\te0bce6f5-d21b-412f-a339-f331bc007f66".
+<http://my-example.org/individual-12> <http://my-example.org/long-identifier-property-975d-c71480600f3a> <http://my-example.org/individual-6d573906-de16-4790-b65f-76d9448dfc47>.
+<http://my-example.org/class-a> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class>.
+<http://example.org#individual-1> <http://example.org#relation> <http://my-example.org/individual-2a652854-8974-47d5-8760-d53b65a6000d> . 

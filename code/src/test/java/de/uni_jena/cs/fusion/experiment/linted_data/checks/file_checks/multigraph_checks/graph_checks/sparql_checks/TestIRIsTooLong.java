@@ -2,9 +2,9 @@ package de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.multigra
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
 import java.util.List;
 
-import org.apache.jena.ontology.DatatypeProperty;
 import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
@@ -15,18 +15,24 @@ import org.junit.jupiter.api.Test;
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckIRIsTooLong;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.Severity;
+import de.uni_jena.cs.fusion.experiment.linted_data.util.TestUtil;
 
 class TestIRIsTooLong {
+
+	private CheckIRIsTooLong check = new CheckIRIsTooLong();
+
+	private List<Failure> executeCheck(String path) {
+		return check.execute(new File(this.getClass().getClassLoader().getResource(path).getFile()), "");
+	}
 
 	/**
 	 * all IRIs have a local name with less than 30 characters
 	 */
 	@Test
 	void noIRITooLong() {
-		CheckIRIsTooLong check = new CheckIRIsTooLong();
-
 		OntModel model = ModelFactory.createOntologyModel();
 		model.createOntProperty("http://my-example.org/property-1_NAME");
+		model.createDatatypeProperty("http://my-example.org#6d573906-de16-4790-b65f-76d9448dfc47");
 		List<Failure> failures = check.execute(model, "");
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
@@ -56,168 +62,144 @@ class TestIRIsTooLong {
 		assertEquals(0, failures.size());
 	}
 
+	/**
+	 * only IRIs at the subject position have a local name with more than 36
+	 * characters
+	 */
 	@Test
-	void classIRIsTooLong() {
-		CheckIRIsTooLong check = new CheckIRIsTooLong();
-
-		OntModel model = ModelFactory.createOntologyModel();
-		model.createOntProperty("http://my-example.org/property-1_NAME");
-		model.createOntProperty("http://cerrado.linkeddata.es/ecology/ccon#affects");
-		model.createClass("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16632");
-		OntClass c1 = model.createClass("http://my-example.org/very-long-class-name_that+will_create_a_failure");
-		c1.createIndividual("http://example.com#inidvidual-1");
-		model.createClass("http://example.org#this_lokal-n4m3-15-t00-l0ng_12345678123456789");
-		List<Failure> failures = check.execute(model, "");
+	void subjectIRIsTooLong() {
+		List<Failure> failures = executeCheck("CheckIRIsTooLong/subjectIRIsTooLong_01.nt");
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
-		Failure f = failures.get(1);
-		assertEquals(Severity.INFO, f.getSeverity());
-		assertEquals("http://my-example.org/very-long-class-name_that+will_create_a_failure", f.getFailureElement());
-		assertEquals(
-				"\nhttp://my-example.org/very-long-class-name_that+will_create_a_failure has a local name that has 17 more characters than 30",
-				f.getText());
-		f = failures.get(0);
-		assertEquals(Severity.INFO, f.getSeverity());
-		assertEquals("http://example.org#this_lokal-n4m3-15-t00-l0ng_12345678123456789", f.getFailureElement());
-		assertEquals(
-				"\nhttp://example.org#this_lokal-n4m3-15-t00-l0ng_12345678123456789 has a local name that has 15 more characters than 30",
-				f.getText());
+		assertTrue(TestUtil.contains(failures,
+				"http://my-example.org/this_is_änother+long+identifier-just-to-test_foo_bar",
+				"\nModel: Default Model\nhttp://my-example.org/this_is_änother+long+identifier-just-to-test_foo_bar has a local name that has "
+						+ 16 + " more characters than 36",
+				Severity.INFO));
+		assertTrue(TestUtil.contains(failures, "http://my-example.org/very-long-class-name_that+will_create_a_failure",
+				"\nModel: Default Model\nhttp://my-example.org/very-long-class-name_that+will_create_a_failure has a local name that has "
+						+ 11 + " more characters than 36",
+				Severity.INFO));
 	}
 
 	/**
-	 * IRIs of properties are too long
+	 * only IRIs at the predicate position have a local name with more than 36
+	 * characters
 	 */
 	@Test
-	void propertyIRIsTooLong() {
-		CheckIRIsTooLong check = new CheckIRIsTooLong();
-
-		OntModel model = ModelFactory.createOntologyModel();
-		model.createProperty("http://my-example.org/property-1_NAME");
-		model.createOntProperty("http://my-example.org/property-1ü-has-a*long_NAME-when-adding:more_characters");
-		assertNotNull(
-				model.getProperty("http://my-example.org/property-1ü-has-a*long_NAME-when-adding:more_characters"));
-		model.createOntProperty("http://cerrado.linkeddata.es/ecology/ccon#affects");
-		model.createSymmetricProperty("http://example.org#ä-symmetric-property:withALongLocaleName");
-		model.createSymmetricProperty("http://example.org#ä-symmetric-property");
-		DatatypeProperty dp = model
-				.createDatatypeProperty("http://example.org#my-one-and-only-dataproperty-thats-too+long");
-		dp.addDomain(model.createClass("http://purl.obolibrary.org/obo/NCBITaxon_9606"));
-		OntClass c1 = model.createClass("http://my-example.org/class-a");
-		c1.createIndividual("http://exämple.com#individual-nr-1");
-
-		List<Failure> failures = check.execute(model, "");
+	void predicateIRIsTooLong() {
+		List<Failure> failures = executeCheck("CheckIRIsTooLong/predicateIRIsTooLong_01.nt");
 		assertNotNull(failures);
-		assertEquals(3, failures.size());
-		Failure f = failures.get(1);
-		assertEquals(Severity.INFO, f.getSeverity());
-		assertEquals("http://example.org#my-one-and-only-dataproperty-thats-too+long", f.getFailureElement());
+		assertEquals(1, failures.size());
+		Failure f = failures.get(0);
+		assertEquals("http://my-example.org/e0bce6f5-d21b-412f-a339-f331bc007f66-234u90_vcdx9u", f.getFailureElement());
 		assertEquals(
-				"\nhttp://example.org#my-one-and-only-dataproperty-thats-too+long has a local name that has 13 more characters than 30",
-				f.getText());
-		f = failures.get(0);
-		assertEquals(Severity.INFO, f.getSeverity());
-		assertEquals("http://example.org#ä-symmetric-property:withALongLocaleName", f.getFailureElement());
-		assertEquals(
-				"\nhttp://example.org#ä-symmetric-property:withALongLocaleName has a local name that has 10 more characters than 30",
-				f.getText());
-		f = failures.get(2);
-		assertEquals(Severity.INFO, f.getSeverity());
-		assertEquals("http://my-example.org/property-1ü-has-a*long_NAME-when-adding:more_characters",
-				f.getFailureElement());
-		assertEquals(
-				"\nhttp://my-example.org/property-1ü-has-a*long_NAME-when-adding:more_characters has a local name that has 25 more characters than 30",
+				"\nModel: Default Model\nhttp://my-example.org/e0bce6f5-d21b-412f-a339-f331bc007f66-234u90_vcdx9u has a local name that has "
+						+ 14 + " more characters than 36",
 				f.getText());
 	}
 
 	/**
-	 * IRIs of individuals are too long
+	 * only IRIs at the object position have a local name with more than 36
+	 * characters
 	 */
 	@Test
-	void individualIRIsTooLong() {
-		CheckIRIsTooLong check = new CheckIRIsTooLong();
-
-		OntModel model = ModelFactory.createOntologyModel();
-		OntProperty p = model.createOntProperty("http://my-example.org/property-1_NAME");
-		OntClass c1 = model.createClass("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16632");
-		c1.addLabel("Geographic Area", "en");
-		Individual i = c1.createIndividual("http://my-example.org/inidivudal-nö-1_having_a_longL483l987654321");
-		i.addComment("First Individual that contains a verry long text for no reason", "en");
-		OntClass c2 = model.createClass("http://cerrado.linkeddata.es/ecology/ccon#Temperature");
-		c2.createIndividual("http://example.com#i-nd-ivi-dual-2-ö-adding+more:characters");
-		p.addDomain(c1);
-		p.addRange(c2);
-		i.setPropertyValue(p, i);
-		c2.createIndividual("http://my-example.com#Q345");
-
-		List<Failure> failures = check.execute(model, "");
+	void objectIRIsTooLong() {
+		List<Failure> failures = executeCheck("CheckIRIsTooLong/objectIRIsTooLong_01.nt");
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
-		Failure f = failures.get(1);
-		assertEquals(Severity.INFO, f.getSeverity());
-		assertEquals("http://my-example.org/inidivudal-nö-1_having_a_longL483l987654321", f.getFailureElement());
-		assertEquals(
-				"\nhttp://my-example.org/inidivudal-nö-1_having_a_longL483l987654321 has a local name that has 13 more characters than 30",
-				f.getText());
-		f = failures.get(0);
-		assertEquals(Severity.INFO, f.getSeverity());
-		assertEquals("http://example.com#i-nd-ivi-dual-2-ö-adding+more:characters", f.getFailureElement());
-		assertEquals(
-				"\nhttp://example.com#i-nd-ivi-dual-2-ö-adding+more:characters has a local name that has 10 more characters than 30",
-				f.getText());
+		assertTrue(TestUtil.contains(failures,
+				"http://my-example.org#9e7deb50-7329-435a-975d-c71480600f3a-12a-3d4-5e6-7f8-9g",
+				"\nModel: Default Model\nhttp://my-example.org#9e7deb50-7329-435a-975d-c71480600f3a-12a-3d4-5e6-7f8-9g has a local name that has "
+						+ 19 + " more characters than 36"));
+		assertTrue(TestUtil.contains(failures, "http://my-example.org#very-long-object-identifier-to-test_theValidator",
+				"\nModel: Default Model\nhttp://my-example.org#very-long-object-identifier-to-test_theValidator has a local name that has "
+						+ 12 + " more characters than 36"));
 	}
 
 	/**
-	 * class, property and individual IRIs are too long
+	 * some of the local names at subject and predicate position are longer than 36
+	 * characters
 	 */
 	@Test
-	void allIRIsTooLong() {
-		CheckIRIsTooLong check = new CheckIRIsTooLong();
+	void subjectPredicateIRIsTooLong() {
+		List<Failure> failures = executeCheck("CheckIRIsTooLong/subjectPredicateIRIsTooLong_01.nt");
+		assertNotNull(failures);
+		assertEquals(2, failures.size());
+		assertTrue(TestUtil.contains(failures, "http://bar.org/f00-bar-f00-bar-f00-bar-147852369-erdfcv",
+				"\nModel: Default Model\nhttp://bar.org/f00-bar-f00-bar-f00-bar-147852369-erdfcv has a local name that has "
+						+ 4 + " more characters than 36",
+				Severity.INFO));
+		assertTrue(TestUtil.contains(failures, "http://foo.com#class-0b5f8258-6ba0-4887-9843-7c630a06ecea",
+				"\nModel: Default Model\nhttp://foo.com#class-0b5f8258-6ba0-4887-9843-7c630a06ecea has a local name that has "
+						+ 6 + " more characters than 36",
+				Severity.INFO));
+	}
 
-		OntModel model = ModelFactory.createOntologyModel();
-		model.createOntProperty("http://my-example.org/property-1_NAME+w1th-ä-löng:locale:name");
-		OntProperty p = model.createOntProperty("http://cerrado.linkeddata.es/ecology/ccon#affects");
-		OntClass c1 = model.createClass("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16632");
-		c1.addLabel("Geographic Area", "en");
-		OntClass c2 = model.createClass("http://cerrado.linkeddata.es/ecology/ccon#Temperature");
-		p.hasDomain(c2);
-		p.hasRange(c1);
-		OntClass c3 = model.createClass("http://my-example.org/very-long-class-name_that+will_create_a_failure");
-		model.add(c1, model.createDatatypeProperty("http://purl.obolibrary.org/obo/IAO_0000004"),
-				"Some long nonsense name that is longer than 30 characters");
-		model.createDatatypeProperty("http://example.com#datatypepropertythathasaverylongname5665");
-		Individual i1 = c1.createIndividual("http://example.com#inidvidual-1");
-		i1.addComment("This is an individual for testing", null);
-		Individual i2 = c2.createIndividual("http://example.com#Inidvidual-115");
-		i2.addProperty(p, i1);
-		c3.createIndividual("http://foo.bar#individual-with-a-very-long-locale--name:1234");
-
-		List<Failure> failures = check.execute(model, "");
+	/**
+	 * some of the local names at subject and object position are longer than 36
+	 * characters
+	 */
+	@Test
+	void subjectObjectIRIsTooLong() {
+		List<Failure> failures = executeCheck("CheckIRIsTooLong/subjectObjectIRIsTooLong_01.nt");
 		assertNotNull(failures);
 		assertEquals(4, failures.size());
-		Failure f = failures.get(2);
-		assertEquals(Severity.INFO, f.getSeverity());
-		assertEquals("http://my-example.org/property-1_NAME+w1th-ä-löng:locale:name", f.getFailureElement());
-		assertEquals(
-				"\nhttp://my-example.org/property-1_NAME+w1th-ä-löng:locale:name has a local name that has 9 more characters than 30",
-				f.getText());
-		f = failures.get(3);
-		assertEquals(Severity.INFO, f.getSeverity());
-		assertEquals("http://my-example.org/very-long-class-name_that+will_create_a_failure", f.getFailureElement());
-		assertEquals(
-				"\nhttp://my-example.org/very-long-class-name_that+will_create_a_failure has a local name that has 17 more characters than 30",
-				f.getText());
-		f = failures.get(0);
-		assertEquals(Severity.INFO, f.getSeverity());
-		assertEquals("http://example.com#datatypepropertythathasaverylongname5665", f.getFailureElement());
-		assertEquals(
-				"\nhttp://example.com#datatypepropertythathasaverylongname5665 has a local name that has 10 more characters than 30",
-				f.getText());
-		f = failures.get(1);
-		assertEquals(Severity.INFO, f.getSeverity());
-		assertEquals("http://foo.bar#individual-with-a-very-long-locale--name:1234", f.getFailureElement());
-		assertEquals(
-				"\nhttp://foo.bar#individual-with-a-very-long-locale--name:1234 has a local name that has 15 more characters than 30",
-				f.getText());
+		assertTrue(TestUtil.contains(failures, "http://foo.com#class-0b5f8258-6ba0-4887-9843-7c630a06ecea",
+				"\nModel: Default Model\nhttp://foo.com#class-0b5f8258-6ba0-4887-9843-7c630a06ecea has a local name that has "
+						+ 6 + " more characters than 36"));
+		assertTrue(TestUtil.contains(failures, "http://bar.org/ca23e303-8819-4652-individual-bb40-f7a7bd8fc342",
+				"\nModel: Default Model\nhttp://bar.org/ca23e303-8819-4652-individual-bb40-f7a7bd8fc342 has a local name that has "
+						+ 11 + " more characters than 36"));
+		assertTrue(TestUtil.contains(failures, "http://bar.org/test-441a62c7-8a8b-4d41-8cde-a6436af261b2",
+				"\nModel: Default Model\nhttp://bar.org/test-441a62c7-8a8b-4d41-8cde-a6436af261b2 has a local name that has "
+						+ 5 + " more characters than 36"));
+		assertTrue(TestUtil.contains(failures, "http://foo.com#üther-identifier-344de7f9-8dd5-4e68-b400-4819a6459f44",
+				"\nModel: Default Model\nhttp://foo.com#üther-identifier-344de7f9-8dd5-4e68-b400-4819a6459f44 has a local name that has "
+						+ 17 + " more characters than 36"));
+	}
+
+	/**
+	 * some of the IRIs at predicate and object position have more than 36
+	 * characters as local name
+	 */
+	@Test
+	void predicateObjectIRIsTooLong() {
+		List<Failure> failures = executeCheck("CheckIRIsTooLong/predicateObjectIRIsTooLong_01.nt");
+		assertNotNull(failures);
+		assertEquals(4, failures.size());
+		assertTrue(TestUtil.contains(failures, "http://example.org#property-longIdentifier-9e7deb50-7329-435a",
+				"\nModel: Default Model\nhttp://example.org#property-longIdentifier-9e7deb50-7329-435a has a local name that has "
+						+ 6 + " more characters than 36"));
+		assertTrue(TestUtil.contains(failures, "http://my-example.org/long-identifier-property-975d-c71480600f3a",
+				"\nModel: Default Model\nhttp://my-example.org/long-identifier-property-975d-c71480600f3a has a local name that has "
+						+ 6 + " more characters than 36"));
+		assertTrue(TestUtil.contains(failures, "http://my-example.org/individual-6d573906-de16-4790-b65f-76d9448dfc47",
+				"\nModel: Default Model\nhttp://my-example.org/individual-6d573906-de16-4790-b65f-76d9448dfc47 has a local name that has "
+						+ 11 + " more characters than 36"));
+		assertTrue(TestUtil.contains(failures, "http://my-example.org/individual-2a652854-8974-47d5-8760-d53b65a6000d",
+				"\nModel: Default Model\nhttp://my-example.org/individual-2a652854-8974-47d5-8760-d53b65a6000d has a local name that has "
+						+ 11 + " more characters than 36"));
+	}
+
+	/**
+	 * IRIs at all three positions are too long
+	 */
+	@Test
+	void subjectPredicateObjectIRIsTooLong() {
+		List<Failure> failures = executeCheck("CheckIRIsTooLong/subjectPredicateObjectIRIsTooLong_01.nt");
+		assertNotNull(failures);
+		assertEquals(3, failures.size());
+		assertTrue(TestUtil.contains(failures, "http://my-example.org#very-long-object-identifier-to-test_theValidator",
+				"\nModel: Default Model\nhttp://my-example.org#very-long-object-identifier-to-test_theValidator has a local name that has "
+						+ 12 + " more characters than 36"));
+		assertTrue(TestUtil.contains(failures, "http://my-example.org/very-long-class-name_that+will_create_a_failure",
+				"\nModel: Default Model\nhttp://my-example.org/very-long-class-name_that+will_create_a_failure has a local name that has "
+						+ 11 + " more characters than 36"));
+		assertTrue(TestUtil.contains(failures, "http://my-example.org/2a652854-8974-47d5-8760-d53b65a6000d1",
+				"\nModel: Default Model\nhttp://my-example.org/2a652854-8974-47d5-8760-d53b65a6000d1 has a local name that has "
+						+ 1 + " more characters than 36"));
+
 	}
 
 }

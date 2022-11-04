@@ -1,0 +1,4 @@
+<http://my-example.org/very-long-class-name_that+will_create_a_failure> <http://my-example.org/identifier> "This text is ridiculous. It contains more than 36 characters and has no information."^^<http://www.w3.org/2001/XMLSchema#string>.
+<http://my-example.org/this_is_änother+long+identifier-just-to-test_foo_bar> <http://my-example.org/property-foo> <http://my-example.org/7f3baedd-3526-422b-870e-b3c3b687ef10>. #the object IRI contains an UUID
+<http://my-example.org/class-a> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class>.
+_:very-long-blank-node_identifier_that-will-not_create_a_failure <http://xmlns.com/foaf/0.1/knows> _:alice .

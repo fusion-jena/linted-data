@@ -1,0 +1,6 @@
+<http://my-example.org#class-a> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class>.
+<http://my-example.org#class-a> <http://www.w3.org/2000/01/rdf-schema#Label> "This is a label that contains more than 36 characters but that should be ignored"@en .
+<http://my-example.org#individual-1> <http://my-example.org#related-To> <http://my-example.org#very-long-object-identifier-to-test_theValidator> .
+<http://my-example.org#individual-1> <http://my-example.org#related-To> _:a_blank_node-with-a-very-long-label-that-is-ignored.
+<http://my-example.org#individual-1> <http://my-example.org#related-To> <http://my-example.org#9e7deb50-7329-435a-975d-c71480600f3a-12a-3d4-5e6-7f8-9g> .
+<http://my-example.org#individual-1> <http://my-example.org#has-value> "1234567890.098765432112345678904547275497825657"^^<http://www.w3.org/2001/XMLSchema#double>.

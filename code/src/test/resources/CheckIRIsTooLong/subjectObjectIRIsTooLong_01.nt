@@ -1,0 +1,4 @@
+<http://foo.com#class-0b5f8258-6ba0-4887-9843-7c630a06ecea> <http://foo.com#bar> <http://bar.org/test-441a62c7-8a8b-4d41-8cde-a6436af261b2>.
+<http://bar.org/ca23e303-8819-4652-individual-bb40-f7a7bd8fc342> <http://bar.org/foo> <http://bar.org/test-441a62c7-8a8b-4d41-8cde-a6436af261b2>.
+<http://foo.com#class-0b5f8258-6ba0-4887-9843-7c630a06ecea> <http://foo.com#bar> <http://foo.com#üther-identifier-344de7f9-8dd5-4e68-b400-4819a6459f44> .
+<http://my-example.org#class-a> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class>.
