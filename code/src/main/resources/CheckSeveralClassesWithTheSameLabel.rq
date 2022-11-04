@@ -5,8 +5,8 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
 SELECT DISTINCT ?label
 WHERE {
-  ?c1 rdf:type owl:Class.
-  ?c2 rdf:type owl:Class.
+  {?c1 rdf:type owl:Class.} UNION {?c1 rdf:type  rdfs:Class.}.
+  {?c2 rdf:type owl:Class.} UNION {?c2 rdf:type  rdfs:Class.}.
   ?c1 rdfs:label ?label.
   ?c2 rdfs:label ?label.
   FILTER (?c1 != ?c2).
