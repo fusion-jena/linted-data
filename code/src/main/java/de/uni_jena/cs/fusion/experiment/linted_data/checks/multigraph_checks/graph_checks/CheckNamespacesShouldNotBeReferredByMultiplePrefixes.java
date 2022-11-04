@@ -10,6 +10,7 @@ import java.util.Set;
 import org.apache.jena.rdf.model.Model;
 
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
+import de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.CheckPrefixesReferToOneNamespace;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.Level;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
@@ -19,6 +20,9 @@ import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
  * 
  * checks whether each namespace IRI is associated with a set of prefixes of
  * size 1
+ * <p>
+ * in case of p1 : IRI1 ... p1 : IRI1 no failure is created, this case is
+ * checked in {@link CheckPrefixesReferToOneNamespace}
  * <p>
  * for each namespace with more than one prefix a failure is created
  */
@@ -43,7 +47,7 @@ public final class CheckNamespacesShouldNotBeReferredByMultiplePrefixes extends 
 
 		List<Failure> failures = new ArrayList<>();
 		// find all namespaces that have two or more associated prefixes
-		// create a failure for each of them
+		// for each of these namespaces create a failure
 		for (String namespace : namespacePrefixMap.keySet()) {
 			if (namespacePrefixMap.get(namespace).size() > 1) {
 				Failure f = new Failure(name, severity, namespace,
