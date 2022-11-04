@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
@@ -30,8 +31,11 @@ public final class CheckPropertyHasMissingDomainRangeDefinition extends SPARQLSe
 	protected List<Failure> execute(ResultSet rs, String failureDescription) {
 		List<Failure> failures = new ArrayList<>();
 		while (rs.hasNext()) {
-			String uri = rs.next().get("p").toString();
-			Failure f = new Failure(name, severity, uri, failureDescription + "\n" + uri + " has no domain, range or neither");
+			QuerySolution qs = rs.next();
+			String uri = qs.get("property").toString();
+			String error = qs.get("error").toString();
+			Failure f = new Failure(name, severity, uri,
+					failureDescription + "\n" + uri + " " + error);
 			failures.add(f);
 		}
 		return failures;
