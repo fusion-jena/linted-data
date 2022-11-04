@@ -1,7 +1,6 @@
 package de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +17,7 @@ import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.Level;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
+import de.uni_jena.cs.fusion.experiment.linted_data.util.FileUtil;
 
 /**
  * checks if two or more classes have the same label
@@ -31,25 +31,20 @@ import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
  *
  */
 public final class CheckSeveralClassesWithTheSameLabel extends MultiGraphCheck {
-	
+
 	private final String query;
 	private final String label = "label";
-	
+
 	public CheckSeveralClassesWithTheSameLabel() {
 		super(Level.MULTIGRAPH, TargetLanguage.RDFS, Severity.INFO, "Other classes have the same label");
-		// parse query
-		BufferedReader br = null;
 		String text = "";
+		// read SPARQL query from the resource file
+		// SPARQL query which finds all classes with the same label
 		try {
-			br = new BufferedReader(new FileReader(
+			text = FileUtil.readFile(new File(
 					this.getClass().getClassLoader().getResource("CheckSeveralClassesWithTheSameLabel.rq").getFile()));
-			String currentLine = br.readLine();
-			while(currentLine != null) {
-				text += currentLine + "\n";
-				currentLine = br.readLine();
-			}
-		}catch(IOException e) {
-			//TODO
+		} catch (IOException e) {
+			// this exception can't occur during runtime
 		}
 		query = text;
 	}
@@ -63,14 +58,15 @@ public final class CheckSeveralClassesWithTheSameLabel extends MultiGraphCheck {
 		if (dataset.getDefaultModel() != null) {
 			model.add(dataset.getDefaultModel());
 		}
-		
+
 		QueryExecution queryExecution = QueryExecutionFactory.create(query, model);
 		ResultSet results = queryExecution.execSelect();
-		
+
 		List<Failure> failures = new ArrayList<Failure>();
-		while(results.hasNext()) {
+		while (results.hasNext()) {
 			QuerySolution qs = results.next();
-			String description = failureDescription + "\n" + qs.get(label).toString() + " is shared by two or more classes";
+			String description = failureDescription + "\n" + qs.get(label).toString()
+					+ " is shared by two or more classes";
 			Failure failure = new Failure(name, severity, qs.get(label).toString(), description);
 			failures.add(failure);
 		}
@@ -78,7 +74,4 @@ public final class CheckSeveralClassesWithTheSameLabel extends MultiGraphCheck {
 		return failures;
 	}
 
-	public String getQuery() {
-		return query;
-	}
 }
