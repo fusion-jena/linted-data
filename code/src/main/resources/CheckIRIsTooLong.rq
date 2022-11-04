@@ -1,4 +1,4 @@
-SELECT (STRLEN(?nameAfterSeperator)-30 AS ?numExcessCharacters) ?iri 
+SELECT (STRLEN(?nameAfterSeperator)-36 AS ?numExcessCharacters) ?iri 
 WHERE {
   {
   	SELECT DISTINCT (?nameAfterHashtag AS ?nameAfterSeperator) ?iri
@@ -26,5 +26,5 @@ WHERE {
       FILTER ( ?nameAfterHashtag = "" )
     }
   }
-  FILTER ( STRLEN(?nameAfterSeperator) > 30 )
+  FILTER ( STRLEN(?nameAfterSeperator) > 36 )
 }

@@ -13,14 +13,16 @@ import de.uni_jena.cs.fusion.experiment.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
 
 /**
- * check for IRIs whose local name is longer than 30 characters
+ * check for IRIs whose local name is longer than 36 characters
  * 
- * the number of 30 is chosen arbitrary based on the following considerations:
+ * the number of 36 is chosen arbitrary based on the following considerations:
  * <p>
  * 1. the number of characters divided by 3 which fit in one row with 1920x1080
- * and 11pt font size
+ * and 11pt font size is larger
  * <p>
- * 2. number of characters that are too much to type 
+ * 2. number of characters that are too much to type
+ * <p>
+ * 3. UUIDs are valid local names
  * <p>
  * TODO more considerations?
  */
@@ -39,7 +41,7 @@ public final class CheckIRIsTooLong extends SPARQLSelectCheck {
 			QuerySolution qs = resultSet.next();
 			Failure failure = new Failure(name, severity, qs.get("iri").toString(),
 					failureDescription + "\n" + qs.get("iri").toString() + " has a local name that has "
-							+ qs.get("numExcessCharacters").asLiteral().getInt() + " more characters than 30");
+							+ qs.get("numExcessCharacters").asLiteral().getInt() + " more characters than 36");
 			failures.add(failure);
 		}
 
