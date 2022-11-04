@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#"
+     xml:base="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:untitled-ontology-7="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#property-a -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#property-a">
+        <rdfs:label xml:lang="en">Property A</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#property-b -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#property-b">
+        <rdfs:comment xml:lang="en">Second property with label A</rdfs:comment>
+        <rdfs:label xml:lang="en">Property A</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#d-property-a -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#d-property-a">
+        <rdfs:comment xml:lang="en">Same label for different concepts</rdfs:comment>
+        <rdfs:label>Class B</rdfs:label>
+        <rdfs:label xml:lang="en">Dataproperty A</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#class-a -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#class-a">
+        <rdfs:comment xml:lang="en">This is the first class</rdfs:comment>
+        <rdfs:label>Class A</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#class-a-a -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#class-a-a">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#class-a"/>
+        <rdfs:comment>The second class</rdfs:comment>
+        <rdfs:label>Class A-A</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#class-b -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#class-b">
+        <rdfs:label>Class B</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#class-b-a -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#class-b-a">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#class-b"/>
+        <rdfs:comment>Specififcation A of Class B</rdfs:comment>
+        <rdfs:comment>The second class</rdfs:comment>
+        <rdfs:label>Class A</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#individual-a -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#individual-a">
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#class-a"/>
+        <d-property-a>AbC</d-property-a>
+        <rdfs:label>Class C</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#individual-b -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#individual-b">
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#class-b"/>
+        <rdfs:label xml:lang="de">Individual A</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#individual-c -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#individual-c">
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#class-b-a"/>
+        <property-a rdf:resource="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#individual-b"/>
+        <rdfs:label xml:lang="de">Individual A</rdfs:label>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
