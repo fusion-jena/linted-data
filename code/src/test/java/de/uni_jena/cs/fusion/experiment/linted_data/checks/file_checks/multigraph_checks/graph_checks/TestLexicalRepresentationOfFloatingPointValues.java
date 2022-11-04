@@ -89,7 +89,7 @@ public class TestLexicalRepresentationOfFloatingPointValues {
 	}
 
 	/**
-	 * literals are not exactly representable in float
+	 * literals are not exactly representable in double
 	 */
 	@Test
 	public void invalidDoubleRepresentation() {
@@ -116,15 +116,19 @@ public class TestLexicalRepresentationOfFloatingPointValues {
 	public void otherDatatypes() {
 		List<Failure> failures = init("3.14159", XSDDatatype.XSDboolean);
 		assertNotNull(failures);
-		assertEquals(failures.size(), 0);
+		assertEquals(0, failures.size());
 
 		failures = init("this is an interesting text ", XSDDatatype.XSDstring);
 		assertNotNull(failures);
-		assertEquals(failures.size(), 0);
+		assertEquals(0, failures.size());
 
 		failures = init("2020-05-03T23:45:23", XSDDatatype.XSDdateTime);
 		assertNotNull(failures);
-		assertEquals(failures.size(), 0);
+		assertEquals(0, failures.size());
+		
+		failures = init("-200E-3", XSDDatatype.XSDdateTime);
+		assertNotNull(failures);
+		assertEquals(0, failures.size());
 
 		CheckLexicalRepresentationOfFloatingPointDatatypes check = new CheckLexicalRepresentationOfFloatingPointDatatypes();
 		Model model = ModelFactory.createDefaultModel();
@@ -132,6 +136,6 @@ public class TestLexicalRepresentationOfFloatingPointValues {
 		res.addLiteral(VCARD.KEY, "0.2");
 		failures = check.execute(model, "");
 		assertNotNull(failures);
-		assertEquals(failures.size(), 0);
+		assertEquals(0, failures.size());
 	}
 }
