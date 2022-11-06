@@ -16,7 +16,7 @@ import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
  * Check if an ontology has a license defined
  * 
  * check if one of the four license properties: dc:rights, dcterms:license,
- * schema:license or cc:license is present
+ * schema:license or cc:license is used
  */
 public class CheckLicenseDeclared extends SPARQLSelectCheck {
 
