@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.File;
-import java.net.URISyntaxException;
 import java.util.List;
 
 import org.apache.jena.ontology.OntClass;
@@ -52,10 +50,9 @@ public class TestSeveralClassesWithTheSameLabel {
 	 * different, hence the labels are different
 	 */
 	@Test
-	public void oneLabelMultipleLanguages() throws URISyntaxException {
-		File file = new File(this.getClass().getClassLoader()
-				.getResource("CheckSeveralClassesWithTheSameLabel/sameLabelDifferentLanguage.ttl").toURI());
-		List<Failure> failures = check.execute(file, "");
+	public void oneLabelMultipleLanguages() throws Exception {
+		List<Failure> failures = TestUtil
+				.executeCheck("CheckSeveralClassesWithTheSameLabel/sameLabelDifferentLanguage.ttl", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 	}
@@ -90,10 +87,9 @@ public class TestSeveralClassesWithTheSameLabel {
 	 * a label is shared by more than two classes
 	 */
 	@Test
-	public void multipleClassesOneLabel() throws URISyntaxException {
-		File file = new File(this.getClass().getClassLoader()
-				.getResource("CheckSeveralClassesWithTheSameLabel/multipleClassesOneLabel.rdf").toURI());
-		List<Failure> failures = check.execute(file, "");
+	public void multipleClassesOneLabel() throws Exception {
+		List<Failure> failures = TestUtil
+				.executeCheck("CheckSeveralClassesWithTheSameLabel/multipleClassesOneLabel.rdf", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure f = failures.get(0);
@@ -106,10 +102,9 @@ public class TestSeveralClassesWithTheSameLabel {
 	 * classes have the same label with different language tags
 	 */
 	@Test
-	public void differentLanguagesSameLabel() throws URISyntaxException {
-		File file = new File(this.getClass().getClassLoader()
-				.getResource("CheckSeveralClassesWithTheSameLabel/sameLabelSameLanguage.ttl").toURI());
-		List<Failure> failures = check.execute(file, "");
+	public void differentLanguagesSameLabel() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckSeveralClassesWithTheSameLabel/sameLabelSameLanguage.ttl",
+				check);
 		assertNotNull(failures);
 		assertEquals(3, failures.size());
 		assertTrue(TestUtil.contains(failures, "Label 1@en", "\nLabel 1@en is shared by two or more classes",

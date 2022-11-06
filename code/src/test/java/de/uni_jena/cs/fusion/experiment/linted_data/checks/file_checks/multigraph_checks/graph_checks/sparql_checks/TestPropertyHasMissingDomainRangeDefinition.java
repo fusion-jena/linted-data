@@ -3,16 +3,9 @@ package de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.multigra
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
-import java.io.File;
-import java.net.URISyntaxException;
 import java.util.List;
 
-import org.apache.jena.query.Dataset;
-import org.apache.jena.query.DatasetFactory;
-import org.apache.jena.riot.RDFParser;
-import org.apache.jena.riot.RiotException;
 import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
@@ -22,24 +15,15 @@ import de.uni_jena.cs.fusion.experiment.linted_data.util.TestUtil;
 
 public class TestPropertyHasMissingDomainRangeDefinition {
 
-	private List<Failure> createCheck(String path) throws URISyntaxException {
-		File file = new File(this.getClass().getClassLoader().getResource(path).toURI());
-		Dataset dataset = DatasetFactory.create();
-		try {
-			RDFParser.source(file.getAbsolutePath()).parse(dataset);
-		} catch (RiotException e) {
-			fail("Error when parsing " + path);
-		}
-		CheckPropertyHasMissingDomainRangeDefinition check = new CheckPropertyHasMissingDomainRangeDefinition();
-		return check.execute(file, "");
-	}
+	private CheckPropertyHasMissingDomainRangeDefinition check = new CheckPropertyHasMissingDomainRangeDefinition();
 
 	/**
 	 * each property has domain and range defined
 	 */
 	@Test
-	public void definedDomainRange() throws URISyntaxException {
-		List<Failure> failures = createCheck("CheckPropertyHasDomainRangeDefinition/domain_range_defined.ttl");
+	public void definedDomainRange() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckPropertyHasDomainRangeDefinition/domain_range_defined.ttl",
+				check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 	}
@@ -48,9 +32,9 @@ public class TestPropertyHasMissingDomainRangeDefinition {
 	 * each property has a defined domain, but no range definition
 	 */
 	@Test
-	public void definedDomainMissingRange() throws URISyntaxException {
-		String path = "CheckPropertyHasDomainRangeDefinition/domain_missing_range_01.rdf";
-		List<Failure> failures = createCheck(path);
+	public void definedDomainMissingRange() throws Exception {
+		List<Failure> failures = TestUtil
+				.executeCheck("CheckPropertyHasDomainRangeDefinition/domain_missing_range_01.rdf", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure failure = failures.get(0);
@@ -61,8 +45,7 @@ public class TestPropertyHasMissingDomainRangeDefinition {
 				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-5#ExampleDP-2 has no range defined",
 				failure.getText());
 
-		path = "CheckPropertyHasDomainRangeDefinition/domain_missing_range_02.jsonld";
-		failures = createCheck(path);
+		failures = TestUtil.executeCheck("CheckPropertyHasDomainRangeDefinition/domain_missing_range_02.jsonld", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		failure = failures.get(0);
@@ -73,8 +56,7 @@ public class TestPropertyHasMissingDomainRangeDefinition {
 				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-5#ExampleOP has no range defined",
 				failure.getText());
 
-		path = "CheckPropertyHasDomainRangeDefinition/domain_missing_range_03.ttl";
-		failures = createCheck(path);
+		failures = TestUtil.executeCheck("CheckPropertyHasDomainRangeDefinition/domain_missing_range_03.ttl", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures,
@@ -91,9 +73,9 @@ public class TestPropertyHasMissingDomainRangeDefinition {
 	 * each property has a defined range but no domain definition
 	 */
 	@Test
-	public void definedRangeMissingDomain() throws URISyntaxException {
-		String path = "CheckPropertyHasDomainRangeDefinition/range_missing_domain_01.rdf";
-		List<Failure> failures = createCheck(path);
+	public void definedRangeMissingDomain() throws Exception {
+		List<Failure> failures = TestUtil
+				.executeCheck("CheckPropertyHasDomainRangeDefinition/range_missing_domain_01.rdf", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure failure = failures.get(0);
@@ -104,8 +86,7 @@ public class TestPropertyHasMissingDomainRangeDefinition {
 				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-5#ExampleDP-2 has no domain defined",
 				failure.getText());
 
-		path = "CheckPropertyHasDomainRangeDefinition/range_missing_domain_02.jsonld";
-		failures = createCheck(path);
+		failures = TestUtil.executeCheck("CheckPropertyHasDomainRangeDefinition/range_missing_domain_02.jsonld", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		failure = failures.get(0);
@@ -116,8 +97,7 @@ public class TestPropertyHasMissingDomainRangeDefinition {
 				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-5#ExampleOP has no domain defined",
 				failure.getText());
 
-		path = "CheckPropertyHasDomainRangeDefinition/range_missing_domain_03.ttl";
-		failures = createCheck(path);
+		failures = TestUtil.executeCheck("CheckPropertyHasDomainRangeDefinition/range_missing_domain_03.ttl", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures,
@@ -134,9 +114,9 @@ public class TestPropertyHasMissingDomainRangeDefinition {
 	 * each property is missing domain and range definition
 	 */
 	@Test
-	public void missingDomainRange() throws URISyntaxException {
-		String path = "CheckPropertyHasDomainRangeDefinition/missing_domain_range_01.rdf";
-		List<Failure> failures = createCheck(path);
+	public void missingDomainRange() throws Exception {
+		List<Failure> failures = TestUtil
+				.executeCheck("CheckPropertyHasDomainRangeDefinition/missing_domain_range_01.rdf", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure failure = failures.get(0);
@@ -147,8 +127,7 @@ public class TestPropertyHasMissingDomainRangeDefinition {
 				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-5#ExampleDP-2 has no domain and range defined",
 				failure.getText());
 
-		path = "CheckPropertyHasDomainRangeDefinition/missing_domain_range_02.jsonld";
-		failures = createCheck(path);
+		failures = TestUtil.executeCheck("CheckPropertyHasDomainRangeDefinition/missing_domain_range_02.jsonld", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		failure = failures.get(0);
@@ -159,8 +138,7 @@ public class TestPropertyHasMissingDomainRangeDefinition {
 				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-5#ExampleOP has no domain and range defined",
 				failure.getText());
 
-		path = "CheckPropertyHasDomainRangeDefinition/missing_domain_range_03.ttl";
-		failures = createCheck(path);
+		failures = TestUtil.executeCheck("CheckPropertyHasDomainRangeDefinition/missing_domain_range_03.ttl", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures,

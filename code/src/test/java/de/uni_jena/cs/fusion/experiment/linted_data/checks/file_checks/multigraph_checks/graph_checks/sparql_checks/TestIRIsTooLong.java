@@ -2,7 +2,6 @@ package de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.multigra
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.File;
 import java.util.List;
 
 import org.apache.jena.ontology.Individual;
@@ -20,10 +19,6 @@ import de.uni_jena.cs.fusion.experiment.linted_data.util.TestUtil;
 class TestIRIsTooLong {
 
 	private CheckIRIsTooLong check = new CheckIRIsTooLong();
-
-	private List<Failure> executeCheck(String path) {
-		return check.execute(new File(this.getClass().getClassLoader().getResource(path).getFile()), "");
-	}
 
 	/**
 	 * all IRIs have a local name with less than 30 characters
@@ -67,8 +62,8 @@ class TestIRIsTooLong {
 	 * characters
 	 */
 	@Test
-	void subjectIRIsTooLong() {
-		List<Failure> failures = executeCheck("CheckIRIsTooLong/subjectIRIsTooLong_01.nt");
+	void subjectIRIsTooLong() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckIRIsTooLong/subjectIRIsTooLong_01.nt", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures,
@@ -87,8 +82,8 @@ class TestIRIsTooLong {
 	 * characters
 	 */
 	@Test
-	void predicateIRIsTooLong() {
-		List<Failure> failures = executeCheck("CheckIRIsTooLong/predicateIRIsTooLong_01.nt");
+	void predicateIRIsTooLong() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckIRIsTooLong/predicateIRIsTooLong_01.nt", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure f = failures.get(0);
@@ -104,8 +99,8 @@ class TestIRIsTooLong {
 	 * characters
 	 */
 	@Test
-	void objectIRIsTooLong() {
-		List<Failure> failures = executeCheck("CheckIRIsTooLong/objectIRIsTooLong_01.nt");
+	void objectIRIsTooLong() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckIRIsTooLong/objectIRIsTooLong_01.nt", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures,
@@ -122,8 +117,8 @@ class TestIRIsTooLong {
 	 * characters
 	 */
 	@Test
-	void subjectPredicateIRIsTooLong() {
-		List<Failure> failures = executeCheck("CheckIRIsTooLong/subjectPredicateIRIsTooLong_01.nt");
+	void subjectPredicateIRIsTooLong() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckIRIsTooLong/subjectPredicateIRIsTooLong_01.nt", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures, "http://bar.org/f00-bar-f00-bar-f00-bar-147852369-erdfcv",
@@ -141,8 +136,8 @@ class TestIRIsTooLong {
 	 * characters
 	 */
 	@Test
-	void subjectObjectIRIsTooLong() {
-		List<Failure> failures = executeCheck("CheckIRIsTooLong/subjectObjectIRIsTooLong_01.nt");
+	void subjectObjectIRIsTooLong() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckIRIsTooLong/subjectObjectIRIsTooLong_01.nt", check);
 		assertNotNull(failures);
 		assertEquals(4, failures.size());
 		assertTrue(TestUtil.contains(failures, "http://foo.com#class-0b5f8258-6ba0-4887-9843-7c630a06ecea",
@@ -164,8 +159,8 @@ class TestIRIsTooLong {
 	 * characters as local name
 	 */
 	@Test
-	void predicateObjectIRIsTooLong() {
-		List<Failure> failures = executeCheck("CheckIRIsTooLong/predicateObjectIRIsTooLong_01.nt");
+	void predicateObjectIRIsTooLong() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckIRIsTooLong/predicateObjectIRIsTooLong_01.nt", check);
 		assertNotNull(failures);
 		assertEquals(4, failures.size());
 		assertTrue(TestUtil.contains(failures, "http://example.org#property-longIdentifier-9e7deb50-7329-435a",
@@ -186,8 +181,9 @@ class TestIRIsTooLong {
 	 * IRIs at all three positions are too long
 	 */
 	@Test
-	void subjectPredicateObjectIRIsTooLong() {
-		List<Failure> failures = executeCheck("CheckIRIsTooLong/subjectPredicateObjectIRIsTooLong_01.nt");
+	void subjectPredicateObjectIRIsTooLong() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckIRIsTooLong/subjectPredicateObjectIRIsTooLong_01.nt",
+				check);
 		assertNotNull(failures);
 		assertEquals(3, failures.size());
 		assertTrue(TestUtil.contains(failures, "http://my-example.org#very-long-object-identifier-to-test_theValidator",

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.File;
 import java.util.List;
 
 import org.apache.jena.ontology.OntModel;
@@ -24,33 +23,28 @@ public class TestLicenseDeclared {
 
 	private CheckLicenseDeclared check = new CheckLicenseDeclared();
 
-	private List<Failure> execute(String path) {
-		File file = new File(this.getClass().getClassLoader().getResource(path).getPath());
-		return check.execute(file, "");
-	}
-
 	@Test
-	public void license_declared() {
-		List<Failure> failures = execute("CheckLicenseDeclared/LicenseDeclared_01.rdf");
+	public void license_declared() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckLicenseDeclared/LicenseDeclared_01.rdf", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 
-		failures = execute("CheckLicenseDeclared/LicenseDeclared_02.ttl");
+		failures = TestUtil.executeCheck("CheckLicenseDeclared/LicenseDeclared_02.ttl", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 
-		failures = execute("CheckLicenseDeclared/LicenseDeclared_03.ttl");
+		failures = TestUtil.executeCheck("CheckLicenseDeclared/LicenseDeclared_03.ttl", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 
-		failures = execute("CheckLicenseDeclared/LicenseDeclared_04.rdf");
+		failures = TestUtil.executeCheck("CheckLicenseDeclared/LicenseDeclared_04.rdf", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 	}
 
 	@Test
-	public void wrong_license_declared() {
-		List<Failure> failures = execute("CheckLicenseDeclared/otherLicenseDeclared.xml");
+	public void wrong_license_declared() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckLicenseDeclared/otherLicenseDeclared.xml", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure failure = failures.get(0);
@@ -63,8 +57,8 @@ public class TestLicenseDeclared {
 	}
 
 	@Test
-	public void no_license_declared() {
-		List<Failure> failures = execute("CheckLicenseDeclared/noLicenseDeclared.ttl");
+	public void no_license_declared() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckLicenseDeclared/noLicenseDeclared.ttl", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure failure = failures.get(0);
@@ -74,7 +68,7 @@ public class TestLicenseDeclared {
 				failure.getText());
 		assertEquals("http://www.semanticweb.org/test-ontology/", failure.getFailureElement());
 
-		failures = execute("CheckLicenseDeclared/noLicenseDeclared.jsonld");
+		failures = TestUtil.executeCheck("CheckLicenseDeclared/noLicenseDeclared.jsonld", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		failure = failures.get(0);
