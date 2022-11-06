@@ -1,8 +1,10 @@
 package de.uni_jena.cs.fusion.experiment.linted_data.util;
 
+import java.io.File;
 import java.util.List;
 
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
+import de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.FileCheck;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.Severity;
 
 /**
@@ -49,5 +51,18 @@ public class TestUtil {
 	public static boolean contains(List<Failure> failures, String failureElement, String text, Severity severity) {
 		return failures.stream().filter(f -> f.getFailureElement().equals(failureElement)
 				&& f.getSeverity().equals(severity) && f.getText().equals(text)).findFirst().isPresent();
+	}
+
+	/**
+	 * passes the file of a given path to the check and starts its execute method
+	 * 
+	 * @param path  to the test resource
+	 * @param check the validator that will be executed
+	 * @return all found failures during the execution of the chek
+	 * @throws Exception from the check execution
+	 */
+	public static List<Failure> executeCheck(String path, FileCheck check) throws Exception {
+		File file = new File(TestUtil.class.getClassLoader().getResource(path).getPath());
+		return check.execute(file, "");
 	}
 }
