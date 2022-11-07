@@ -22,7 +22,10 @@ import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
 public final class CheckMultipleDomainRange extends SPARQLSelectCheck {
 
 	public CheckMultipleDomainRange() {
-		super(Level.SPARQL, TargetLanguage.OWL, Severity.WARN, "Multiple domain and range are interpreted as conjunction and should therefore be replaced with owl:intersectionOf", new File(CheckMultipleDomainRange.class.getClassLoader().getResource("CheckMultipleDomainRange.rq").getFile()));
+		super(Level.SPARQL, TargetLanguage.OWL, Severity.WARN,
+				"Multiple domain and range are interpreted as conjunction and should therefore be replaced with owl:intersectionOf",
+				new File(CheckMultipleDomainRange.class.getClassLoader().getResource("CheckMultipleDomainRange.rq")
+						.getFile()));
 	}
 
 	@Override
@@ -30,8 +33,8 @@ public final class CheckMultipleDomainRange extends SPARQLSelectCheck {
 		List<Failure> failures = new ArrayList<Failure>();
 		while (resultSet.hasNext()) {
 			QuerySolution qs = resultSet.next();
-			System.out.println(qs.toString());
-			Failure f = new Failure(name, severity, qs.get("property").toString(), failureDescription + "\n" + qs.get("property").toString() +" has multiple domains, ranges or both");
+			Failure f = new Failure(name, severity, qs.get("property").toString(), failureDescription + "\n"
+					+ qs.get("property").toString() + " " + qs.get("error").toString());
 			failures.add(f);
 		}
 		return failures;

@@ -1,16 +1,27 @@
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT DISTINCT ?property
+SELECT DISTINCT ?property ?error
 WHERE {
   {
-  	?property rdfs:domain ?domain1.
-    ?property rdfs:domain ?domain2.
-    FILTER (?domain1 != ?domain2)
-  } UNION 
-  {
-  	?property rdfs:range ?range1. 
-    ?property rdfs:range ?range2.
-    FILTER (?range1 != ?range2)
+    SELECT ?property ?duplicatedDomain ?duplicatedRange 
+    WHERE {
+      {?property a owl:ObjectProperty} UNION {?property a owl:DatatypeProperty} UNION {?property a rdfs:Property}.
+      BIND (EXISTS {?property rdfs:domain ?domain1. ?property rdfs:domain ?domain2. FILTER(?domain1 != ?domain2)} AS ?duplicatedDomain)
+      BIND (EXISTS {?property rdfs:range ?range1. ?property rdfs:range ?range2. FILTER(?range1 != ?range2)} AS ?duplicatedRange)
+      FILTER (?duplicatedDomain || ?duplicatedRange)
+    }   
   }
+      BIND(
+    IF(?duplicatedRange && ?duplicatedDomain, "has multiple domains and ranges defined",
+      IF(?duplicatedRange, "has multiple ranges defined", 
+        "has multiple domains defined"))
+    AS ?error).
 }

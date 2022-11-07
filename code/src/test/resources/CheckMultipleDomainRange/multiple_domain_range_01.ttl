@@ -49,7 +49,8 @@
 :d-property-1 rdf:type owl:DatatypeProperty ;
               rdfs:domain :class-2 ,
                           :class-3 ;
-              rdfs:range xsd:short .
+              rdfs:range xsd:short ,
+              			 xsd:integer.
 
 
 ###  http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#d-property-3
