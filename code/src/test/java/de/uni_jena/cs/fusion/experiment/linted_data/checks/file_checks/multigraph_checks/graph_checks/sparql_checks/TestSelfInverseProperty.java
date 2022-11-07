@@ -14,17 +14,20 @@ import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckSelfInverseProperty;
+import de.uni_jena.cs.fusion.experiment.linted_data.types.Severity;
+import de.uni_jena.cs.fusion.experiment.linted_data.util.TestUtil;
 
 class TestSelfInverseProperty {
 
+	private CheckSelfInverseProperty check = new CheckSelfInverseProperty();
+
+	/**
+	 * correct modeling
+	 * 
+	 * dataset with default graph + named model
+	 */
 	@Test
 	void usingSymmetricInsteadOfSelfInverse() {
-		/*
-		 * correct modeling
-		 * 
-		 * dataset with default graph + named model
-		 */
-		CheckSelfInverseProperty check = new CheckSelfInverseProperty();
 		Dataset dataset = DatasetFactory.createGeneral();
 		OntModel model = ModelFactory.createOntologyModel();
 		model.setNsPrefix("ex", "http://example.org#");
@@ -53,12 +56,11 @@ class TestSelfInverseProperty {
 		assertEquals(0, failures.size());
 	}
 
+	/**
+	 * no symmetric properties inverse relationship between properties in a dataset
+	 */
 	@Test
 	void noSymmetricProperties() {
-		/*
-		 * no symmetric properties inverse relationship between properties
-		 */
-		CheckSelfInverseProperty check = new CheckSelfInverseProperty();
 		Dataset dataset = DatasetFactory.createGeneral();
 		OntModel model = ModelFactory.createOntologyModel();
 		OntClass c1 = model.createClass("http://my-example.com#class-a");
@@ -79,13 +81,11 @@ class TestSelfInverseProperty {
 		assertEquals(0, failures.size());
 	}
 
+	/**
+	 * model where a a property is inverse to itself
+	 */
 	@Test
 	void selfInverseProperty1() {
-		/*
-		 * model
-		 */
-		CheckSelfInverseProperty check = new CheckSelfInverseProperty();
-
 		OntModel model = ModelFactory.createOntologyModel();
 		OntClass c1 = model.createClass("http://my-example.com#class-a");
 		c1.addLabel("Class A", null);
@@ -107,11 +107,12 @@ class TestSelfInverseProperty {
 		assertEquals("http://my-example.com#property-a", f.getFailureElement());
 		assertEquals("\nhttp://my-example.com#property-a is defined as inverse property to itself", f.getText());
 	}
-	
+
+	/**
+	 * a model containing two self inverse properties
+	 */
 	@Test
 	void selfInverseProperty2() {
-		CheckSelfInverseProperty check = new CheckSelfInverseProperty();
-
 		OntModel model = ModelFactory.createOntologyModel();
 		model.createClass("http://example.org#class-a");
 		model.createClass("http://my-example.com#class-a");
@@ -124,17 +125,49 @@ class TestSelfInverseProperty {
 		p2.addInverseOf(p2);
 		p1 = model.createOntProperty("http://example.org#property-c");
 		p1.addInverseOf(p1);
-		
+
 		List<Failure> failures = check.execute(model, "");
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
-		Failure f = failures.get(1);
-		assertEquals("http://example.org#property-a", f.getFailureElement());
-		assertEquals("\nhttp://example.org#property-a is defined as inverse property to itself", f.getText());
-		f = failures.get(0);
-		assertEquals("http://example.org#property-c", f.getFailureElement());
-		assertEquals("\nhttp://example.org#property-c is defined as inverse property to itself", f.getText());
-		
+		assertTrue(TestUtil.contains(failures, "http://example.org#property-a",
+				"\nhttp://example.org#property-a is defined as inverse property to itself", Severity.WARN));
+		assertTrue(TestUtil.contains(failures, "http://example.org#property-c",
+				"\nhttp://example.org#property-c is defined as inverse property to itself", Severity.WARN));
+	}
+
+	/**
+	 * a dataset with two named models and default model
+	 */
+	@Test
+	void selfInverseProperty3() {
+		Dataset dataset = DatasetFactory.createGeneral();
+
+		OntModel model = ModelFactory.createOntologyModel();
+		model.createOntProperty("http://example.org/property-1");
+		OntProperty p = model.createOntProperty("http://example.org/property-2");
+		p.addInverseOf(p);
+		assertTrue(p.isInverseOf(p));
+		dataset.addNamedModel("1-self-inverse-model", model);
+		model = ModelFactory.createOntologyModel();
+		model.createOntProperty("http://foo.bar#p-a");
+		model.createOntProperty("http://foo.bar#p-b");
+		p = model.createOntProperty("http://foo.bar#p-c");
+		p.addInverseOf(p);
+		assertTrue(p.isInverseOf(p));
+		dataset.setDefaultModel(model);
+		model = ModelFactory.createOntologyModel();
+		model.createClass("http://bar.com/class-a");
+		model.createOntProperty("http://my-example.de/property-12");
+		dataset.addNamedModel("2nd-named-model", model);
+
+		List<Failure> failures = check.execute(dataset, "");
+		assertNotNull(failures);
+		assertEquals(2, failures.size());
+		assertTrue(TestUtil.contains(failures, "http://foo.bar#p-c",
+				"\nModel: Default Model\nhttp://foo.bar#p-c is defined as inverse property to itself", Severity.WARN));
+		assertTrue(TestUtil.contains(failures, "http://example.org/property-2",
+				"\nModel: 1-self-inverse-model\nhttp://example.org/property-2 is defined as inverse property to itself",
+				Severity.WARN));
 	}
 
 }

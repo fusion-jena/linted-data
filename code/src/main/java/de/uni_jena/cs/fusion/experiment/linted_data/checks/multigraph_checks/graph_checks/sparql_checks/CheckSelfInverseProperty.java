@@ -23,15 +23,17 @@ public class CheckSelfInverseProperty extends SPARQLSelectCheck {
 
 	public CheckSelfInverseProperty() {
 		super(Level.SPARQL, TargetLanguage.OWL, Severity.WARN, "A relationship is defined as inverse of itself.",
-				new File(CheckSelfInverseProperty.class.getClassLoader().getResource("CheckSelfInverseProperty.rq").getFile()));
+				new File(CheckSelfInverseProperty.class.getClassLoader().getResource("CheckSelfInverseProperty.rq")
+						.getFile()));
 	}
 
 	@Override
 	protected List<Failure> execute(ResultSet resultSet, String failureDescription) {
 		List<Failure> failures = new ArrayList<Failure>();
-		while(resultSet.hasNext()) {
+		while (resultSet.hasNext()) {
 			QuerySolution qs = resultSet.next();
-			Failure f = new Failure(name, severity, qs.get("property").toString(), failureDescription + "\n" + qs.get("property").toString() + " is defined as inverse property to itself");
+			Failure f = new Failure(name, severity, qs.get("property").toString(), failureDescription + "\n"
+					+ qs.get("property").toString() + " is defined as inverse property to itself");
 			failures.add(f);
 		}
 		return failures;
