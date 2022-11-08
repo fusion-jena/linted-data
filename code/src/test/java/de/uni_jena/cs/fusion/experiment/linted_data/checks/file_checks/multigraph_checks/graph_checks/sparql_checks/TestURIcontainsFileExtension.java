@@ -216,6 +216,39 @@ public class TestURIcontainsFileExtension {
 				+ "\nModel: Default Model\nhttp://my-example.org/test.shc#property-b contains the file extension shc",
 				f.getText());
 	}
+	
+	@Test
+	void URIcontains_nt() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_nt_01.nt", check);
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		Failure f = failures.get(0);
+		assertEquals("http://my-example.org/test.nt#property-a", f.getFailureElement());
+		assertEquals("\nModel: Default Model\nhttp://my-example.org/test.nt#property-a contains the file extension nt", f.getText());
+	
+		failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_nt_02.nt", check);
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		f = failures.get(0);
+		assertEquals("http://my-example.org/test.nt#property-a", f.getFailureElement());
+		assertEquals("\nModel: Default Model\nhttp://my-example.org/test.nt#property-a contains the file extension nt", f.getText());
+	}
+	
+	@Test
+	void URIcontains_jsonld() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_jsonld_01.nt", check);
+		assertEquals(1, failures.size());
+		Failure f = failures.get(0);
+		assertEquals("http://www.city.ac.uk/ds/inm713/gr.jsonld/Local", f.getFailureElement());
+		assertEquals("\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.jsonld/Local contains the file extension jsonld", f.getText());
+		
+		failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_jsonld_02.nt", check);
+		assertEquals(1, failures.size());
+		f = failures.get(0);
+		assertEquals("http://www.city.ac.uk/ds/inm713/gr.jsonld#Local", f.getFailureElement());
+		assertEquals("\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.jsonld#Local contains the file extension jsonld", f.getText());
+		
+	}
 
 	/*
 	 * the following tests are not necessary the bad test design was noticed too
@@ -227,96 +260,6 @@ public class TestURIcontainsFileExtension {
 	 * The file extension at the end of the function name indicates the file format
 	 * as well as the found extensions
 	 */
-	@Test
-	void URIcontains_nt() {
-		OntModel model = ModelFactory.createOntologyModel();
-		OntProperty p = model.createOntProperty("http://my-example.org/test.nt#property-a");
-		p.addDomain(model.createClass("http://example.com/test/class-a"));
-		p.addRange(model.createClass("http://example.com/test/class-b"));
-		p.addLabel("this is a test.nt label", null);
-
-		List<Failure> failures = check.execute(model, "");
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		Failure f = failures.get(0);
-		assertEquals("http://my-example.org/test.nt#property-a", f.getFailureElement());
-		assertEquals("\nhttp://my-example.org/test.nt#property-a contains the file extension nt", f.getText());
-
-		model = ModelFactory.createOntologyModel();
-		p = model.createSymmetricProperty("http://example.com/test/property-a");
-		DatatypeProperty dp = model.createDatatypeProperty("http://my-example.org/test.nt#datatype-property-a");
-		OntClass c1 = model.createClass("http://example.com/test/class-a");
-		Individual i = c1.createIndividual();
-		i.addLiteral(dp, 2580L);
-		c1.addComment("this comment contains the file extension .nt", "en");
-		failures = check.execute(model, "");
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		f = failures.get(0);
-		assertEquals("http://my-example.org/test.nt#datatype-property-a", f.getFailureElement());
-		assertEquals("\nhttp://my-example.org/test.nt#datatype-property-a contains the file extension nt", f.getText());
-
-		model = ModelFactory.createOntologyModel();
-		c1 = model.createClass();
-		i = c1.createIndividual("http://my-example.org/test.nt#individual-1");
-		i.addLabel("individual with .nt", null);
-		c1.addComment("dieser kommentar enthaelt .nt", "de");
-		model.createProperty("http://example.com/test/property-a");
-		failures = check.execute(model, "");
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		f = failures.get(0);
-		assertEquals("http://my-example.org/test.nt#individual-1", f.getFailureElement());
-		assertEquals("\nhttp://my-example.org/test.nt#individual-1 contains the file extension nt", f.getText());
-	}
-
-	@Test
-	void URIcontains_jsonld() throws Exception {
-		File file = new File(
-				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/jsonld_01.ttl").getFile());
-		List<Failure> failures = check.startExecution(file);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		Failure f = failures.get(0);
-		assertEquals("http://www.city.ac.uk/ds/inm713/gr.jsonld#Local", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.jsonld#Local contains the file extension jsonld",
-				f.getText());
-
-		file = new File(
-				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/jsonld_02.ttl").getFile());
-		failures = check.startExecution(file);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		f = failures.get(0);
-		assertEquals("http://www.example/foo.jsonld#Country", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://www.example/foo.jsonld#Country contains the file extension jsonld",
-				f.getText());
-
-		file = new File(
-				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/jsonld_03.ttl").getFile());
-		failures = check.startExecution(file);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		f = failures.get(0);
-		assertEquals("http://www.example/foo.jsonld#Name", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://www.example/foo.jsonld#Name contains the file extension jsonld",
-				f.getText());
-
-		file = new File(this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/jsonld_04.jsonld")
-				.getFile());
-		failures = check.startExecution(file);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		f = failures.get(0);
-		assertEquals("http://www.city.ac.uk/ds/inm713/gr.jsonld#Local", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.jsonld#Local contains the file extension jsonld",
-				f.getText());
-	}
-
 	@Test
 	void URIcontains_n3() {
 		OntModel model = ModelFactory.createOntologyModel();

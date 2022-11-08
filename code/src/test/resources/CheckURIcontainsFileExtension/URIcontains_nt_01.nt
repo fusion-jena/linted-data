@@ -1,0 +1,4 @@
+<http://my-example.org/test.nt#property-a> <http://www.w3.org/1999/02/22-rdf-syntax-ns#domain> <http://example.com/test/class-a> .
+<http://my-example.org/test.nt#property-a> <http://www.w3.org/1999/02/22-rdf-syntax-ns#range> <http://example.com/test/class-b> .
+<http://my-example.org/test.nt#property-a> <http://www.w3.org/1999/02/22-rdf-syntax-ns#label> "this is a test.nt label" .
+
