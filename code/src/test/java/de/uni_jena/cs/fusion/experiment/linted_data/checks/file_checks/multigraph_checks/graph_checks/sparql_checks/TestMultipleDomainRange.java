@@ -3,7 +3,6 @@ package de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.multigra
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
@@ -61,7 +60,7 @@ public class TestMultipleDomainRange {
 	void multipleDomainAndRange() throws Exception {
 		List<Failure> failures = TestUtil.executeCheck("CheckMultipleDomainRange/multiple_domain_range_01.ttl", check);
 		assertNotNull(failures);
-		assertEquals(5, failures.size());
+		assertEquals(6, failures.size());
 		assertTrue(TestUtil.contains(failures,
 				"http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-3",
 				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-3 has multiple domains defined"));
@@ -77,19 +76,23 @@ public class TestMultipleDomainRange {
 		assertTrue(TestUtil.contains(failures,
 				"http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#d-property-1",
 				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#d-property-1 has multiple domains and ranges defined"));
+		assertTrue(TestUtil.contains(failures,
+				"http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-8",
+				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-8 has multiple domains and ranges defined"));
 	}
 
 	@Test
-	void singleDomainRange() {
-		fail();
+	void singleDomainRange() throws Exception{
+		List<Failure> failures = TestUtil.executeCheck("CheckMultipleDomainRange/single_domain_range_01.xml", check);
+		assertNotNull(failures);
+		assertEquals(0, failures.size());
 	}
 
 	@Test
-	void intersectionInsteadOfConjunction() {
-		fail();
-//		List<Failure> failures = check.execute(model, "");
-//		assertNotNull(failures);
-//		assertEquals(0, failures.size());
+	void intersectionInsteadOfConjunction() throws Exception{
+		List<Failure> failures = TestUtil.executeCheck("CheckMultipleDomainRange/intersection_domain_range_01.xml", check);
+		assertNotNull(failures);
+		assertEquals(0, failures.size());
 	}
 
 }

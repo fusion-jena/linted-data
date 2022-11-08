@@ -41,6 +41,15 @@
             rdfs:range :class-4 .
 
 
+###  http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-8
+:property-8 rdf:type owl:ObjectProperty ,
+                     owl:SymmetricProperty ;
+            rdfs:domain :class-3 ,
+                        :class-4 ;
+            rdfs:range :class-3 ,
+                       :class-4 .
+
+
 #################################################################
 #    Data properties
 #################################################################
@@ -49,8 +58,8 @@
 :d-property-1 rdf:type owl:DatatypeProperty ;
               rdfs:domain :class-2 ,
                           :class-3 ;
-              rdfs:range xsd:short ,
-              			 xsd:integer.
+              rdfs:range xsd:integer ,
+                         xsd:short .
 
 
 ###  http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#d-property-3
