@@ -1,0 +1,2 @@
+<http://www.example.com/file.xml/individual-1> <http://www.example.com/other#p> <http://www.example.com/file.xml/individual-2> <http://www.graphs.com/graph-1> .
+<http://www.foo.bar/file/individual-1.xml> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.foo.bar/file> <http://www.graphs.com/graph-1> .

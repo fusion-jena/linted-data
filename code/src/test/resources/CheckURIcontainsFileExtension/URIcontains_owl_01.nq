@@ -1,0 +1,3 @@
+<http://example.org/#spiderman> <http://www.perceive.net/schemas/relationship/enemyOf> <http://example.org/#green-goblin> <http://example.org/graphs/spiderman> .
+<http://disney.com/inside-out.owl/sadness> <http://www.perceive.net/schemas/relationship/enemyOf> <http://disney.com/inside-out.owl/joy> <http://example.org/graphs/inside-out> .
+<http://pixar.com/minions.owl#gru> <http://www.perceive.net/schemas/relationship/husbandOf> <http://pixar.com/minions.owl#lucy> <http://pixar.com/graphs/minions> .

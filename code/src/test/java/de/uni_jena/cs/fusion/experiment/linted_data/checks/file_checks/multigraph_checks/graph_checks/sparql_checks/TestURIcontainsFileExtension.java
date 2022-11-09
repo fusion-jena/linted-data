@@ -7,12 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.File;
 import java.util.List;
 
-import org.apache.jena.ontology.DatatypeProperty;
-import org.apache.jena.ontology.Individual;
-import org.apache.jena.ontology.OntClass;
-import org.apache.jena.ontology.OntModel;
-import org.apache.jena.ontology.OntProperty;
-import org.apache.jena.rdf.model.ModelFactory;
 import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
@@ -284,239 +278,63 @@ public class TestURIcontainsFileExtension {
 		assertTrue(TestUtil.contains(failures, "http://www.bar.de/file.jsonld11/property-b",
 				"\nModel: Default Model\nhttp://www.bar.de/file.jsonld11/property-b contains the file extension jsonld11"));
 	}
-	
-	
-
-	/*
-	 * the following tests are not necessary the bad test design was noticed too
-	 * late, but they are not wrong and test that the file extensions in URIs are
-	 * detected
-	 * 
-	 * later this should be updated to the same format as the tests above
-	 * 
-	 * The file extension at the end of the function name indicates the file format
-	 * as well as the found extensions
-	 */
 
 	@Test
-	void URIcontains_n3() {
-		OntModel model = ModelFactory.createOntologyModel();
-		OntProperty p = model.createOntProperty("http://my-example.org/test.n3#property-a");
-		p.addDomain(model.createClass("http://example.com/test/class-a"));
-		p.addRange(model.createClass("http://example.com/test/class-b"));
-		p.addLabel("this is a test.nt label", null);
-
-		List<Failure> failures = check.execute(model, "");
-		assertNotNull(failures);
+	void URIcontains_n3() throws Exception {
+		// n3 in subject and object IRI
+		// n3 also not before / or # -> should not be detected
+		List<Failure> failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_n3_01.nt", check);
 		assertEquals(1, failures.size());
-		Failure f = failures.get(0);
-		assertEquals("http://my-example.org/test.n3#property-a", f.getFailureElement());
-		assertEquals("\nhttp://my-example.org/test.n3#property-a contains the file extension n3", f.getText());
-
-		model = ModelFactory.createOntologyModel();
-		p = model.createSymmetricProperty("http://example.com/test/property-a");
-		DatatypeProperty dp = model.createDatatypeProperty("http://my-example.org/test.n3#datatype-property-a");
-		OntClass c1 = model.createClass("http://example.com/test/class-a");
-		Individual i = c1.createIndividual();
-		i.addLiteral(dp, 2580L);
-		c1.addComment("this comment contains the file extension .n3", "en");
-		failures = check.execute(model, "");
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		f = failures.get(0);
-		assertEquals("http://my-example.org/test.n3#datatype-property-a", f.getFailureElement());
-		assertEquals("\nhttp://my-example.org/test.n3#datatype-property-a contains the file extension n3", f.getText());
-
-		model = ModelFactory.createOntologyModel();
-		c1 = model.createClass();
-		i = c1.createIndividual("http://my-example.org/test.n3#individual-1");
-		i.addLabel("individual with .nt", null);
-		c1.addComment("dieser kommentar enthaelt .n3", "de");
-		model.createProperty("http://example.com/test-owl./property-a");
-		failures = check.execute(model, "");
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		f = failures.get(0);
-		assertEquals("http://my-example.org/test.n3#individual-1", f.getFailureElement());
-		assertEquals("\nhttp://my-example.org/test.n3#individual-1 contains the file extension n3", f.getText());
+		assertTrue(TestUtil.contains(failures, "http://www.foo.org/bar.n3/i-1", "\nModel: Default Model\nhttp://www.foo.org/bar.n3/i-1 contains the file extension n3"));
 	}
 
 	@Test
 	void URIcontains_rdf() throws Exception {
-		File file = new File(
-				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/rdf_01.rdf").getFile());
-		List<Failure> failures = check.startExecution(file);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		Failure f = failures.get(0);
-		assertEquals("http://www.city.ac.uk/ds/inm713/gr.rdf#Local", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.rdf#Local contains the file extension rdf",
-				f.getText());
-
-		file = new File(
-				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/rdf_02.rdf").getFile());
-		failures = check.startExecution(file);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		f = failures.get(0);
-		assertEquals("http://www.example/foo.ttl#Country", f.getFailureElement());
-		assertEquals(
-				"\nFile: " + file.getPath()
-						+ "\nModel: Default Model\nhttp://www.example/foo.ttl#Country contains the file extension ttl",
-				f.getText());
-
-		file = new File(
-				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/rdf_03.rdf").getFile());
-		failures = check.startExecution(file);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		f = failures.get(0);
-		assertEquals("http://www.example/foo.xml#Name", f.getFailureElement());
-		assertEquals(
-				"\nFile: " + file.getPath()
-						+ "\nModel: Default Model\nhttp://www.example/foo.xml#Name contains the file extension xml",
-				f.getText());
+		// rdf in subject, predicate and object URI
+		List<Failure> failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_rdf_01.nt", check);
+		assertEquals(3, failures.size());
+		assertTrue(TestUtil.contains(failures, "http://www.foo.bar/file.rdf#individual-1", "\nModel: Default Model\nhttp://www.foo.bar/file.rdf#individual-1 contains the file extension rdf"));
+		assertTrue(TestUtil.contains(failures, "http://www.foo.bar/file.rdf#individual-2", "\nModel: Default Model\nhttp://www.foo.bar/file.rdf#individual-2 contains the file extension rdf"));
+		assertTrue(TestUtil.contains(failures, "http://www.foo.bar/file.rdf#property-1", "\nModel: Default Model\nhttp://www.foo.bar/file.rdf#property-1 contains the file extension rdf"));
 	}
-
+	
 	@Test
 	void URIcontains_owl() throws Exception {
-		File file = new File(
-				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/owl_01.owl").getFile());
-		List<Failure> failures = check.startExecution(file);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		Failure f = failures.get(0);
-		assertEquals("http://www.city.ac.uk/ds/inm713/gr.owl#Local", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.owl#Local contains the file extension owl",
-				f.getText());
-
-		file = new File(
-				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/owl_02.owl").getFile());
-		failures = check.startExecution(file);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		f = failures.get(0);
-		assertEquals("http://www.city.ac.uk/ds/inm713/foo.owl#Country", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/foo.owl#Country contains the file extension owl",
-				f.getText());
-
-		file = new File(
-				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/owl_03.ttl").getFile());
-		failures = check.startExecution(file);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		f = failures.get(0);
-		assertEquals("http://www.example/foo.owl#Name", f.getFailureElement());
-		assertEquals(
-				"\nFile: " + file.getPath()
-						+ "\nModel: Default Model\nhttp://www.example/foo.owl#Name contains the file extension owl",
-				f.getText());
-
+		// different models
+		// subject and object URIs with owl
+		List<Failure> failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_owl_01.nq", check);
+		assertEquals(4, failures.size());
+		assertTrue(TestUtil.contains(failures, "http://disney.com/inside-out.owl/sadness", "\nModel: http://example.org/graphs/inside-out\nhttp://disney.com/inside-out.owl/sadness contains the file extension owl"));
+		assertTrue(TestUtil.contains(failures, "http://disney.com/inside-out.owl/joy", "\nModel: http://example.org/graphs/inside-out\nhttp://disney.com/inside-out.owl/joy contains the file extension owl"));
+		assertTrue(TestUtil.contains(failures, "http://pixar.com/minions.owl#gru", "\nModel: http://pixar.com/graphs/minions\nhttp://pixar.com/minions.owl#gru contains the file extension owl"));
+		assertTrue(TestUtil.contains(failures, "http://pixar.com/minions.owl#lucy", "\nModel: http://pixar.com/graphs/minions\nhttp://pixar.com/minions.owl#lucy contains the file extension owl"));
 	}
-
+	
 	@Test
 	void URIcontains_xml() throws Exception {
-		File file = new File(
-				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/xml_01.xml").getFile());
-		List<Failure> failures = check.startExecution(file);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		Failure f = failures.get(0);
-		assertEquals("http://www.city.ac.uk/ds/inm713/gr.xml#Local", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.xml#Local contains the file extension xml",
-				f.getText());
-
-		file = new File(
-				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/xml_02.xml").getFile());
-		failures = check.startExecution(file);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		f = failures.get(0);
-		assertEquals("http://www.example/foo.xml#Country", f.getFailureElement());
-		assertEquals(
-				"\nFile: " + file.getPath()
-						+ "\nModel: Default Model\nhttp://www.example/foo.xml#Country contains the file extension xml",
-				f.getText());
-
-		file = new File(
-				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/xml_03.ttl").getFile());
-		failures = check.startExecution(file);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		f = failures.get(0);
-		assertEquals("http://www.example/foo.xml#Name", f.getFailureElement());
-		assertEquals(
-				"\nFile: " + file.getPath()
-						+ "\nModel: Default Model\nhttp://www.example/foo.xml#Name contains the file extension xml",
-				f.getText());
-
-		file = new File(
-				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/xml_03.ttl").getFile());
-		failures = check.startExecution(file);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		f = failures.get(0);
-		assertEquals("http://www.example/foo.xml#Name", f.getFailureElement());
-		assertEquals(
-				"\nFile: " + file.getPath()
-						+ "\nModel: Default Model\nhttp://www.example/foo.xml#Name contains the file extension xml",
-				f.getText());
+		// one named model
+		// subject and object URI with xml
+		List<Failure> failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_xml_01.nq", check);
+		assertEquals(2, failures.size());
+		assertTrue(TestUtil.contains(failures, "http://www.example.com/file.xml/individual-1", "\nModel: http://www.graphs.com/graph-1\nhttp://www.example.com/file.xml/individual-1 contains the file extension xml"));
+		assertTrue(TestUtil.contains(failures, "http://www.example.com/file.xml/individual-2", "\nModel: http://www.graphs.com/graph-1\nhttp://www.example.com/file.xml/individual-2 contains the file extension xml"));
 	}
-
+	
 	@Test
 	void URIcontains_ttl() throws Exception {
-		File file = new File(
-				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/ttl_01.ttl").getFile());
-		List<Failure> failures = check.startExecution(file);
-		assertNotNull(failures);
+		List<Failure> failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_ttl_01.nq", check);
 		assertEquals(1, failures.size());
-		Failure f = failures.get(0);
-		assertEquals("http://www.city.ac.uk/ds/inm713/gr.ttl#Local", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.ttl#Local contains the file extension ttl",
-				f.getText());
-
-		file = new File(
-				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/ttl_02.ttl").getFile());
-		failures = check.startExecution(file);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		f = failures.get(0);
-		assertEquals("http://www.example/foo.ttl#Country", f.getFailureElement());
-		assertEquals(
-				"\nFile: " + file.getPath()
-						+ "\nModel: Default Model\nhttp://www.example/foo.ttl#Country contains the file extension ttl",
-				f.getText());
-
-		file = new File(
-				this.getClass().getClassLoader().getResource("CheckURIcontainsFileExtension/ttl_03.ttl").getFile());
-		failures = check.startExecution(file);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		f = failures.get(0);
-		assertEquals("http://www.example/foo.ttl#Name", f.getFailureElement());
-		assertEquals(
-				"\nFile: " + file.getPath()
-						+ "\nModel: Default Model\nhttp://www.example/foo.ttl#Name contains the file extension ttl",
-				f.getText());
+		Failure failure = failures.get(0);
+		assertEquals("http://www.example.com/file.ttl/individual-1", failure.getFailureElement());
+		assertEquals("\nModel: http://www.graphs.com/graph-1\nhttp://www.example.com/file.ttl/individual-1 contains the file extension ttl", failure.getText());
 	}
-
+	
 	@Test
-	void noFileExtensionInURI() throws Exception {
-		File file = new File(this.getClass().getClassLoader()
-				.getResource("CheckURIcontainsFileExtension/noFileExtension_01.ttl").getFile());
-		List<Failure> failures = check.startExecution(file);
-		assertNotNull(failures);
-
+	void URIcontainsNoFileExtension() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontainsNoFileExtension_01.nq", check);
 		assertEquals(0, failures.size());
-		file = new File(this.getClass().getClassLoader()
-				.getResource("CheckURIcontainsFileExtension/noFileExtension_02.rdf").getFile());
-		failures = check.startExecution(file);
-		assertNotNull(failures);
+		failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontainsNoFileExtension_02.nq", check);
 		assertEquals(0, failures.size());
 	}
+	
 }

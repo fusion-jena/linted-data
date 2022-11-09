@@ -1,0 +1,4 @@
+<http://www.example.rdf.com/file#class-1> <http://www.w3.org/2000/01/rdf-schema#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.foo.bar/file.rdf#individual-1> <http://www.w3.org/2000/01/rdf-schema#type> <http://www.example.rdf.com/file#class-1> .
+<http://www.foo.bar/file.rdf#individual-2> <http://www.w3.org/2000/01/rdf-schema#type> <http://www.example.rdf.com/file#class-1> .
+<http://www.foo.bar/file.rdf#individual-2> <http://www.foo.bar/file.rdf#property-1> <http://www.foo.bar/file.rdf#individual-1> .
