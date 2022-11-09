@@ -66,7 +66,7 @@ public final class CheckSeveralClassesWithTheSameLabel extends MultiGraphCheck {
 		while (results.hasNext()) {
 			QuerySolution qs = results.next();
 			String description = failureDescription + "\n" + qs.get(label).toString()
-					+ " is shared by two or more classes";
+					+ " is shared by the " + qs.get("numClasses").asLiteral().getInt() +" classes: [" + qs.get("classes").toString() + "]";
 			Failure failure = new Failure(name, severity, qs.get(label).toString(), description);
 			failures.add(failure);
 		}

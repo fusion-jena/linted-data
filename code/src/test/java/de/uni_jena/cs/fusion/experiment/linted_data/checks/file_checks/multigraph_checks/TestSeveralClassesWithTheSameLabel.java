@@ -80,7 +80,9 @@ public class TestSeveralClassesWithTheSameLabel {
 		Failure f = failures.get(0);
 		assertEquals(Severity.INFO, f.getSeverity());
 		assertEquals("Person@en", f.getFailureElement());
-		assertEquals("\nPerson@en is shared by two or more classes", f.getText());
+		assertEquals(
+				"\nPerson@en is shared by the 2 classes: [http://example.org#HumanBeeing, http://example.org#Person]",
+				f.getText());
 	}
 
 	/**
@@ -94,7 +96,9 @@ public class TestSeveralClassesWithTheSameLabel {
 		assertEquals(1, failures.size());
 		Failure f = failures.get(0);
 		assertEquals("Class A", f.getFailureElement());
-		assertEquals("\nClass A is shared by two or more classes", f.getText());
+		assertEquals(
+				"\nClass A is shared by the 2 classes: [http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#class-a, http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-7#class-b-a]",
+				f.getText());
 	}
 
 	/**
@@ -107,12 +111,12 @@ public class TestSeveralClassesWithTheSameLabel {
 				check);
 		assertNotNull(failures);
 		assertEquals(3, failures.size());
-		assertTrue(TestUtil.contains(failures, "Label 1@en", "\nLabel 1@en is shared by two or more classes",
-				Severity.INFO));
-		assertTrue(TestUtil.contains(failures, "Label 2@de", "\nLabel 2@de is shared by two or more classes",
-				Severity.INFO));
-		assertTrue(TestUtil.contains(failures, "Label 1@de", "\nLabel 1@de is shared by two or more classes",
-				Severity.INFO));
+		assertTrue(
+				TestUtil.contains(failures, "Label 1@en", "\nLabel 1@en is shared by the 2 classes: [http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-9#class-3, http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-9#class-6]", Severity.INFO));
+		assertTrue(
+				TestUtil.contains(failures, "Label 2@de", "\nLabel 2@de is shared by the 2 classes: [http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-9#class-2, http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-9#class-3]", Severity.INFO));
+		assertTrue(
+				TestUtil.contains(failures, "Label 1@de", "\nLabel 1@de is shared by the 3 classes: [http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-9#class-1, http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-9#class-4, http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-9#class-5]", Severity.INFO));
 	}
 
 }

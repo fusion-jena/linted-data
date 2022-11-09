@@ -1,13 +1,25 @@
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
-
-SELECT DISTINCT ?label
+# get all class labels with more than one class, and their IRIs
+SELECT ?label ?classes ?numClasses
 WHERE {
-  {?c1 rdf:type owl:Class.} UNION {?c1 rdf:type  rdfs:Class.}.
-  {?c2 rdf:type owl:Class.} UNION {?c2 rdf:type  rdfs:Class.}.
-  ?c1 rdfs:label ?label.
-  ?c2 rdfs:label ?label.
-  FILTER (?c1 != ?c2).
+  {
+  # group the result by label, create a list for the class IRIs
+  SELECT ?label (GROUP_CONCAT(?c1; SEPARATOR=", ") AS ?classes) (COUNT(?c1) AS ?numClasses)
+  WHERE {
+      {
+      # query class labels and order the result alphabetically by the IRI of the classes 
+      SELECT ?label ?c1
+        WHERE {
+          {?c1 rdf:type owl:Class.} UNION {?c1 rdf:type  rdfs:Class.}.
+    	  ?c1 rdfs:label ?label.
+        }
+        ORDER BY ?c1
+      }
+  }
+    GROUP BY ?label
+  }
+  FILTER(?numClasses > 1)
 }
