@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckURIcontainsFileExtension;
+import de.uni_jena.cs.fusion.experiment.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.experiment.linted_data.util.TestUtil;
 
 /**
@@ -166,11 +167,11 @@ public class TestURIcontainsFileExtension {
 		assertNotNull(failures);
 		assertEquals(3, failures.size());
 		assertTrue(TestUtil.contains(failures, "http://my-example.org#testr.rt#pizza", "\nFile: " + file.getPath()
-						+ "\nModel: Default Model\nhttp://my-example.org#testr.rt#pizza contains the file extension rt"));
+				+ "\nModel: Default Model\nhttp://my-example.org#testr.rt#pizza contains the file extension rt"));
 		assertTrue(TestUtil.contains(failures, "http://my-example.org/test.rt/individual-1", "\nFile: " + file.getPath()
 				+ "\nModel: Default Model\nhttp://my-example.org/test.rt/individual-1 contains the file extension rt"));
 		assertTrue(TestUtil.contains(failures, "http://example.rt/test#property-b", "\nFile: " + file.getPath()
-						+ "\nModel: Default Model\nhttp://example.rt/test#property-b contains the file extension rt"));
+				+ "\nModel: Default Model\nhttp://example.rt/test#property-b contains the file extension rt"));
 	}
 
 	@Test
@@ -181,7 +182,8 @@ public class TestURIcontainsFileExtension {
 		List<Failure> failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
-		assertTrue(TestUtil.contains(failures, "http://www.city.ac.uk/ds/inm713/gr.trdf#pizza-423", "\nFile: " + file.getPath()
+		assertTrue(TestUtil.contains(failures, "http://www.city.ac.uk/ds/inm713/gr.trdf#pizza-423", "\nFile: "
+				+ file.getPath()
 				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.trdf#pizza-423 contains the file extension trdf"));
 		assertTrue(TestUtil.contains(failures, "http://my-example.org/test.rpb#property-b", "\nFile: " + file.getPath()
 				+ "\nModel: Default Model\nhttp://my-example.org/test.rpb#property-b contains the file extension rpb"));
@@ -216,39 +218,74 @@ public class TestURIcontainsFileExtension {
 				+ "\nModel: Default Model\nhttp://my-example.org/test.shc#property-b contains the file extension shc",
 				f.getText());
 	}
-	
+
 	@Test
 	void URIcontains_nt() throws Exception {
+		// nt in subject URI
 		List<Failure> failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_nt_01.nt", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure f = failures.get(0);
 		assertEquals("http://my-example.org/test.nt#property-a", f.getFailureElement());
-		assertEquals("\nModel: Default Model\nhttp://my-example.org/test.nt#property-a contains the file extension nt", f.getText());
-	
+		assertEquals("\nModel: Default Model\nhttp://my-example.org/test.nt#property-a contains the file extension nt",
+				f.getText());
+		// nt in subject and predicate URI
 		failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_nt_02.nt", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		f = failures.get(0);
 		assertEquals("http://my-example.org/test.nt#property-a", f.getFailureElement());
-		assertEquals("\nModel: Default Model\nhttp://my-example.org/test.nt#property-a contains the file extension nt", f.getText());
+		assertEquals("\nModel: Default Model\nhttp://my-example.org/test.nt#property-a contains the file extension nt",
+				f.getText());
 	}
-	
+
 	@Test
 	void URIcontains_jsonld() throws Exception {
+		// jsonld in subject URI
 		List<Failure> failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_jsonld_01.nt", check);
 		assertEquals(1, failures.size());
 		Failure f = failures.get(0);
 		assertEquals("http://www.city.ac.uk/ds/inm713/gr.jsonld/Local", f.getFailureElement());
-		assertEquals("\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.jsonld/Local contains the file extension jsonld", f.getText());
-		
+		assertEquals(
+				"\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.jsonld/Local contains the file extension jsonld",
+				f.getText());
+		// jsonld in subject URI
 		failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_jsonld_02.nt", check);
 		assertEquals(1, failures.size());
 		f = failures.get(0);
 		assertEquals("http://www.city.ac.uk/ds/inm713/gr.jsonld#Local", f.getFailureElement());
-		assertEquals("\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.jsonld#Local contains the file extension jsonld", f.getText());
-		
+		assertEquals(
+				"\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.jsonld#Local contains the file extension jsonld",
+				f.getText());
 	}
+
+	@Test
+	void URIcontains_jsonld10() throws Exception {
+		// jsonld10 in subject and object URI
+		List<Failure> failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_jsonld10_01.nt",
+				check);
+		assertEquals(2, failures.size());
+		assertTrue(TestUtil.contains(failures, "http://foo.de/example.jsonld10#property-a",
+				"\nModel: Default Model\nhttp://foo.de/example.jsonld10#property-a contains the file extension jsonld10",
+				Severity.WARN));
+		assertTrue(TestUtil.contains(failures, "http://www.bar.de/file.jsonld10/property-b",
+				"\nModel: Default Model\nhttp://www.bar.de/file.jsonld10/property-b contains the file extension jsonld10"));
+	}
+
+	@Test
+	void URIcontains_jsonld11() throws Exception {
+		// jsonld11 in predicate and object URI
+		List<Failure> failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_jsonld11_01.nt",
+				check);
+		assertEquals(2, failures.size());
+		assertTrue(TestUtil.contains(failures, "http://foo.de/example.jsonld11#property-a",
+				"\nModel: Default Model\nhttp://foo.de/example.jsonld11#property-a contains the file extension jsonld11",
+				Severity.WARN));
+		assertTrue(TestUtil.contains(failures, "http://www.bar.de/file.jsonld11/property-b",
+				"\nModel: Default Model\nhttp://www.bar.de/file.jsonld11/property-b contains the file extension jsonld11"));
+	}
+	
+	
 
 	/*
 	 * the following tests are not necessary the bad test design was noticed too
@@ -260,6 +297,7 @@ public class TestURIcontainsFileExtension {
 	 * The file extension at the end of the function name indicates the file format
 	 * as well as the found extensions
 	 */
+
 	@Test
 	void URIcontains_n3() {
 		OntModel model = ModelFactory.createOntologyModel();
@@ -301,79 +339,6 @@ public class TestURIcontainsFileExtension {
 		f = failures.get(0);
 		assertEquals("http://my-example.org/test.n3#individual-1", f.getFailureElement());
 		assertEquals("\nhttp://my-example.org/test.n3#individual-1 contains the file extension n3", f.getText());
-	}
-
-	@Test
-	void URIcontains_jsonld10() throws Exception {
-		File file = new File(this.getClass().getClassLoader()
-				.getResource("CheckURIcontainsFileExtension/jsonld10_01.ttl").getFile());
-		List<Failure> failures = check.startExecution(file);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		Failure f = failures.get(0);
-		assertEquals("http://www.city.ac.uk/ds/inm713/gr.jsonld10#Local", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.jsonld10#Local contains the file extension jsonld10",
-				f.getText());
-
-		file = new File(this.getClass().getClassLoader()
-				.getResource("CheckURIcontainsFileExtension/jsonld10_02.jsonld10").getFile());
-		failures = check.startExecution(file);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		f = failures.get(0);
-		assertEquals("http://www.city.ac.uk/ds/inm713/gr.jsonld10#Local", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.jsonld10#Local contains the file extension jsonld10",
-				f.getText());
-
-		file = new File(this.getClass().getClassLoader()
-				.getResource("CheckURIcontainsFileExtension/jsonld10_03.jsonld10").getFile());
-		failures = check.startExecution(file);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		f = failures.get(0);
-		assertEquals("http://www.example/foo.jsonld#Country", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://www.example/foo.jsonld#Country contains the file extension jsonld",
-				f.getText());
-	}
-
-	@Test
-	void URIcontains_jsonld11() throws Exception {
-		File file = new File(this.getClass().getClassLoader()
-				.getResource("CheckURIcontainsFileExtension/jsonld11_01.ttl").getFile());
-		List<Failure> failures = check.startExecution(file);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		Failure f = failures.get(0);
-		assertEquals("http://www.city.ac.uk/ds/inm713/gr.jsonld11#Local", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.jsonld11#Local contains the file extension jsonld11",
-				f.getText());
-
-		file = new File(this.getClass().getClassLoader()
-				.getResource("CheckURIcontainsFileExtension/jsonld11_02.jsonld11").getFile());
-		failures = check.startExecution(file);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		f = failures.get(0);
-		assertEquals("http://www.city.ac.uk/ds/inm713/gr.jsonld10#Local", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.jsonld10#Local contains the file extension jsonld10",
-				f.getText());
-
-		file = new File(this.getClass().getClassLoader()
-				.getResource("CheckURIcontainsFileExtension/jsonld11_03.jsonld11").getFile());
-		failures = check.startExecution(file);
-		assertNotNull(failures);
-		assertEquals(1, failures.size());
-		f = failures.get(0);
-		assertEquals("http://www.example/foo.jsonld11#Country", f.getFailureElement());
-		assertEquals("\nFile: " + file.getPath()
-				+ "\nModel: Default Model\nhttp://www.example/foo.jsonld11#Country contains the file extension jsonld11",
-				f.getText());
-
 	}
 
 	@Test

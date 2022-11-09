@@ -1,0 +1,2 @@
+<http://example.com/test.txt/individual-1> <http://foo.de/example.jsonld11#property-a> <http://example.com/test.txt/individual-2> . 
+<http://example.com/test-2.txt#property-2> <http://www.w3.org/2002/07/owl#equivalentProperty> <http://www.bar.de/file.jsonld11/property-b> .
