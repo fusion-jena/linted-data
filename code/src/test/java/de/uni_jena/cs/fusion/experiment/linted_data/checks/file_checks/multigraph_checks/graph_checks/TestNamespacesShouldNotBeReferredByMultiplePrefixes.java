@@ -68,7 +68,7 @@ public class TestNamespacesShouldNotBeReferredByMultiplePrefixes {
 		Failure failure = failures.get(0);
 		assertEquals(Severity.INFO, failure.getSeverity());
 		assertEquals("http://example.org#", failure.getFailureElement());
-		assertEquals("\nNamespace http://example.org# is referred by the 2 prefixes: [prefix-1, prefix-2]",
+		assertEquals("\nNamespace http://example.org# is referred by the 2 prefixes: prefix-1, prefix-2",
 				failure.getText());
 
 		model = ModelFactory.createDefaultModel();
@@ -85,7 +85,7 @@ public class TestNamespacesShouldNotBeReferredByMultiplePrefixes {
 		failure = failures.get(0);
 		assertEquals(Severity.INFO, failure.getSeverity());
 		assertEquals("http://third-example.org/", failure.getFailureElement());
-		assertEquals("\nNamespace http://third-example.org/ is referred by the 2 prefixes: [prefix-3, prefix-4]",
+		assertEquals("\nNamespace http://third-example.org/ is referred by the 2 prefixes: prefix-3, prefix-4",
 				failure.getText());
 
 		// two namespaces with two prefixes
@@ -103,9 +103,9 @@ public class TestNamespacesShouldNotBeReferredByMultiplePrefixes {
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures, "http://example.org#",
-				"\nNamespace http://example.org# is referred by the 2 prefixes: [prefix-1, prefix-2]", Severity.INFO));
+				"\nNamespace http://example.org# is referred by the 2 prefixes: prefix-1, prefix-2", Severity.INFO));
 		assertTrue(TestUtil.contains(failures, "http://third-example.org/",
-				"\nNamespace http://third-example.org/ is referred by the 2 prefixes: [prefix-3, prefix-4]",
+				"\nNamespace http://third-example.org/ is referred by the 2 prefixes: prefix-3, prefix-4",
 				Severity.INFO));
 
 		// one namespace associated with more than two prefixes
@@ -121,7 +121,7 @@ public class TestNamespacesShouldNotBeReferredByMultiplePrefixes {
 		assertEquals(Severity.INFO, failure.getSeverity());
 		assertEquals("http://example.org#", failure.getFailureElement());
 		assertEquals(
-				"\nNamespace http://example.org# is referred by the 4 prefixes: [prefix-1, prefix-2, prefix-3, prefix-4]",
+				"\nNamespace http://example.org# is referred by the 4 prefixes: prefix-1, prefix-2, prefix-3, prefix-4",
 				failure.getText());
 	}
 }

@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.jena.rdf.model.Model;
 
@@ -50,10 +51,9 @@ public final class CheckNamespacesShouldNotBeReferredByMultiplePrefixes extends 
 		// for each of these namespaces create a failure
 		for (String namespace : namespacePrefixMap.keySet()) {
 			if (namespacePrefixMap.get(namespace).size() > 1) {
-				Failure f = new Failure(name, severity, namespace,
-						failureDescription + "\nNamespace " + namespace + " is referred by the "
-								+ namespacePrefixMap.get(namespace).size() + " prefixes: "
-								+ namespacePrefixMap.get(namespace).toString());
+				Failure f = new Failure(name, severity, namespace, failureDescription + "\nNamespace " + namespace
+						+ " is referred by the " + namespacePrefixMap.get(namespace).size() + " prefixes: "
+						+ namespacePrefixMap.get(namespace).stream().sorted().collect(Collectors.joining(", ")));
 				failures.add(f);
 			}
 		}
