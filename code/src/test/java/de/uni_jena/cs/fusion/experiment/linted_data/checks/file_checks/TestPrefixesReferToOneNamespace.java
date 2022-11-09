@@ -183,7 +183,7 @@ public class TestPrefixesReferToOneNamespace {
 		Failure failure = failures.get(0);
 		assertEquals(failure.getFailureElement(), "foaf");
 		assertEquals(failure.getSeverity(), Severity.WARN);
-		assertEquals(failure.getText(), "\nfoaf has the 2 namespaces: [http://xmlns.com/foaf/0.1/, http://foo.test#]");
+		assertEquals(failure.getText(), "\nfoaf has the 2 namespaces: [http://foo.test#, http://xmlns.com/foaf/0.1/]");
 
 		failures = TestUtil
 				.executeCheck("CheckPrefixesReferToOneNamespace/JSONLD_multipleNamespacesPerPrefix_02.jsonld10", check);
@@ -192,16 +192,16 @@ public class TestPrefixesReferToOneNamespace {
 		failure = failures.get(0);
 		assertEquals(failure.getFailureElement(), "foo");
 		assertEquals(failure.getSeverity(), Severity.WARN);
-		assertEquals(failure.getText(), "\nfoo has the 2 namespaces: [http://onto-foo.bar#, http://foo.bar/]");
+		assertEquals(failure.getText(), "\nfoo has the 2 namespaces: [http://foo.bar/, http://onto-foo.bar#]");
 
 		failures = TestUtil
 				.executeCheck("CheckPrefixesReferToOneNamespace/JSONLD_multipleNamespacesPerPrefix_03.jsonld11", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures, "foaf",
-				"\nfoaf has the 2 namespaces: [http://xmlns.com/foaf/0.1/, http://foo.bar2#]", Severity.WARN));
+				"\nfoaf has the 2 namespaces: [http://foo.bar2#, http://xmlns.com/foaf/0.1/]", Severity.WARN));
 		assertTrue(TestUtil.contains(failures, "foo",
-				"\nfoo has the 2 namespaces: [http://onto-foo.bar#, http://foo.bar/]", Severity.WARN));
+				"\nfoo has the 2 namespaces: [http://foo.bar/, http://onto-foo.bar#]", Severity.WARN));
 
 		// one prefix -> multiple namespaces
 		// one prefix -> multiple times the same namespace
@@ -212,7 +212,7 @@ public class TestPrefixesReferToOneNamespace {
 		assertTrue(TestUtil.contains(failures, "foo", "\nfoo has 3 times the namespace http://onto-foo.bar#",
 				Severity.INFO));
 		assertTrue(TestUtil.contains(failures, "foaf",
-				"\nfoaf has the 2 namespaces: [http://xmlns.com/foaf/0.1/, http://foo.bar2#]", Severity.WARN));
+				"\nfoaf has the 2 namespaces: [http://foo.bar2#, http://xmlns.com/foaf/0.1/]", Severity.WARN));
 	}
 
 }

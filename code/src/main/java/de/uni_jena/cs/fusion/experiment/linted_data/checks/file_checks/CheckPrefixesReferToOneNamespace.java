@@ -84,8 +84,9 @@ public final class CheckPrefixesReferToOneNamespace extends FileCheck {
 
 			// for each namespace check that it has only one corresponding prefix
 			if (map.get(prefix).size() > 1) {
-				Failure failure = new Failure(this.name, this.severity, prefix, failureDescription + "\n" + prefix
-						+ " has the " + map.get(prefix).size() + " namespaces: " + map.get(prefix).toString());
+				Failure failure = new Failure(this.name, this.severity, prefix,
+						failureDescription + "\n" + prefix + " has the " + map.get(prefix).size() + " namespaces: ["
+								+ map.get(prefix).stream().sorted().collect(Collectors.joining(", ")) + "]");
 				failures.add(failure);
 			}
 		}
