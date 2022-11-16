@@ -99,20 +99,20 @@ public class Testcase {
 	}
 
 	/**
-	 * @return the duration of the check in milliseconds
+	 * @return the duration of the check in milliseconds as long
 	 */
 	@JsonIgnore
-	public long getTime_ms() {
+	public long getTime_ms_long() {
 		return check.getTime();
 	}
 
 	/**
-	 * @return the duration of the check in seconds
+	 * @return the duration of the check in milliseconds as double
 	 */
 	@JacksonXmlProperty(isAttribute = true, localName = "time")
-	public double getTime_s() {
+	public double getTime_ms_double() {
 		// convert from ms to s
-		return (double) check.getTime() / 1000;
+		return (double) check.getTime();
 	}
 
 }
