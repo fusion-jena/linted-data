@@ -18,6 +18,7 @@ import de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.CheckPref
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.FileCheck;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.CheckSeveralClassesWithTheSameLabel;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.CheckLexicalRepresentationOfFloatingPointDatatypes;
+import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.CheckNamespacesShouldNotBeReferredByMultiplePrefixes;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.CheckNamespacesShouldNotOmitTheSeperator;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckIRIsTooLong;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckInverseRelationshipForSymmetricProperty;
@@ -102,7 +103,7 @@ public class Runner {
 				// execute all the checks of the corresponding language
 				List<Failure> failures = check.startExecution(resource);
 				// create a new testcase containing the check and its failures
-				testcases.get(targetLanguage).add(new Testcase(check, failures));
+				testcases.get(targetLanguage).add(new Testcase(check, failures, TargetLanguage.class.getCanonicalName() + "." + targetLanguage));
 			}
 			// create a testsuite for the language with its testcases
 			testsuites.add(new Testsuite(TargetLanguage.class.getCanonicalName() + "." + targetLanguage,
@@ -144,16 +145,18 @@ public class Runner {
 	private List<FileCheck> createAllChecks() {
 		List<FileCheck> allChecks = new ArrayList<FileCheck>();
 		allChecks.add(new CheckLeadingOrTrailingSpaces());
-		allChecks.add(new CheckURIcontainsFileExtension());
-		allChecks.add(new CheckLexicalRepresentationOfFloatingPointDatatypes());
-		allChecks.add(new CheckRDFcontainers());
-		allChecks.add(new CheckPrefixesReferToOneNamespace());
 		allChecks.add(new CheckNamespacesShouldNotOmitTheSeperator());
+		allChecks.add(new CheckNamespacesShouldNotBeReferredByMultiplePrefixes());
+		allChecks.add(new CheckPrefixesReferToOneNamespace());
+		allChecks.add(new CheckIRIsTooLong());
+		allChecks.add(new CheckRDFcontainers());
+		allChecks.add(new CheckLexicalRepresentationOfFloatingPointDatatypes());
 		allChecks.add(new CheckLicenseDeclared());
+		allChecks.add(new CheckURIcontainsFileExtension());
+		allChecks.add(new CheckSeveralClassesWithTheSameLabel());
 		allChecks.add(new CheckInverseRelationshipForSymmetricProperty());
 		allChecks.add(new CheckSelfInverseProperty());
-		allChecks.add(new CheckIRIsTooLong());
-		allChecks.add(new CheckSeveralClassesWithTheSameLabel());
+		// TODO property has multiple Domain, Range
 		allChecks.add(new CheckPropertyHasMissingDomainRangeDefinition());
 		return allChecks;
 	}

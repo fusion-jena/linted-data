@@ -44,7 +44,7 @@ public abstract class FileCheck extends Check {
 		long start = System.currentTimeMillis();
 		String failureDescription;
 		try {
-			failureDescription = "\n" + "File: " + file.getCanonicalPath();
+			failureDescription = "File: " + file.getCanonicalPath();
 		} catch (IOException e) {
 			throw e;
 		}
