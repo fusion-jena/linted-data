@@ -38,7 +38,7 @@ public class Testcase {
 	 */
 	@JsonIgnore
 	private Check check;
-	
+
 	@JacksonXmlProperty(localName = "classname", isAttribute = true)
 	private String testsuiteName;
 
@@ -52,31 +52,32 @@ public class Testcase {
 	public Check getCheck() {
 		return check;
 	}
-	
-	@JacksonXmlProperty(isAttribute = false, localName = "failures")
-	public Failure getFailure() {
+
+	@JacksonXmlProperty(isAttribute = false, localName = "failure")
+	@JacksonXmlElementWrapper(useWrapping = false)
+	public List<Failure> getFailuresAsOne() {
 		List<Failure> failures = this.getFailures();
-		if (failures.size() == 0) {
-			return null;
-		}else {
+		if (failures.size() != 0) {
 			Iterator<Failure> it = failures.iterator();
 			Failure f = it.next();
 			String message = f.getMessage();
 			Severity severity = f.getSeverity();
 			String failureElement = f.getFailureElement();
 			String text = f.getText();
-			while(it.hasNext()) {
+			while (it.hasNext()) {
 				text += "\n" + it.next().getText();
 			}
-			return new Failure(message, severity, failureElement, text);
+			failures.clear();
+			failures.add(new Failure(message, severity, failureElement, text));
 		}
+		return failures;
 	}
-	
+
 	@JsonIgnore
 	public List<Failure> getFailures() {
 		return failures.subList(0, Math.min(100, failures.size()));
 	}
-	
+
 	@JsonIgnore
 	public int failureSize() {
 		return failures.size();
@@ -90,23 +91,22 @@ public class Testcase {
 	public String getName() {
 		return check.getName();
 	}
-	
+
 	/**
 	 * @return the duration of the check in milliseconds
 	 */
-	@JacksonXmlProperty(isAttribute = true, localName = "time")
+	@JsonIgnore
 	public long getTime_ms() {
 		return check.getTime();
 	}
-	
+
 	/**
 	 * @return the duration of the check in seconds
 	 */
-	@JsonIgnore
+	@JacksonXmlProperty(isAttribute = true, localName = "time")
 	public double getTime_s() {
 		// convert from ms to s
-		return (double) check.getTime()/1000; 
+		return (double) check.getTime() / 1000;
 	}
-	
-	
+
 }
