@@ -1,5 +1,6 @@
 package de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
@@ -26,7 +27,7 @@ public class Failure {
 	/**
 	 * the element that created the failure 
 	 */
-	@JacksonXmlProperty(isAttribute = true)
+	@JsonIgnore
 	private String failureElement;
 	/**
 	 * description of the location of the failure element
@@ -52,7 +53,7 @@ public class Failure {
 		return severity;
 	}
 	
-	
+	@JsonIgnore
 	public String getFailureElement() {
 		return failureElement;
 	}
