@@ -64,7 +64,7 @@ public class Testsuite {
 	public long getTime_ms() {
 		long sum = 0L;
 		for (Testcase testcase : testcases) {
-			sum += testcase.getTime_ms_long();
+			sum += testcase.getTime_ms();
 		}
 		return sum;
 	}
@@ -76,7 +76,7 @@ public class Testsuite {
 	public double getTime_s() {
 		long sum = 0L;
 		for (Testcase testcase : testcases) {
-			sum += (testcase.getTime_ms_double()/1000);
+			sum += testcase.getTime_ms();
 		}
 		// convert from ms to s
 		return (double) sum / 1000;
