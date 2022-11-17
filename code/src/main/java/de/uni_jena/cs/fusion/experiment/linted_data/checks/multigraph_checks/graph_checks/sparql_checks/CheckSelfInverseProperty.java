@@ -1,6 +1,5 @@
 package de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +22,7 @@ public class CheckSelfInverseProperty extends SPARQLSelectCheck {
 
 	public CheckSelfInverseProperty() {
 		super(Level.SPARQL, TargetLanguage.OWL, Severity.WARN, "A relationship is defined as inverse of itself.",
-				new File(CheckSelfInverseProperty.class.getClassLoader().getResource("CheckSelfInverseProperty.rq")
-						.getFile()));
+				CheckSelfInverseProperty.class.getClassLoader().getResourceAsStream("CheckSelfInverseProperty.rq"));
 	}
 
 	@Override

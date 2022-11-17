@@ -1,6 +1,5 @@
 package de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +20,7 @@ public final class CheckURIcontainsFileExtension extends SPARQLSelectCheck {
 	public CheckURIcontainsFileExtension() {
 		super(Level.SPARQL, TargetLanguage.RDFS, Severity.WARN,
 				"file extensions such as .owl, .rdf, .ttl, .n3 and .rdfxml are not allowed in an URI", 
-				new File(CheckURIcontainsFileExtension.class.getClassLoader().getResource("CheckURIcontainsFileExtension.rq").getFile()));
+				CheckURIcontainsFileExtension.class.getClassLoader().getResourceAsStream("CheckURIcontainsFileExtension.rq"));
 	}
 
 	@Override

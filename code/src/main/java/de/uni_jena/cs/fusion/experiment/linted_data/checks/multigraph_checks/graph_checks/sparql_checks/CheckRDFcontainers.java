@@ -1,6 +1,5 @@
 package de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public final class CheckRDFcontainers extends SPARQLSelectCheck {
 		// https://stackoverflow.com/questions/72434963/validating-rdfseq-with-sparql/72449757#72449757
 		super(Level.SPARQL, TargetLanguage.RDFS, Severity.WARN,
 				"The RDF container uses  one of illegal, repeated, missed out index numbers",
-				new File(CheckRDFcontainers.class.getClassLoader().getResource("CheckRDFcontainers.rq").getPath()));
+				CheckRDFcontainers.class.getClassLoader().getResourceAsStream("CheckRDFcontainers.rq"));
 	}
 
 	@Override

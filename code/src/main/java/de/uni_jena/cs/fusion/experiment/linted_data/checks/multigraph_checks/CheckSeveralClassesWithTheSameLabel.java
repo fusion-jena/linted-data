@@ -1,6 +1,5 @@
 package de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +40,8 @@ public final class CheckSeveralClassesWithTheSameLabel extends MultiGraphCheck {
 		// read SPARQL query from the resource file
 		// SPARQL query which finds all classes with the same label
 		try {
-			text = FileUtil.readFile(new File(
-					this.getClass().getClassLoader().getResource("CheckSeveralClassesWithTheSameLabel.rq").getFile()));
+			text = FileUtil.readFile(
+					this.getClass().getClassLoader().getResourceAsStream("CheckSeveralClassesWithTheSameLabel.rq"));
 		} catch (IOException e) {
 			// this exception can't occur during runtime
 		}

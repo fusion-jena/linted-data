@@ -2,6 +2,7 @@ package de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.gr
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.GraphCheck;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.Level;
@@ -28,6 +29,11 @@ public abstract class SPARQLCheck extends GraphCheck {
 		this.query  = readQuery(queryFile);
 	}
 
+	protected SPARQLCheck(Level level, TargetLanguage targetLanguage, Severity severity, String name, InputStream queryFile) {
+		super(level, targetLanguage, severity, name);
+		this.query  = readQuery(queryFile);
+	}
+
 	/**
 	 * parses the file containing the SPARQL query and returns the query as a String
 	 * 
@@ -37,6 +43,14 @@ public abstract class SPARQLCheck extends GraphCheck {
 	 * @return String representing the SPARQL query
 	 */
 	private String readQuery(File file) {
+		try {
+			return FileUtil.readFile(file);
+		}catch(IOException e) {
+			return null;
+		}
+	}
+	
+	private String readQuery(InputStream file) {
 		try {
 			return FileUtil.readFile(file);
 		}catch(IOException e) {

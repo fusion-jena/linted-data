@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
@@ -77,6 +79,20 @@ public abstract class FileUtil {
 	 */
 	public static final String readFile(File file) throws IOException {
 		BufferedReader r = new BufferedReader(new FileReader(file));
+		StringBuilder builder = new StringBuilder();
+
+		String currentLine = r.readLine();
+		while (currentLine != null) {
+			builder.append(currentLine);
+			builder.append("\n");
+			currentLine = r.readLine();
+		}
+		r.close();
+		return builder.toString();
+	}
+	
+	public static final String readFile(InputStream file) throws IOException {
+		BufferedReader r = new BufferedReader(new InputStreamReader(file));
 		StringBuilder builder = new StringBuilder();
 
 		String currentLine = r.readLine();

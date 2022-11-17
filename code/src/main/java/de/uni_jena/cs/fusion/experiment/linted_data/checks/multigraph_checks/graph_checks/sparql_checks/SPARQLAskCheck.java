@@ -1,6 +1,7 @@
 package de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 
 import org.apache.jena.query.QueryExecution;
@@ -19,6 +20,11 @@ public abstract class SPARQLAskCheck extends SPARQLCheck {
 	}
 
 	public SPARQLAskCheck(Level level, TargetLanguage targetLanguage, Severity severity, String name, File queryFile) {
+		super(level, targetLanguage, severity, name, queryFile);
+	}
+	
+	public SPARQLAskCheck(Level level, TargetLanguage targetLanguage, Severity severity, String name,
+			InputStream queryFile) {
 		super(level, targetLanguage, severity, name, queryFile);
 	}
 	

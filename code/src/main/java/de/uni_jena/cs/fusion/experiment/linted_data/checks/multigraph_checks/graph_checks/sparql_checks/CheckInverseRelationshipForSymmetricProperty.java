@@ -1,6 +1,5 @@
 package de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class CheckInverseRelationshipForSymmetricProperty extends SPARQLSelectCh
 	public CheckInverseRelationshipForSymmetricProperty() {
 		super(Level.SPARQL, TargetLanguage.OWL, Severity.WARN,
 				"Defined an inverse relationship for a symmetric relationship.",
-				new File(CheckInverseRelationshipForSymmetricProperty.class.getClassLoader().getResource("CheckInverseRelationshipForSymmetricProperty.rq").getFile()));
+				CheckInverseRelationshipForSymmetricProperty.class.getClassLoader().getResourceAsStream("CheckInverseRelationshipForSymmetricProperty.rq"));
 	}
 
 	@Override

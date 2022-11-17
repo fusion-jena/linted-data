@@ -1,6 +1,5 @@
 package de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +28,8 @@ public final class CheckLeadingOrTrailingSpaces extends SPARQLSelectCheck {
 
 	public CheckLeadingOrTrailingSpaces() {
 		super(Level.SPARQL, TargetLanguage.RDFS, Severity.INFO, "Literals shouldn't start or end with white spaces",
-				new File(CheckLeadingOrTrailingSpaces.class.getClassLoader()
-						.getResource("CheckLeadingOrTrailingSpaces.rq").getFile()));
+				CheckLeadingOrTrailingSpaces.class.getClassLoader()
+						.getResourceAsStream("CheckLeadingOrTrailingSpaces.rq"));
 	}
 
 	@Override

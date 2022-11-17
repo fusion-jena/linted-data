@@ -1,6 +1,5 @@
 package de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class CheckLicenseDeclared extends SPARQLSelectCheck {
 	public CheckLicenseDeclared() {
 		super(Level.SPARQL, TargetLanguage.OWL, Severity.ERROR,
 				"The ontology metadata omits information about the license that applies to the ontology",
-				new File(CheckLicenseDeclared.class.getClassLoader().getResource("CheckLicenseDeclared.rq").getPath()));
+				CheckLicenseDeclared.class.getClassLoader().getResourceAsStream("CheckLicenseDeclared.rq"));
 	}
 
 	@Override

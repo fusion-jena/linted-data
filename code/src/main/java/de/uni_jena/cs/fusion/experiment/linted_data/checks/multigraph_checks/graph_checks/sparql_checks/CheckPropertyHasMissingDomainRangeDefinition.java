@@ -1,6 +1,5 @@
 package de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +22,8 @@ public final class CheckPropertyHasMissingDomainRangeDefinition extends SPARQLSe
 	public CheckPropertyHasMissingDomainRangeDefinition() {
 		super(Level.SPARQL, TargetLanguage.RDFS, Severity.WARN,
 				"The property doesn't have a domain or range or none of them",
-				new File(CheckPropertyHasMissingDomainRangeDefinition.class.getClassLoader()
-						.getResource("CheckPropertyHasDomainRangeDefinition.rq").getFile()));
+				CheckPropertyHasMissingDomainRangeDefinition.class.getClassLoader()
+						.getResourceAsStream("CheckPropertyHasDomainRangeDefinition.rq"));
 	}
 
 	@Override
