@@ -26,6 +26,7 @@
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-1">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-1"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-5"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-4"/>
     </owl:ObjectProperty>
     
@@ -48,6 +49,10 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
+	    <!-- http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#d-property-15 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#d-property-15">
+    </owl:DatatypeProperty>
     
 
 
@@ -109,6 +114,12 @@
     <!-- http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-4 -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-4"/>
+
+
+    <!-- http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-5 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-5"/>
+	
 </rdf:RDF>
 
 

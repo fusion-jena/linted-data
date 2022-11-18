@@ -24,6 +24,7 @@ import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.gra
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckInverseRelationshipForSymmetricProperty;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckLeadingOrTrailingSpaces;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckLicenseDeclared;
+import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckMultipleDomainRange;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckPropertyHasMissingDomainRangeDefinition;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRDFcontainers;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckSelfInverseProperty;
@@ -156,7 +157,7 @@ public class Runner {
 		allChecks.add(new CheckSeveralClassesWithTheSameLabel());
 		allChecks.add(new CheckInverseRelationshipForSymmetricProperty());
 		allChecks.add(new CheckSelfInverseProperty());
-		// TODO property has multiple Domain, Range
+		allChecks.add(new CheckMultipleDomainRange());
 		allChecks.add(new CheckPropertyHasMissingDomainRangeDefinition());
 		return allChecks;
 	}

@@ -27,11 +27,11 @@ public class TestMultipleDomainRange {
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures,
 				"http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#d-property-1",
-				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#d-property-1 has multiple domains defined",
+				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#d-property-1 has the 2 defined domains [http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-2, http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-4]",
 				Severity.WARN));
 		assertTrue(TestUtil.contains(failures,
 				"http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-1",
-				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-1 has multiple domains defined",
+				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-1 has the 3 defined domains [http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-1, http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-4, http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-5]",
 				Severity.WARN));
 	}
 
@@ -45,11 +45,11 @@ public class TestMultipleDomainRange {
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures,
 				"http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#d-property-3",
-				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#d-property-3 has multiple ranges defined",
+				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#d-property-3 has the 3 defined ranges [http://www.w3.org/2001/XMLSchema#boolean, http://www.w3.org/2001/XMLSchema#int, http://www.w3.org/2001/XMLSchema#integer]",
 				Severity.WARN));
 		assertTrue(TestUtil.contains(failures,
 				"http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-1",
-				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-1 has multiple ranges defined",
+				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-1 has the 3 defined ranges [http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-2, http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-3, http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-4]",
 				Severity.WARN));
 	}
 
@@ -63,34 +63,35 @@ public class TestMultipleDomainRange {
 		assertEquals(6, failures.size());
 		assertTrue(TestUtil.contains(failures,
 				"http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-3",
-				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-3 has multiple domains defined"));
+				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-3 has the 2 defined domains [http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-3, http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-4]"));
 		assertTrue(TestUtil.contains(failures,
 				"http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-2",
-				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-2 has multiple domains defined"));
+				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-2 has the 2 defined domains [http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-1, http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-3]"));
 		assertTrue(TestUtil.contains(failures,
 				"http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-1",
-				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-1 has multiple ranges defined"));
+				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-1 has the 3 defined ranges [http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-2, http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-3, http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-4]"));
 		assertTrue(TestUtil.contains(failures,
 				"http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#d-property-3",
-				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#d-property-3 has multiple domains and ranges defined"));
+				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#d-property-3 has the 2 defined domains [http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-1, http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-4] and the 3 defined ranges [http://www.w3.org/2001/XMLSchema#boolean, http://www.w3.org/2001/XMLSchema#int, http://www.w3.org/2001/XMLSchema#integer]"));
 		assertTrue(TestUtil.contains(failures,
 				"http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#d-property-1",
-				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#d-property-1 has multiple domains and ranges defined"));
+				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#d-property-1 has the 2 defined domains [http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-2, http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-3] and the 2 defined ranges [http://www.w3.org/2001/XMLSchema#integer, http://www.w3.org/2001/XMLSchema#short]"));
 		assertTrue(TestUtil.contains(failures,
 				"http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-8",
-				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-8 has multiple domains and ranges defined"));
+				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#property-8 has the 2 defined domains [http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-3, http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-4] and the 2 defined ranges [http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-3, http://www.semanticweb.org/ontologies/2022/9/untitled-ontology-12#class-4]"));
 	}
 
 	@Test
-	void singleDomainRange() throws Exception{
+	void singleDomainRange() throws Exception {
 		List<Failure> failures = TestUtil.executeCheck("CheckMultipleDomainRange/single_domain_range_01.xml", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 	}
 
 	@Test
-	void intersectionInsteadOfConjunction() throws Exception{
-		List<Failure> failures = TestUtil.executeCheck("CheckMultipleDomainRange/intersection_domain_range_01.xml", check);
+	void intersectionInsteadOfConjunction() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckMultipleDomainRange/intersection_domain_range_01.xml",
+				check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 	}

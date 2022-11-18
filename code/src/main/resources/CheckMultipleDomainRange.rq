@@ -1,27 +1,44 @@
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT DISTINCT ?property ?error
-WHERE {
-  {
-    SELECT ?property ?duplicatedDomain ?duplicatedRange 
-    WHERE {
-      {?property a owl:ObjectProperty} UNION {?property a owl:DatatypeProperty} UNION {?property a rdfs:Property}.
-      BIND (EXISTS {?property rdfs:domain ?domain1. ?property rdfs:domain ?domain2. FILTER(?domain1 != ?domain2)} AS ?duplicatedDomain)
-      BIND (EXISTS {?property rdfs:range ?range1. ?property rdfs:range ?range2. FILTER(?range1 != ?range2)} AS ?duplicatedRange)
-      FILTER (?duplicatedDomain || ?duplicatedRange)
-    }   
+SELECT ?property ?error
+WHERE
+{
+    {
+    SELECT ?property ?numDomains ?numRanges ?domains ?ranges
+    WHERE
+    { # find all properties that have more than one defined domain or range
+      OPTIONAL { # find all properties and their defined domains
+        SELECT ?property (GROUP_CONCAT(?domain ; separator=", ") as ?domains) (COUNT(?domain) AS ?numDomains)
+        WHERE
+        {
+          SELECT ?property ?domain
+          WHERE {
+              ?property rdfs:domain ?domain
+          }
+          ORDER BY ?domain
+        }
+        GROUP BY ?property
+      }
+      OPTIONAL { # find all properties and their defined ranges
+        SELECT ?property (GROUP_CONCAT(?range ; separator=", ") as ?ranges) (COUNT(?range) AS ?numRanges)
+        WHERE
+        {
+          SELECT ?property ?range
+          WHERE {
+              ?property rdfs:range ?range
+          }
+          ORDER BY ?range
+        }
+        GROUP BY ?property
+      }
+      FILTER (?numRanges > 1 || ?numDomains > 1)
+    }
   }
-      BIND(
-    IF(?duplicatedRange && ?duplicatedDomain, "has multiple domains and ranges defined",
-      IF(?duplicatedRange, "has multiple ranges defined", 
-        "has multiple domains defined"))
-    AS ?error).
+  BIND ( IF(BOUND(?numDomains), ?numDomains, 0) AS ?numberOfDomains).
+  BIND ( IF(BOUND(?numRanges), ?numRanges, 0) AS ?numberOfRanges).
+  # create an error message containing the number of domains/ranges as well as the list
+  BIND( IF(?numberOfRanges> 1 && ?numberOfDomains > 1 , CONCAT("has the ", STR(?numberOfDomains), " defined domains [", STR(?domains), "] and the ", STR(?numberOfRanges), " defined ranges [", STR(?ranges), "]"), 
+      IF(?numberOfDomains > 1, CONCAT("has the ", STR(?numberOfDomains), " defined domains [", STR(?domains), "]"), CONCAT("has the ", STR(?numberOfRanges), " defined ranges [", STR(?ranges), "]"))) AS ?error).
 }

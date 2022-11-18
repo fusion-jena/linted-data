@@ -1,6 +1,5 @@
 package de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +23,7 @@ public final class CheckMultipleDomainRange extends SPARQLSelectCheck {
 	public CheckMultipleDomainRange() {
 		super(Level.SPARQL, TargetLanguage.OWL, Severity.WARN,
 				"Multiple domain and range are interpreted as conjunction and should therefore be replaced with owl:intersectionOf",
-				new File(CheckMultipleDomainRange.class.getClassLoader().getResource("CheckMultipleDomainRange.rq")
-						.getFile()));
+				CheckMultipleDomainRange.class.getClassLoader().getResourceAsStream("CheckMultipleDomainRange.rq"));
 	}
 
 	@Override
