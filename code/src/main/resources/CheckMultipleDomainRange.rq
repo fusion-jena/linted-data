@@ -6,7 +6,7 @@ SELECT ?property ?error
 WHERE
 {
     {
-    SELECT ?property ?numDomains ?numRanges ?domains ?ranges
+    SELECT ?property ?numberOfRanges ?numberOfDomains ?domains ?ranges
     WHERE
     { # find all properties that have more than one defined domain or range
       OPTIONAL { # find all properties and their defined domains
@@ -33,11 +33,11 @@ WHERE
         }
         GROUP BY ?property
       }
+      BIND ( IF(BOUND(?numDomains), ?numDomains, 0) AS ?numberOfDomains).
+      BIND ( IF(BOUND(?numRanges), ?numRanges, 0) AS ?numberOfRanges).
       FILTER (?numRanges > 1 || ?numDomains > 1)
     }
   }
-  BIND ( IF(BOUND(?numDomains), ?numDomains, 0) AS ?numberOfDomains).
-  BIND ( IF(BOUND(?numRanges), ?numRanges, 0) AS ?numberOfRanges).
   # create an error message containing the number of domains/ranges as well as the list
   BIND( IF(?numberOfRanges> 1 && ?numberOfDomains > 1 , CONCAT("has the ", STR(?numberOfDomains), " defined domains [", STR(?domains), "] and the ", STR(?numberOfRanges), " defined ranges [", STR(?ranges), "]"), 
       IF(?numberOfDomains > 1, CONCAT("has the ", STR(?numberOfDomains), " defined domains [", STR(?domains), "]"), CONCAT("has the ", STR(?numberOfRanges), " defined ranges [", STR(?ranges), "]"))) AS ?error).
