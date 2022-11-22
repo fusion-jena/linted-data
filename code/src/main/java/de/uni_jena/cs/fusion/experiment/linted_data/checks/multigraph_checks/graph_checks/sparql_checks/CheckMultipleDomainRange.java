@@ -21,8 +21,8 @@ import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
 public final class CheckMultipleDomainRange extends SPARQLSelectCheck {
 
 	public CheckMultipleDomainRange() {
-		super(Level.SPARQL, TargetLanguage.OWL, Severity.WARN,
-				"Multiple domain and range are interpreted as conjunction and should therefore be replaced with owl:intersectionOf",
+		super(Level.SPARQL, TargetLanguage.RDFS, Severity.WARN,
+				"Multiple domains or ranges are interpreted as conjunction and should therefore be replaced with an owl:intersectionOf.",
 				CheckMultipleDomainRange.class.getClassLoader().getResourceAsStream("CheckMultipleDomainRange.rq"));
 	}
 
