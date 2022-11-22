@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckURIcontainsFileExtension;
+import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRdfIriContainsFileExtension;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.experiment.linted_data.util.TestUtil;
 
@@ -18,15 +18,15 @@ import de.uni_jena.cs.fusion.experiment.linted_data.util.TestUtil;
  * The file extension at the end of the function name indicates the file format
  * as well as the found extensions
  */
-public class TestURIcontainsFileExtension {
+public class CheckRdfIriContainsFileExtensionTest {
 
-	private CheckURIcontainsFileExtension check = new CheckURIcontainsFileExtension();
+	private CheckRdfIriContainsFileExtension check = new CheckRdfIriContainsFileExtension();
 
 	@Test
-	void URIcontains_rj() throws Exception {
+	void IriContainsRj() throws Exception {
 		// rj in predicate URI
 		File file = new File(this.getClass().getClassLoader()
-				.getResource("CheckURIcontainsFileExtension/URIcontainsRJ_01.nt").getFile());
+				.getResource("CheckRdfIriContainsFileExtension/IriContainsRJ_01.nt").getFile());
 		List<Failure> failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
@@ -36,7 +36,7 @@ public class TestURIcontainsFileExtension {
 				failures.get(0).getText());
 		// rj in subject URI
 		file = new File(this.getClass().getClassLoader()
-				.getResource("CheckURIcontainsFileExtension/URIcontainsRJ_02.nt").getFile());
+				.getResource("CheckRdfIriContainsFileExtension/IriContainsRJ_02.nt").getFile());
 		failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
@@ -46,7 +46,7 @@ public class TestURIcontainsFileExtension {
 				failures.get(0).getText());
 		// rj in object URI
 		file = new File(this.getClass().getClassLoader()
-				.getResource("CheckURIcontainsFileExtension/URIcontainsRJ_03.nt").getFile());
+				.getResource("CheckRdfIriContainsFileExtension/IriContainsRJ_03.nt").getFile());
 		failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
@@ -57,10 +57,10 @@ public class TestURIcontainsFileExtension {
 	}
 
 	@Test
-	void URIcontains_trix() throws Exception {
+	void IriContainsTrix() throws Exception {
 		// trix in predicate URI
 		File file = new File(this.getClass().getClassLoader()
-				.getResource("CheckURIcontainsFileExtension/URIcontains_trix_01.nt").getFile());
+				.getResource("CheckRdfIriContainsFileExtension/IriContainsTrix_01.nt").getFile());
 		List<Failure> failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
@@ -70,7 +70,7 @@ public class TestURIcontainsFileExtension {
 				failures.get(0).getText());
 		// trix in subject URI
 		file = new File(this.getClass().getClassLoader()
-				.getResource("CheckURIcontainsFileExtension/URIcontains_trix_02.nt").getFile());
+				.getResource("CheckRdfIriContainsFileExtension/IriContainsTrix_02.nt").getFile());
 		failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
@@ -80,7 +80,7 @@ public class TestURIcontainsFileExtension {
 				failures.get(0).getText());
 		// trix in object URI
 		file = new File(this.getClass().getClassLoader()
-				.getResource("CheckURIcontainsFileExtension/URIcontains_trix_03.nt").getFile());
+				.getResource("CheckRdfIriContainsFileExtension/IriContainsTrix_03.nt").getFile());
 		failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
@@ -91,10 +91,10 @@ public class TestURIcontainsFileExtension {
 	}
 
 	@Test
-	void URIcontains_trig() throws Exception {
+	void IriContainsTrig() throws Exception {
 		// trig in subject URI
 		File file = new File(this.getClass().getClassLoader()
-				.getResource("CheckURIcontainsFileExtension/URIcontains_trig_01.nt").getFile());
+				.getResource("CheckRdfIriContainsFileExtension/IriContainsTrig_01.nt").getFile());
 		List<Failure> failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
@@ -106,10 +106,10 @@ public class TestURIcontainsFileExtension {
 	}
 
 	@Test
-	void URIcontains_rpb() throws Exception {
+	void IriContainsRpb() throws Exception {
 		// rpb in object and predicate URI
 		File file = new File(this.getClass().getClassLoader()
-				.getResource("CheckURIcontainsFileExtension/URIcontains_rpb_01.nt").getFile());
+				.getResource("CheckRdfIriContainsFileExtension/IriContainsRpb_01.nt").getFile());
 		List<Failure> failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(3, failures.size());
@@ -124,10 +124,10 @@ public class TestURIcontainsFileExtension {
 	}
 
 	@Test
-	void URIcontains_pbrdf() throws Exception {
+	void IriContainsPbrdf() throws Exception {
 		// pbrdf in subject URI and rj in predicate URI
 		File file = new File(this.getClass().getClassLoader()
-				.getResource("CheckURIcontainsFileExtension/URIcontains_pbrdf_01.nt").getFile());
+				.getResource("CheckRdfIriContainsFileExtension/IriContainsPbrdf_01.nt").getFile());
 		List<Failure> failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
@@ -139,10 +139,10 @@ public class TestURIcontainsFileExtension {
 	}
 
 	@Test
-	void URIcontains_nq() throws Exception {
+	void IriContainsNq() throws Exception {
 		// nq in subject and object URI
 		File file = new File(this.getClass().getClassLoader()
-				.getResource("CheckURIcontainsFileExtension/URIcontains_nq_01.nt").getFile());
+				.getResource("CheckRdfIriContainsFileExtension/IriContainsNq_01.nt").getFile());
 		List<Failure> failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
@@ -153,10 +153,10 @@ public class TestURIcontainsFileExtension {
 	}
 
 	@Test
-	void URIcontains_rt() throws Exception {
+	void IriContainsRt() throws Exception {
 		// rt in subject, predicate and object iri
 		File file = new File(this.getClass().getClassLoader()
-				.getResource("CheckURIcontainsFileExtension/URIcontains_rt_01.nt").getFile());
+				.getResource("CheckRdfIriContainsFileExtension/IriContainsRt_01.nt").getFile());
 		List<Failure> failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(3, failures.size());
@@ -169,10 +169,10 @@ public class TestURIcontainsFileExtension {
 	}
 
 	@Test
-	void URIcontains_trdf() throws Exception {
+	void IriContainsTrdf() throws Exception {
 		// trdf in subject URI and rpb in predicate URI
 		File file = new File(this.getClass().getClassLoader()
-				.getResource("CheckURIcontainsFileExtension/URIcontains_trdf_01.nt").getFile());
+				.getResource("CheckRdfIriContainsFileExtension/IriContainsTrdf_01.nt").getFile());
 		List<Failure> failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
@@ -184,10 +184,10 @@ public class TestURIcontainsFileExtension {
 	}
 
 	@Test
-	void URIcontains_shacl() throws Exception {
+	void IriContainsShacl() throws Exception {
 		// shacl in subject URI
 		File file = new File(this.getClass().getClassLoader()
-				.getResource("CheckURIcontainsFileExtension/URIcontains_shaclc_01.nt").getFile());
+				.getResource("CheckRdfIriContainsFileExtension/IriContainsShaclc_01.nt").getFile());
 		List<Failure> failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
@@ -199,10 +199,10 @@ public class TestURIcontainsFileExtension {
 	}
 
 	@Test
-	void URIcontains_shc() throws Exception {
+	void IriContainsShc() throws Exception {
 		// shc in predicate URI
 		File file = new File(this.getClass().getClassLoader()
-				.getResource("CheckURIcontainsFileExtension/URIcontains_shc_01.nt").getFile());
+				.getResource("CheckRdfIriContainsFileExtension/IriContainsShc_01.nt").getFile());
 		List<Failure> failures = check.startExecution(file);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
@@ -214,9 +214,9 @@ public class TestURIcontainsFileExtension {
 	}
 
 	@Test
-	void URIcontains_nt() throws Exception {
+	void IriContainsNt() throws Exception {
 		// nt in subject URI
-		List<Failure> failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_nt_01.nt", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIriContainsFileExtension/IriContainsNt_01.nt", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure f = failures.get(0);
@@ -224,7 +224,7 @@ public class TestURIcontainsFileExtension {
 		assertEquals("\nModel: Default Model\nhttp://my-example.org/test.nt#property-a contains the file extension nt",
 				f.getText());
 		// nt in subject and predicate URI
-		failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_nt_02.nt", check);
+		failures = TestUtil.executeCheck("CheckRdfIriContainsFileExtension/IriContainsNt_02.nt", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		f = failures.get(0);
@@ -234,9 +234,9 @@ public class TestURIcontainsFileExtension {
 	}
 
 	@Test
-	void URIcontains_jsonld() throws Exception {
+	void IriContainsJsonld() throws Exception {
 		// jsonld in subject URI
-		List<Failure> failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_jsonld_01.nt", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIriContainsFileExtension/IriContainsJsonld_01.nt", check);
 		assertEquals(1, failures.size());
 		Failure f = failures.get(0);
 		assertEquals("http://www.city.ac.uk/ds/inm713/gr.jsonld/Local", f.getFailureElement());
@@ -244,7 +244,7 @@ public class TestURIcontainsFileExtension {
 				"\nModel: Default Model\nhttp://www.city.ac.uk/ds/inm713/gr.jsonld/Local contains the file extension jsonld",
 				f.getText());
 		// jsonld in subject URI
-		failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_jsonld_02.nt", check);
+		failures = TestUtil.executeCheck("CheckRdfIriContainsFileExtension/IriContainsJsonld_02.nt", check);
 		assertEquals(1, failures.size());
 		f = failures.get(0);
 		assertEquals("http://www.city.ac.uk/ds/inm713/gr.jsonld#Local", f.getFailureElement());
@@ -254,9 +254,9 @@ public class TestURIcontainsFileExtension {
 	}
 
 	@Test
-	void URIcontains_jsonld10() throws Exception {
+	void IriContainsJsonld10() throws Exception {
 		// jsonld10 in subject and object URI
-		List<Failure> failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_jsonld10_01.nt",
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIriContainsFileExtension/IriContainsJsonld10_01.nt",
 				check);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures, "http://foo.de/example.jsonld10#property-a",
@@ -267,9 +267,9 @@ public class TestURIcontainsFileExtension {
 	}
 
 	@Test
-	void URIcontains_jsonld11() throws Exception {
+	void IriContainsJsonld11() throws Exception {
 		// jsonld11 in predicate and object URI
-		List<Failure> failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_jsonld11_01.nt",
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIriContainsFileExtension/IriContainsJsonld11_01.nt",
 				check);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures, "http://foo.de/example.jsonld11#property-a",
@@ -280,18 +280,18 @@ public class TestURIcontainsFileExtension {
 	}
 
 	@Test
-	void URIcontains_n3() throws Exception {
+	void IriContainsN3() throws Exception {
 		// n3 in subject and object IRI
 		// n3 also not before / or # -> should not be detected
-		List<Failure> failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_n3_01.nt", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIriContainsFileExtension/IriContainsN3_01.nt", check);
 		assertEquals(1, failures.size());
 		assertTrue(TestUtil.contains(failures, "http://www.foo.org/bar.n3/i-1", "\nModel: Default Model\nhttp://www.foo.org/bar.n3/i-1 contains the file extension n3"));
 	}
 
 	@Test
-	void URIcontains_rdf() throws Exception {
+	void IriContainsRdf() throws Exception {
 		// rdf in subject, predicate and object URI
-		List<Failure> failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_rdf_01.nt", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIriContainsFileExtension/IriContainsRdf_01.nt", check);
 		assertEquals(3, failures.size());
 		assertTrue(TestUtil.contains(failures, "http://www.foo.bar/file.rdf#individual-1", "\nModel: Default Model\nhttp://www.foo.bar/file.rdf#individual-1 contains the file extension rdf"));
 		assertTrue(TestUtil.contains(failures, "http://www.foo.bar/file.rdf#individual-2", "\nModel: Default Model\nhttp://www.foo.bar/file.rdf#individual-2 contains the file extension rdf"));
@@ -299,10 +299,10 @@ public class TestURIcontainsFileExtension {
 	}
 	
 	@Test
-	void URIcontains_owl() throws Exception {
+	void IriContainsOwl() throws Exception {
 		// different models
 		// subject and object URIs with owl
-		List<Failure> failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_owl_01.nq", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIriContainsFileExtension/IriContainsOwl_01.nq", check);
 		assertEquals(4, failures.size());
 		assertTrue(TestUtil.contains(failures, "http://disney.com/inside-out.owl/sadness", "\nModel: http://example.org/graphs/inside-out\nhttp://disney.com/inside-out.owl/sadness contains the file extension owl"));
 		assertTrue(TestUtil.contains(failures, "http://disney.com/inside-out.owl/joy", "\nModel: http://example.org/graphs/inside-out\nhttp://disney.com/inside-out.owl/joy contains the file extension owl"));
@@ -311,18 +311,18 @@ public class TestURIcontainsFileExtension {
 	}
 	
 	@Test
-	void URIcontains_xml() throws Exception {
+	void IriContainsXml() throws Exception {
 		// one named model
 		// subject and object URI with xml
-		List<Failure> failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_xml_01.nq", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIriContainsFileExtension/IriContainsXml_01.nq", check);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures, "http://www.example.com/file.xml/individual-1", "\nModel: http://www.graphs.com/graph-1\nhttp://www.example.com/file.xml/individual-1 contains the file extension xml"));
 		assertTrue(TestUtil.contains(failures, "http://www.example.com/file.xml/individual-2", "\nModel: http://www.graphs.com/graph-1\nhttp://www.example.com/file.xml/individual-2 contains the file extension xml"));
 	}
 	
 	@Test
-	void URIcontains_ttl() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontains_ttl_01.nq", check);
+	void IriContainsTtl() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIriContainsFileExtension/IriContainsTtl_01.nq", check);
 		assertEquals(1, failures.size());
 		Failure failure = failures.get(0);
 		assertEquals("http://www.example.com/file.ttl/individual-1", failure.getFailureElement());
@@ -330,10 +330,10 @@ public class TestURIcontainsFileExtension {
 	}
 	
 	@Test
-	void URIcontainsNoFileExtension() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontainsNoFileExtension_01.nq", check);
+	void IriContainsNoFileExtension() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIriContainsFileExtension/IriContainsNoFileExtension_01.nq", check);
 		assertEquals(0, failures.size());
-		failures = TestUtil.executeCheck("CheckURIcontainsFileExtension/URIcontainsNoFileExtension_02.nq", check);
+		failures = TestUtil.executeCheck("CheckRdfIriContainsFileExtension/IriContainsNoFileExtension_02.nq", check);
 		assertEquals(0, failures.size());
 	}
 	

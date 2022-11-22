@@ -2,7 +2,7 @@ SELECT DISTINCT ?fileExtension ?iri
 WHERE {
   VALUES ?fileExtension {"rt" "trdf" "shaclc" "shc" "rdf" "owl" "xml" "ttl" "trix" "nt" "jsonld" "n3" "rj" "trig" "rpb" "pbrdf" "jsonld10" "jsonld11" "nq"}. 
   {?iri ?iri2 ?iri3 .} UNION {?iri2 ?iri ?iri3.} UNION {?iri2 ?iri3 ?iri.}.
-    FILTER ((isURI(?iri) || isIRI(?iri)) && REGEX(STR(?iri), CONCAT(CONCAT("\\.", ?fileExtension), "(#|/)")))
+    FILTER (isIRI(?iri) && REGEX(STR(?iri), CONCAT("\\.", ?fileExtension, "(#|/)")))
 }
 # to create the list of values:
 #		List<String> fileExtensions = new ArrayList<String>();

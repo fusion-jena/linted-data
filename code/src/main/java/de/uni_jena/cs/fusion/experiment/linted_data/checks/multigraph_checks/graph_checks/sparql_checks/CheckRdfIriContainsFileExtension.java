@@ -14,13 +14,13 @@ import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
 /**
  * Check whether any occuring URI contains a file extension 
  */
-public final class CheckURIcontainsFileExtension extends SPARQLSelectCheck {
+public final class CheckRdfIriContainsFileExtension extends SPARQLSelectCheck {
 	
 	
-	public CheckURIcontainsFileExtension() {
+	public CheckRdfIriContainsFileExtension() {
 		super(Level.SPARQL, TargetLanguage.RDFS, Severity.WARN,
-				"file extensions such as .owl, .rdf, .ttl, .n3 and .rdfxml are not allowed in an URI", 
-				CheckURIcontainsFileExtension.class.getClassLoader().getResourceAsStream("CheckURIcontainsFileExtension.rq"));
+				"The IRI should not contain the file extension.", 
+				CheckRdfIriContainsFileExtension.class.getClassLoader().getResourceAsStream("CheckRdfIriContainsFileExtension.rq"));
 	}
 
 	@Override
