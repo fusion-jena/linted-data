@@ -21,7 +21,7 @@ import de.uni_jena.cs.fusion.experiment.linted_data.types.TargetLanguage;
 public class CheckSelfInverseProperty extends SPARQLSelectCheck {
 
 	public CheckSelfInverseProperty() {
-		super(Level.SPARQL, TargetLanguage.OWL, Severity.WARN, "A relationship is defined as inverse of itself.",
+		super(Level.SPARQL, TargetLanguage.OWL, Severity.WARN, "A property is defined as inverse of itself. Better use owl:SymmetricProperty.",
 				CheckSelfInverseProperty.class.getClassLoader().getResourceAsStream("CheckSelfInverseProperty.rq"));
 	}
 
