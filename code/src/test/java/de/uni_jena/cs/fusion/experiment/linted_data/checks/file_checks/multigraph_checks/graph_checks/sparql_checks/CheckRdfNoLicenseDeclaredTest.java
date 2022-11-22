@@ -15,36 +15,36 @@ import org.apache.jena.vocabulary.DCTerms;
 import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckLicenseDeclared;
+import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRdfNoLicenseDeclared;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.experiment.linted_data.util.TestUtil;
 
-public class TestLicenseDeclared {
+public class CheckRdfNoLicenseDeclaredTest {
 
-	private CheckLicenseDeclared check = new CheckLicenseDeclared();
+	private CheckRdfNoLicenseDeclared check = new CheckRdfNoLicenseDeclared();
 
 	@Test
 	public void license_declared() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckLicenseDeclared/LicenseDeclared_01.rdf", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfNoLicenseDeclared/LicenseDeclared_01.rdf", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 
-		failures = TestUtil.executeCheck("CheckLicenseDeclared/LicenseDeclared_02.ttl", check);
+		failures = TestUtil.executeCheck("CheckRdfNoLicenseDeclared/LicenseDeclared_02.ttl", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 
-		failures = TestUtil.executeCheck("CheckLicenseDeclared/LicenseDeclared_03.ttl", check);
+		failures = TestUtil.executeCheck("CheckRdfNoLicenseDeclared/LicenseDeclared_03.ttl", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 
-		failures = TestUtil.executeCheck("CheckLicenseDeclared/LicenseDeclared_04.rdf", check);
+		failures = TestUtil.executeCheck("CheckRdfNoLicenseDeclared/LicenseDeclared_04.rdf", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 	}
 
 	@Test
 	public void wrong_license_declared() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckLicenseDeclared/otherLicenseDeclared.xml", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfNoLicenseDeclared/otherLicenseDeclared.xml", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure failure = failures.get(0);
@@ -58,7 +58,7 @@ public class TestLicenseDeclared {
 
 	@Test
 	public void no_license_declared() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckLicenseDeclared/noLicenseDeclared.ttl", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfNoLicenseDeclared/noLicenseDeclared.ttl", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure failure = failures.get(0);
@@ -68,7 +68,7 @@ public class TestLicenseDeclared {
 				failure.getText());
 		assertEquals("http://www.semanticweb.org/test-ontology/", failure.getFailureElement());
 
-		failures = TestUtil.executeCheck("CheckLicenseDeclared/noLicenseDeclared.jsonld", check);
+		failures = TestUtil.executeCheck("CheckRdfNoLicenseDeclared/noLicenseDeclared.jsonld", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		failure = failures.get(0);
