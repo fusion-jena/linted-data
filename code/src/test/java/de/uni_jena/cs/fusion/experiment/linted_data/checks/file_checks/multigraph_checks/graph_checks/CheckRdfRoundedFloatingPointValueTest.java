@@ -15,12 +15,12 @@ import org.apache.jena.vocabulary.VCARD;
 import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.CheckLexicalRepresentationOfFloatingPointDatatypes;
+import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.CheckRdfRoundedFloatingPointValue;
 import de.uni_jena.cs.fusion.experiment.linted_data.types.Severity;
 
-public class TestLexicalRepresentationOfFloatingPointValues {
+public class CheckRdfRoundedFloatingPointValueTest {
 
-	private CheckLexicalRepresentationOfFloatingPointDatatypes check = new CheckLexicalRepresentationOfFloatingPointDatatypes();
+	private CheckRdfRoundedFloatingPointValue check = new CheckRdfRoundedFloatingPointValue();
 
 	/**
 	 * creates a named model which contains a subject linked to a literal and
@@ -130,7 +130,7 @@ public class TestLexicalRepresentationOfFloatingPointValues {
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 
-		CheckLexicalRepresentationOfFloatingPointDatatypes check = new CheckLexicalRepresentationOfFloatingPointDatatypes();
+		CheckRdfRoundedFloatingPointValue check = new CheckRdfRoundedFloatingPointValue();
 		Model model = ModelFactory.createDefaultModel();
 		Resource res = model.createResource("http://somewhere/0.2_Smith");
 		res.addLiteral(VCARD.KEY, "0.2");

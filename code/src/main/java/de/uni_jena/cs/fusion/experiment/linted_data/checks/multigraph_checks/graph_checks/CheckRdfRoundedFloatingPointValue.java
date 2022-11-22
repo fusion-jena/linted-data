@@ -21,11 +21,11 @@ import de.uni_jena.cs.fusion.experiment.linted_data.util.StringUtil;
  * represented
  *
  */
-public final class CheckLexicalRepresentationOfFloatingPointDatatypes extends GraphCheck {
+public final class CheckRdfRoundedFloatingPointValue extends GraphCheck {
 
-	public CheckLexicalRepresentationOfFloatingPointDatatypes() {
+	public CheckRdfRoundedFloatingPointValue() {
 		super(Level.GRAPH, TargetLanguage.RDFS, Severity.WARN,
-				"The lexical value can't be exactly represented with the selected floating point data type");
+				"Lexical representation is not in the values space of the selected floating point datatype and will get rounded.");
 	}
 
 	@Override

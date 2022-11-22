@@ -17,7 +17,7 @@ import de.uni_jena.cs.fusion.experiment.linted_data.JUnitXML.TestsuiteManager;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.CheckPrefixesReferToOneNamespace;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.file_checks.FileCheck;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.CheckSeveralClassesWithTheSameLabel;
-import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.CheckLexicalRepresentationOfFloatingPointDatatypes;
+import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.CheckRdfRoundedFloatingPointValue;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.CheckNamespacesShouldNotBeReferredByMultiplePrefixes;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.CheckNamespacesShouldNotOmitTheSeperator;
 import de.uni_jena.cs.fusion.experiment.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckIRIsTooLong;
@@ -151,7 +151,7 @@ public class Runner {
 		allChecks.add(new CheckPrefixesReferToOneNamespace());
 		allChecks.add(new CheckIRIsTooLong());
 		allChecks.add(new CheckRDFcontainers());
-		allChecks.add(new CheckLexicalRepresentationOfFloatingPointDatatypes());
+		allChecks.add(new CheckRdfRoundedFloatingPointValue());
 		allChecks.add(new CheckRdfNoLicenseDeclared());
 		allChecks.add(new CheckRdfIriContainsFileExtension());
 		allChecks.add(new CheckSeveralClassesWithTheSameLabel());
