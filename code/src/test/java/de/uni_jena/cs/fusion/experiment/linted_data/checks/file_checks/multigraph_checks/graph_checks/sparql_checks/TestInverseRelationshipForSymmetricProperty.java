@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntProperty;
+import org.apache.jena.ontology.SymmetricProperty;
 import org.apache.jena.query.Dataset;
 import org.apache.jena.query.DatasetFactory;
 import org.apache.jena.rdf.model.ModelFactory;
@@ -34,8 +35,8 @@ public class TestInverseRelationshipForSymmetricProperty {
 	 * default model symmetric property is not an inverse of another relation
 	 */
 	@Test
-	public void symmetricProperty1() {
-		List<Failure> failures = init("CheckInverseRelationshipForSymmetricProperty/SymmetricProperty_01.rdf");
+	public void symmetricProperty1() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckInverseRelationshipForSymmetricProperty/SymmetricProperty_01.rdf", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 	}
@@ -77,7 +78,7 @@ public class TestInverseRelationshipForSymmetricProperty {
 		assertEquals(0, failures.size());
 	}
 
-	/*
+	/**
 	 * default model defined property as inverse of a symmetric property
 	 */
 	@Test
@@ -95,7 +96,7 @@ public class TestInverseRelationshipForSymmetricProperty {
 		assertEquals(Severity.WARN, f.getSeverity());
 	}
 
-	/*
+	/**
 	 * dataset with 2 named graphs first model -> one property has as inverse a
 	 * symmetric property defined second model -> two properties have as inverse a
 	 * symmetric property defined
@@ -136,7 +137,7 @@ public class TestInverseRelationshipForSymmetricProperty {
 				Severity.WARN));
 	}
 
-	/*
+	/**
 	 * default graph + 2 named models, one where no property is defined as inverse
 	 * of an symmetric property
 	 */
@@ -172,8 +173,40 @@ public class TestInverseRelationshipForSymmetricProperty {
 		List<Failure> failures = check.execute(dataset, "");
 		assertNotNull(failures);
 		assertEquals(3, failures.size());
-		assertTrue(TestUtil.contains(failures, "http://example.org#property", "\nModel: Default Model\nhttp://example.org#property is defined as inverse property of the symmetric property http://example.org#symmetric-property"));
-		assertTrue(TestUtil.contains(failures, "http://other-exaple.org#property-a", "\nModel: http://other-exaple.org\nhttp://other-exaple.org#property-a is defined as inverse property of the symmetric property http://other-exaple.org#symmetric-property"));
-		assertTrue(TestUtil.contains(failures, "http://other-exaple.org#property-b", "\nModel: http://other-exaple.org\nhttp://other-exaple.org#property-b is defined as inverse property of the symmetric property http://other-exaple.org#symmetric-property"));
+		assertTrue(TestUtil.contains(failures, "http://example.org#property",
+				"\nModel: Default Model\nhttp://example.org#property is defined as inverse property of the symmetric property http://example.org#symmetric-property"));
+		assertTrue(TestUtil.contains(failures, "http://other-exaple.org#property-a",
+				"\nModel: http://other-exaple.org\nhttp://other-exaple.org#property-a is defined as inverse property of the symmetric property http://other-exaple.org#symmetric-property"));
+		assertTrue(TestUtil.contains(failures, "http://other-exaple.org#property-b",
+				"\nModel: http://other-exaple.org\nhttp://other-exaple.org#property-b is defined as inverse property of the symmetric property http://other-exaple.org#symmetric-property"));
+	}
+
+	/**
+	 * symmetric property is subject
+	 */
+	@Test
+	void symmetricPropertyWithInverse() {
+		OntModel model = ModelFactory.createOntologyModel();
+		SymmetricProperty symProp = model.createSymmetricProperty("http://my-example.com#sym-property");
+		symProp.addInverseOf(model.createProperty("http://my-example.com#property"));
+
+		List<Failure> failures = check.execute(model, "");
+		assertNotNull(failures);
+		assertEquals(1, failures.size());
+		Failure failure = failures.get(0);
+		assertEquals("http://my-example.com#property", failure.getFailureElement());
+		assertEquals(
+				"\nhttp://my-example.com#property is defined as inverse property of the symmetric property http://my-example.com#sym-property",
+				failure.getText());
+		
+		SymmetricProperty symProp2 = model.createSymmetricProperty("http://my-example.com#sym-property-2");
+		symProp2.addInverseOf(symProp);
+		failures = check.execute(model, "");
+		assertNotNull(failures);
+		assertEquals(3, failures.size());
+		assertTrue(TestUtil.contains(failures, "http://my-example.com#sym-property-2", "\nhttp://my-example.com#sym-property-2 is defined as inverse property of the symmetric property http://my-example.com#sym-property"));
+		assertTrue(TestUtil.contains(failures, "http://my-example.com#sym-property", "\nhttp://my-example.com#sym-property is defined as inverse property of the symmetric property http://my-example.com#sym-property-2"));
+		assertTrue(TestUtil.contains(failures, "http://my-example.com#property", "\nhttp://my-example.com#property is defined as inverse property of the symmetric property http://my-example.com#sym-property"));
+
 	}
 }

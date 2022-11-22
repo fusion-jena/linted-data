@@ -24,7 +24,7 @@ public class CheckInverseRelationshipForSymmetricProperty extends SPARQLSelectCh
 
 	public CheckInverseRelationshipForSymmetricProperty() {
 		super(Level.SPARQL, TargetLanguage.OWL, Severity.WARN,
-				"Defined an inverse relationship for a symmetric relationship.",
+				"A inverse relationship is declared for a symmetric relationship. Better use \"owl:equivalentProperty.\"",
 				CheckInverseRelationshipForSymmetricProperty.class.getClassLoader().getResourceAsStream("CheckInverseRelationshipForSymmetricProperty.rq"));
 	}
 

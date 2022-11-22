@@ -1,7 +1,7 @@
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
-SELECT ?property ?inverse
+SELECT DISTINCT ?property ?inverse
 WHERE {
   ?property a owl:SymmetricProperty.
-  ?inverse owl:inverseOf ?property.
+  {?inverse owl:inverseOf ?property.} UNION {?property owl:inverseOf ?inverse.}.
 }
