@@ -16,10 +16,10 @@ import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
 /**
  * Finds all namespace definitions where the IRI doesn't end with a # or /
  */
-public final class CheckNamespacesShouldNotOmitTheSeperator extends GraphCheck {
+public final class CheckRdfNamespacesShouldNotOmitTheSeperator extends GraphCheck {
 
-	public CheckNamespacesShouldNotOmitTheSeperator() {
-		super(Level.MULTIGRAPH, TargetLanguage.RDFS, Severity.WARN, "Namespaces should not omit the seperator (#, /)");
+	public CheckRdfNamespacesShouldNotOmitTheSeperator() {
+		super(Level.MULTIGRAPH, TargetLanguage.RDF, Severity.WARN, "Namespaces should not omit the seperator (#, /)");
 	}
 
 	@Override

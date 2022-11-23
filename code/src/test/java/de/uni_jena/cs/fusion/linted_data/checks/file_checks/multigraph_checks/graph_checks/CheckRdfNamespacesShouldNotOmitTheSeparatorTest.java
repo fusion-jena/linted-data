@@ -15,13 +15,13 @@ import org.apache.jena.vocabulary.VCARD;
 import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.CheckNamespacesShouldNotOmitTheSeperator;
+import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.CheckRdfNamespacesShouldNotOmitTheSeperator;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.util.TestUtil;
 
-public class TestNamespacesShouldNotOmitTheSeparator {
+public class CheckRdfNamespacesShouldNotOmitTheSeparatorTest {
 	
-	private CheckNamespacesShouldNotOmitTheSeperator check = new CheckNamespacesShouldNotOmitTheSeperator();
+	private CheckRdfNamespacesShouldNotOmitTheSeperator check = new CheckRdfNamespacesShouldNotOmitTheSeperator();
 	
 	/**
 	 * all namespace IRIs end with #
