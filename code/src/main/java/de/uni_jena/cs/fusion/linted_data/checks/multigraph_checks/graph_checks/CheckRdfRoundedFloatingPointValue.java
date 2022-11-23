@@ -24,7 +24,7 @@ import de.uni_jena.cs.fusion.linted_data.util.StringUtil;
 public final class CheckRdfRoundedFloatingPointValue extends GraphCheck {
 
 	public CheckRdfRoundedFloatingPointValue() {
-		super(Level.GRAPH, TargetLanguage.RDFS, Severity.WARN,
+		super(Level.GRAPH, TargetLanguage.RDF, Severity.WARN,
 				"Lexical representation is not in the values space of the selected floating point datatype and will get rounded.");
 	}
 
