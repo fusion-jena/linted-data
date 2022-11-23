@@ -29,19 +29,19 @@ import de.uni_jena.cs.fusion.linted_data.util.FileUtil;
  * TODO create class and update superclass
  *
  */
-public final class CheckSeveralClassesWithTheSameLabel extends MultiGraphCheck {
+public final class CheckRdfsSeveralClassesWithTheSameLabel extends MultiGraphCheck {
 
 	private final String query;
 	private final String label = "label";
 
-	public CheckSeveralClassesWithTheSameLabel() {
+	public CheckRdfsSeveralClassesWithTheSameLabel() {
 		super(Level.MULTIGRAPH, TargetLanguage.RDFS, Severity.INFO, "Other classes have the same label");
 		String text = "";
 		// read SPARQL query from the resource file
 		// SPARQL query which finds all classes with the same label
 		try {
 			text = FileUtil.readFile(
-					this.getClass().getClassLoader().getResourceAsStream("CheckSeveralClassesWithTheSameLabel.rq"));
+					this.getClass().getClassLoader().getResourceAsStream("CheckRdfsSeveralClassesWithTheSameLabel.rq"));
 		} catch (IOException e) {
 			// this exception can't occur during runtime
 		}

@@ -14,13 +14,13 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.CheckSeveralClassesWithTheSameLabel;
+import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.CheckRdfsSeveralClassesWithTheSameLabel;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.util.TestUtil;
 
-public class TestSeveralClassesWithTheSameLabel {
+public class CheckRdfsSeveralClassesWithTheSameLabelTest {
 
-	private CheckSeveralClassesWithTheSameLabel check = new CheckSeveralClassesWithTheSameLabel();
+	private CheckRdfsSeveralClassesWithTheSameLabel check = new CheckRdfsSeveralClassesWithTheSameLabel();
 
 	/**
 	 * a dataset with a default model and a named model
@@ -52,7 +52,7 @@ public class TestSeveralClassesWithTheSameLabel {
 	@Test
 	public void oneLabelMultipleLanguages() throws Exception {
 		List<Failure> failures = TestUtil
-				.executeCheck("CheckSeveralClassesWithTheSameLabel/sameLabelDifferentLanguage.ttl", check);
+				.executeCheck("CheckRdfsSeveralClassesWithTheSameLabel/sameLabelDifferentLanguage.ttl", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 	}
@@ -91,7 +91,7 @@ public class TestSeveralClassesWithTheSameLabel {
 	@Test
 	public void multipleClassesOneLabel() throws Exception {
 		List<Failure> failures = TestUtil
-				.executeCheck("CheckSeveralClassesWithTheSameLabel/multipleClassesOneLabel.rdf", check);
+				.executeCheck("CheckRdfsSeveralClassesWithTheSameLabel/multipleClassesOneLabel.rdf", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure f = failures.get(0);
@@ -107,7 +107,7 @@ public class TestSeveralClassesWithTheSameLabel {
 	 */
 	@Test
 	public void differentLanguagesSameLabel() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckSeveralClassesWithTheSameLabel/sameLabelSameLanguage.ttl",
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfsSeveralClassesWithTheSameLabel/sameLabelSameLanguage.ttl",
 				check);
 		assertNotNull(failures);
 		assertEquals(3, failures.size());

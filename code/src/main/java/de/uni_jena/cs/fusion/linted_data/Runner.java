@@ -16,7 +16,7 @@ import de.uni_jena.cs.fusion.linted_data.JUnitXML.Testsuite;
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.TestsuiteManager;
 import de.uni_jena.cs.fusion.linted_data.checks.file_checks.CheckRdfPrefixesReferToOneNamespace;
 import de.uni_jena.cs.fusion.linted_data.checks.file_checks.FileCheck;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.CheckSeveralClassesWithTheSameLabel;
+import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.CheckRdfsSeveralClassesWithTheSameLabel;
 import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.CheckRdfNamespacesShouldNotBeReferredByMultiplePrefixes;
 import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.CheckRdfNamespacesShouldNotOmitTheSeperator;
 import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.CheckRdfRoundedFloatingPointValue;
@@ -154,7 +154,7 @@ public class Runner {
 		allChecks.add(new CheckRdfRoundedFloatingPointValue());
 		allChecks.add(new CheckOwlNoLicenseDeclared());
 		allChecks.add(new CheckRdfIriContainsFileExtension());
-		allChecks.add(new CheckSeveralClassesWithTheSameLabel());
+		allChecks.add(new CheckRdfsSeveralClassesWithTheSameLabel());
 		allChecks.add(new CheckOwlInverseRelationshipForSymmetricProperty());
 		allChecks.add(new CheckOwlSelfInverseProperty());
 		allChecks.add(new CheckRdfsMultipleDomainRange());
