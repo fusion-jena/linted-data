@@ -13,13 +13,13 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckSelfInverseProperty;
+import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckOwlSelfInverseProperty;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.util.TestUtil;
 
-class TestSelfInverseProperty {
+class CheckOwlSelfInversePropertyTest {
 
-	private CheckSelfInverseProperty check = new CheckSelfInverseProperty();
+	private CheckOwlSelfInverseProperty check = new CheckOwlSelfInverseProperty();
 
 	/**
 	 * correct modeling
