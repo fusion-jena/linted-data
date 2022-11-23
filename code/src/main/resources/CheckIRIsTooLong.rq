@@ -7,7 +7,7 @@ WHERE {
         SELECT DISTINCT (STRAFTER(str(?iri), '#') AS ?nameAfterHashtag) ?iri
         WHERE {
           {?iri ?iri2 ?iri3.} UNION {?iri2 ?iri ?iri3.} UNION {?iri2 ?iri3 ?iri.}. 
-          FILTER ( isURI(?iri) || isIRI(?iri) )
+          FILTER ( isIRI(?iri) )
         }
       }
       FILTER ( ?nameAfterHashtag != "" )
@@ -20,7 +20,7 @@ WHERE {
         SELECT DISTINCT (STRAFTER(str(?iri), '#') AS ?nameAfterHashtag) ?iri
         WHERE {
           {?iri ?iri2 ?iri3.} UNION {?iri2 ?iri ?iri3.} UNION {?iri2 ?iri3 ?iri.}. 
-          FILTER ( isURI(?iri) || isIRI(?iri) )
+          FILTER ( isIRI(?iri) )
         }
       }
       FILTER ( ?nameAfterHashtag = "" )
