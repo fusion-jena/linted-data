@@ -9,20 +9,20 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckMultipleDomainRange;
+import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRdfsMultipleDomainRange;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.util.TestUtil;
 
-public class TestMultipleDomainRange {
+public class CheckRdfsMultipleDomainRangeTest {
 
-	private CheckMultipleDomainRange check = new CheckMultipleDomainRange();
+	private CheckRdfsMultipleDomainRange check = new CheckRdfsMultipleDomainRange();
 
 	/**
 	 * properties that have more than one defined domain
 	 */
 	@Test
 	void multipleDomain() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckMultipleDomainRange/multiple_domain_01.xml", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfsMultipleDomainRange/multiple_domain_01.xml", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures,
@@ -40,7 +40,7 @@ public class TestMultipleDomainRange {
 	 */
 	@Test
 	void multipleRanges() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckMultipleDomainRange/multiple_range_01.ttl", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfsMultipleDomainRange/multiple_range_01.ttl", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures,
@@ -58,7 +58,7 @@ public class TestMultipleDomainRange {
 	 */
 	@Test
 	void multipleDomainAndRange() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckMultipleDomainRange/multiple_domain_range_01.ttl", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfsMultipleDomainRange/multiple_domain_range_01.ttl", check);
 		assertNotNull(failures);
 		assertEquals(6, failures.size());
 		assertTrue(TestUtil.contains(failures,
@@ -83,14 +83,14 @@ public class TestMultipleDomainRange {
 
 	@Test
 	void singleDomainRange() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckMultipleDomainRange/single_domain_range_01.xml", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfsMultipleDomainRange/single_domain_range_01.xml", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 	}
 
 	@Test
 	void intersectionInsteadOfConjunction() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckMultipleDomainRange/intersection_domain_range_01.xml",
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfsMultipleDomainRange/intersection_domain_range_01.xml",
 				check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());

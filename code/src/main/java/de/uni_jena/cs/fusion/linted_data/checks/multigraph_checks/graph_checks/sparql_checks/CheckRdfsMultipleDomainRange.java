@@ -18,12 +18,12 @@ import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
  * is equivalent to owl:intersectionOf
  *
  */
-public final class CheckMultipleDomainRange extends SPARQLSelectCheck {
+public final class CheckRdfsMultipleDomainRange extends SPARQLSelectCheck {
 
-	public CheckMultipleDomainRange() {
+	public CheckRdfsMultipleDomainRange() {
 		super(Level.SPARQL, TargetLanguage.RDFS, Severity.WARN,
 				"Multiple domains or ranges are interpreted as conjunction and should therefore be replaced with an owl:intersectionOf.",
-				CheckMultipleDomainRange.class.getClassLoader().getResourceAsStream("CheckMultipleDomainRange.rq"));
+				CheckRdfsMultipleDomainRange.class.getClassLoader().getResourceAsStream("CheckRdfsMultipleDomainRange.rq"));
 	}
 
 	@Override

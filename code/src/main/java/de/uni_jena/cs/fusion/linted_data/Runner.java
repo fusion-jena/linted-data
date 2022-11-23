@@ -23,7 +23,7 @@ import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.C
 import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckIRIsTooLong;
 import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckInverseRelationshipForSymmetricProperty;
 import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckLeadingOrTrailingSpaces;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckMultipleDomainRange;
+import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRdfsMultipleDomainRange;
 import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckPropertyHasMissingDomainRangeDefinition;
 import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRDFcontainers;
 import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRdfIriContainsFileExtension;
@@ -157,7 +157,7 @@ public class Runner {
 		allChecks.add(new CheckSeveralClassesWithTheSameLabel());
 		allChecks.add(new CheckInverseRelationshipForSymmetricProperty());
 		allChecks.add(new CheckSelfInverseProperty());
-		allChecks.add(new CheckMultipleDomainRange());
+		allChecks.add(new CheckRdfsMultipleDomainRange());
 		allChecks.add(new CheckPropertyHasMissingDomainRangeDefinition());
 		return allChecks;
 	}
