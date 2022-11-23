@@ -27,10 +27,10 @@ import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
  * <p>
  * for each namespace with more than one prefix a failure is created
  */
-public final class CheckNamespacesShouldNotBeReferredByMultiplePrefixes extends GraphCheck {
+public final class CheckRdfNamespacesShouldNotBeReferredByMultiplePrefixes extends GraphCheck {
 
-	public CheckNamespacesShouldNotBeReferredByMultiplePrefixes() {
-		super(Level.GRAPH, TargetLanguage.RDFS, Severity.INFO, "The namespace is refered by multiple prefixes");
+	public CheckRdfNamespacesShouldNotBeReferredByMultiplePrefixes() {
+		super(Level.GRAPH, TargetLanguage.RDF, Severity.INFO, "The namespace is refered by multiple prefixes");
 	}
 
 	@Override

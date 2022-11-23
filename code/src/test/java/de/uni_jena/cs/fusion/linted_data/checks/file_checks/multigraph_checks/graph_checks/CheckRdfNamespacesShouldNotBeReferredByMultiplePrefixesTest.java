@@ -15,13 +15,13 @@ import org.apache.jena.vocabulary.VCARD;
 import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.CheckNamespacesShouldNotBeReferredByMultiplePrefixes;
+import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.CheckRdfNamespacesShouldNotBeReferredByMultiplePrefixes;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.util.TestUtil;
 
-public class TestNamespacesShouldNotBeReferredByMultiplePrefixes {
+public class CheckRdfNamespacesShouldNotBeReferredByMultiplePrefixesTest {
 
-	private CheckNamespacesShouldNotBeReferredByMultiplePrefixes check = new CheckNamespacesShouldNotBeReferredByMultiplePrefixes();
+	private CheckRdfNamespacesShouldNotBeReferredByMultiplePrefixes check = new CheckRdfNamespacesShouldNotBeReferredByMultiplePrefixes();
 
 	/**
 	 * default model where each namespace is associated with exactly one prefix
