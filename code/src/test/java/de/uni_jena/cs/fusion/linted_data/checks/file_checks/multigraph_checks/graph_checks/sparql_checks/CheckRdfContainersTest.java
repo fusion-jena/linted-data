@@ -9,20 +9,20 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRDFcontainers;
+import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRdfContainers;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.util.TestUtil;
 
-public class TestRDFcontainers {
+public class CheckRdfContainersTest {
 
-	private CheckRDFcontainers check = new CheckRDFcontainers();
+	private CheckRdfContainers check = new CheckRdfContainers();
 
 	/**
 	 * an index is used twice
 	 */
 	@Test
 	public void duplicatedIndex() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckRDFcontainers/duplicatedIndex.ttl", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfContainers/duplicatedIndex.ttl", check);
 
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
@@ -39,7 +39,7 @@ public class TestRDFcontainers {
 	 */
 	@Test
 	public void missingPredecessor() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckRDFcontainers/missingPredecessor_01.ttl", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfContainers/missingPredecessor_01.ttl", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure failure = failures.get(0);
@@ -49,7 +49,7 @@ public class TestRDFcontainers {
 				"\nModel: Default Model\nMissing Predecessor in http://example.org/a http://www.w3.org/1999/02/22-rdf-syntax-ns#_2 http://example.org/a1",
 				failure.getText());
 
-		failures = TestUtil.executeCheck("CheckRDFcontainers/missingPredecessor_02.ttl", check);
+		failures = TestUtil.executeCheck("CheckRdfContainers/missingPredecessor_02.ttl", check);
 		assertNotNull(failures);
 		assertEquals(failures.size(), 2);
 		assertTrue(TestUtil.contains(failures, "http://example.org/a1",
@@ -65,7 +65,7 @@ public class TestRDFcontainers {
 	 */
 	@Test
 	public void illegalIndex() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckRDFcontainers/illegalIndex_01.ttl", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfContainers/illegalIndex_01.ttl", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure failure = failures.get(0);
@@ -75,7 +75,7 @@ public class TestRDFcontainers {
 				"\nModel: Default Model\nIllegal Index in http://example.org/d http://www.w3.org/1999/02/22-rdf-syntax-ns#_0 http://example.org/d1",
 				failure.getText());
 
-		failures = TestUtil.executeCheck("CheckRDFcontainers/illegalIndex_02.ttl", check);
+		failures = TestUtil.executeCheck("CheckRdfContainers/illegalIndex_02.ttl", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		failure = failures.get(0);
@@ -91,7 +91,7 @@ public class TestRDFcontainers {
 	 */
 	@Test
 	public void validContainers() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckRDFcontainers/validContainers.ttl", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfContainers/validContainers.ttl", check);
 		assertNotNull(failures);
 		assertEquals(failures.size(), 0);
 	}

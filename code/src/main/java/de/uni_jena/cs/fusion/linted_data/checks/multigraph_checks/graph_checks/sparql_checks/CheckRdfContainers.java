@@ -18,14 +18,14 @@ import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
  * {@link https://stackoverflow.com/questions/72434963/validating-rdfseq-with-sparql/}
  *
  */
-public final class CheckRDFcontainers extends SPARQLSelectCheck {
+public final class CheckRdfContainers extends SPARQLSelectCheck {
 
-	public CheckRDFcontainers() {
+	public CheckRdfContainers() {
 		// SPARQL query from
 		// https://stackoverflow.com/questions/72434963/validating-rdfseq-with-sparql/72449757#72449757
-		super(Level.SPARQL, TargetLanguage.RDFS, Severity.WARN,
+		super(Level.SPARQL, TargetLanguage.RDF, Severity.WARN,
 				"The RDF container uses  one of illegal, repeated, missed out index numbers",
-				CheckRDFcontainers.class.getClassLoader().getResourceAsStream("CheckRDFcontainers.rq"));
+				CheckRdfContainers.class.getClassLoader().getResourceAsStream("CheckRdfContainers.rq"));
 	}
 
 	@Override
