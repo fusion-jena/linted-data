@@ -17,17 +17,17 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckInverseRelationshipForSymmetricProperty;
+import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckOwlInverseRelationshipForSymmetricProperty;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.util.TestUtil;
 
-public class TestInverseRelationshipForSymmetricProperty {
+public class CheckOwlInverseRelationshipForSymmetricPropertyTest {
 
-	private CheckInverseRelationshipForSymmetricProperty check = new CheckInverseRelationshipForSymmetricProperty();
+	private CheckOwlInverseRelationshipForSymmetricProperty check = new CheckOwlInverseRelationshipForSymmetricProperty();
 
 	private List<Failure> init(String path) {
 		File file = new File(
-				TestInverseRelationshipForSymmetricProperty.class.getClassLoader().getResource(path).getFile());
+				CheckOwlInverseRelationshipForSymmetricPropertyTest.class.getClassLoader().getResource(path).getFile());
 		return check.execute(file, "");
 	}
 
@@ -36,7 +36,7 @@ public class TestInverseRelationshipForSymmetricProperty {
 	 */
 	@Test
 	public void symmetricProperty1() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckInverseRelationshipForSymmetricProperty/SymmetricProperty_01.rdf", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckOwlInverseRelationshipForSymmetricProperty/SymmetricProperty_01.rdf", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 	}
@@ -84,7 +84,7 @@ public class TestInverseRelationshipForSymmetricProperty {
 	@Test
 	public void symmetricPropertyWithInverse1() {
 		List<Failure> failures = init(
-				"CheckInverseRelationshipForSymmetricProperty/SymmetricPropertyWithInverse_01.ttl");
+				"CheckOwlInverseRelationshipForSymmetricProperty/SymmetricPropertyWithInverse_01.ttl");
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure f = failures.get(0);

@@ -20,12 +20,12 @@ import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
  * owl:equivalentProperty.
  *
  */
-public class CheckInverseRelationshipForSymmetricProperty extends SPARQLSelectCheck {
+public class CheckOwlInverseRelationshipForSymmetricProperty extends SPARQLSelectCheck {
 
-	public CheckInverseRelationshipForSymmetricProperty() {
+	public CheckOwlInverseRelationshipForSymmetricProperty() {
 		super(Level.SPARQL, TargetLanguage.OWL, Severity.WARN,
 				"A inverse relationship is declared for a symmetric relationship. Better use \"owl:equivalentProperty.\"",
-				CheckInverseRelationshipForSymmetricProperty.class.getClassLoader().getResourceAsStream("CheckInverseRelationshipForSymmetricProperty.rq"));
+				CheckOwlInverseRelationshipForSymmetricProperty.class.getClassLoader().getResourceAsStream("CheckOwlInverseRelationshipForSymmetricProperty.rq"));
 	}
 
 	@Override
