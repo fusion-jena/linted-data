@@ -18,7 +18,7 @@ public final class CheckRdfIriContainsFileExtension extends SPARQLSelectCheck {
 	
 	
 	public CheckRdfIriContainsFileExtension() {
-		super(Level.SPARQL, TargetLanguage.RDFS, Severity.WARN,
+		super(Level.SPARQL, TargetLanguage.RDF, Severity.WARN,
 				"The IRI should not contain the file extension.", 
 				CheckRdfIriContainsFileExtension.class.getClassLoader().getResourceAsStream("CheckRdfIriContainsFileExtension.rq"));
 	}
