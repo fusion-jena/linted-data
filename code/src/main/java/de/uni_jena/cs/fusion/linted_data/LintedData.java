@@ -17,7 +17,7 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 @Command(name = "examination", mixinStandardHelpOptions = true, version = "0.0.1", description = "Performs checks on a ontology provided via file.")
-public class Examination implements Callable<Integer> {
+public class LintedData implements Callable<Integer> {
 
 	@Parameters(index = "0", description = "The file that will be checked")
 	File inputFile;
@@ -86,7 +86,7 @@ public class Examination implements Callable<Integer> {
 	}
 	
 	public static void main(String[] args) {
-		int exitCode = new CommandLine(new Examination()).execute(args);
+		int exitCode = new CommandLine(new LintedData()).execute(args);
 		System.exit(exitCode);
 	}
 

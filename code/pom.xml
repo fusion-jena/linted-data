@@ -30,7 +30,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>de.uni_jena.cs.fusion.linted_data.Examination</mainClass>
+							<mainClass>de.uni_jena.cs.fusion.linted_data.LintedData</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
