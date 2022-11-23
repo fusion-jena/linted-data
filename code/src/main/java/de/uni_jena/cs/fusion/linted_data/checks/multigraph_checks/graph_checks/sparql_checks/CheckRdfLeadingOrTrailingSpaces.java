@@ -19,17 +19,17 @@ import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
  * <p>
  * \v also doesn't exist in SPARQL and is hence not checked
  */
-public final class CheckLeadingOrTrailingSpaces extends SPARQLSelectCheck {
+public final class CheckRdfLeadingOrTrailingSpaces extends SPARQLSelectCheck {
 
 	private static final String literal = "literal";
 	private static final String subject = "subject";
 	private static final String predicate = "predicate";
 	private static final String object = "object";
 
-	public CheckLeadingOrTrailingSpaces() {
-		super(Level.SPARQL, TargetLanguage.RDFS, Severity.INFO, "Literals shouldn't start or end with white spaces",
-				CheckLeadingOrTrailingSpaces.class.getClassLoader()
-						.getResourceAsStream("CheckLeadingOrTrailingSpaces.rq"));
+	public CheckRdfLeadingOrTrailingSpaces() {
+		super(Level.SPARQL, TargetLanguage.RDF, Severity.INFO, "Literals shouldn't start or end with white spaces",
+				CheckRdfLeadingOrTrailingSpaces.class.getClassLoader()
+						.getResourceAsStream("CheckRdfLeadingOrTrailingSpaces.rq"));
 	}
 
 	@Override

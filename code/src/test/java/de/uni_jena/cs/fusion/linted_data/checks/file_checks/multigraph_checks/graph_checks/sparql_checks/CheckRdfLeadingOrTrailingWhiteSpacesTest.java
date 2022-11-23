@@ -15,12 +15,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckLeadingOrTrailingSpaces;
+import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRdfLeadingOrTrailingSpaces;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 
-public class TestLeadingOrTrailingWhiteSpaces {
+public class CheckRdfLeadingOrTrailingWhiteSpacesTest {
 
-	private CheckLeadingOrTrailingSpaces check = new CheckLeadingOrTrailingSpaces();
+	private CheckRdfLeadingOrTrailingSpaces check = new CheckRdfLeadingOrTrailingSpaces();
 
 	private Model model;
 	private Resource johnSmith;
