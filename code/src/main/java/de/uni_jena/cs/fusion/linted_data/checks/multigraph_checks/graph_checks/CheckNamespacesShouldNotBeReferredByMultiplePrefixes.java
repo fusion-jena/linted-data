@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import org.apache.jena.rdf.model.Model;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.checks.file_checks.CheckPrefixesReferToOneNamespace;
+import de.uni_jena.cs.fusion.linted_data.checks.file_checks.CheckRdfPrefixesReferToOneNamespace;
 import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
@@ -23,7 +23,7 @@ import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
  * size 1
  * <p>
  * in case of p1 : IRI1 ... p1 : IRI1 no failure is created, this case is
- * checked in {@link CheckPrefixesReferToOneNamespace}
+ * checked in {@link CheckRdfPrefixesReferToOneNamespace}
  * <p>
  * for each namespace with more than one prefix a failure is created
  */

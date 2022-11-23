@@ -30,13 +30,13 @@ import de.uni_jena.cs.fusion.linted_data.util.FileUtil;
  * these are standardised by the W3C, support prefixes and the document is valid
  * although a prefix is defined more than once
  */
-public final class CheckPrefixesReferToOneNamespace extends FileCheck {
+public final class CheckRdfPrefixesReferToOneNamespace extends FileCheck {
 
 	private static final List<Lang> languages = Arrays.asList(RDFLanguages.TURTLE, RDFLanguages.TRIG,
 			RDFLanguages.JSONLD, RDFLanguages.JSONLD10, RDFLanguages.JSONLD11);
 
-	public CheckPrefixesReferToOneNamespace() {
-		super(Level.FILE, TargetLanguage.RDFS, Severity.WARN, "Prefixes should not refer to multiple namespaces");
+	public CheckRdfPrefixesReferToOneNamespace() {
+		super(Level.FILE, TargetLanguage.RDF, Severity.WARN, "Prefixes should not refer to multiple namespaces");
 	}
 
 	@Override

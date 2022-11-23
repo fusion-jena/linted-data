@@ -14,7 +14,7 @@ import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Testcase;
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Testsuite;
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.TestsuiteManager;
-import de.uni_jena.cs.fusion.linted_data.checks.file_checks.CheckPrefixesReferToOneNamespace;
+import de.uni_jena.cs.fusion.linted_data.checks.file_checks.CheckRdfPrefixesReferToOneNamespace;
 import de.uni_jena.cs.fusion.linted_data.checks.file_checks.FileCheck;
 import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.CheckSeveralClassesWithTheSameLabel;
 import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.CheckNamespacesShouldNotBeReferredByMultiplePrefixes;
@@ -148,7 +148,7 @@ public class Runner {
 		allChecks.add(new CheckLeadingOrTrailingSpaces());
 		allChecks.add(new CheckNamespacesShouldNotOmitTheSeperator());
 		allChecks.add(new CheckNamespacesShouldNotBeReferredByMultiplePrefixes());
-		allChecks.add(new CheckPrefixesReferToOneNamespace());
+		allChecks.add(new CheckRdfPrefixesReferToOneNamespace());
 		allChecks.add(new CheckRdfIrisTooLong());
 		allChecks.add(new CheckRdfContainers());
 		allChecks.add(new CheckRdfRoundedFloatingPointValue());
