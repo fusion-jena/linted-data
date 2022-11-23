@@ -27,7 +27,7 @@ import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.s
 import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckPropertyHasMissingDomainRangeDefinition;
 import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRDFcontainers;
 import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRdfIriContainsFileExtension;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRdfNoLicenseDeclared;
+import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckOwlNoLicenseDeclared;
 import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckOwlSelfInverseProperty;
 import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
@@ -152,7 +152,7 @@ public class Runner {
 		allChecks.add(new CheckIRIsTooLong());
 		allChecks.add(new CheckRDFcontainers());
 		allChecks.add(new CheckRdfRoundedFloatingPointValue());
-		allChecks.add(new CheckRdfNoLicenseDeclared());
+		allChecks.add(new CheckOwlNoLicenseDeclared());
 		allChecks.add(new CheckRdfIriContainsFileExtension());
 		allChecks.add(new CheckSeveralClassesWithTheSameLabel());
 		allChecks.add(new CheckOwlInverseRelationshipForSymmetricProperty());

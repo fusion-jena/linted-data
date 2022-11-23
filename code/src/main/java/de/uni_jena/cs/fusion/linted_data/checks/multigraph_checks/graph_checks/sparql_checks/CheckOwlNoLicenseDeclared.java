@@ -17,12 +17,12 @@ import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
  * check if one of the four license properties: dc:rights, dcterms:license,
  * schema:license or cc:license is used
  */
-public class CheckRdfNoLicenseDeclared extends SPARQLSelectCheck {
+public class CheckOwlNoLicenseDeclared extends SPARQLSelectCheck {
 
-	public CheckRdfNoLicenseDeclared() {
+	public CheckOwlNoLicenseDeclared() {
 		super(Level.SPARQL, TargetLanguage.OWL, Severity.ERROR,
 				"A licence should be declared for the ontology.",
-				CheckRdfNoLicenseDeclared.class.getClassLoader().getResourceAsStream("CheckRdfNoLicenseDeclared.rq"));
+				CheckOwlNoLicenseDeclared.class.getClassLoader().getResourceAsStream("CheckOwlNoLicenseDeclared.rq"));
 	}
 
 	@Override
