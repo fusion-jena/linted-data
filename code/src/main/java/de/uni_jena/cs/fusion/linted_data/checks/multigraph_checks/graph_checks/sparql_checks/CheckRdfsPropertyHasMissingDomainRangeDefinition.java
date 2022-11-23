@@ -17,13 +17,13 @@ import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
  * Properties that have defined only domain OR range are reported as well as
  * properties that are missing both
  */
-public final class CheckPropertyHasMissingDomainRangeDefinition extends SPARQLSelectCheck {
+public final class CheckRdfsPropertyHasMissingDomainRangeDefinition extends SPARQLSelectCheck {
 
-	public CheckPropertyHasMissingDomainRangeDefinition() {
+	public CheckRdfsPropertyHasMissingDomainRangeDefinition() {
 		super(Level.SPARQL, TargetLanguage.RDFS, Severity.WARN,
 				"The property doesn't have a domain or range or none of them",
-				CheckPropertyHasMissingDomainRangeDefinition.class.getClassLoader()
-						.getResourceAsStream("CheckPropertyHasDomainRangeDefinition.rq"));
+				CheckRdfsPropertyHasMissingDomainRangeDefinition.class.getClassLoader()
+						.getResourceAsStream("CheckRdfsPropertyHasMissingDomainRangeDefinition.rq"));
 	}
 
 	@Override

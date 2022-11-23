@@ -9,20 +9,20 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckPropertyHasMissingDomainRangeDefinition;
+import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRdfsPropertyHasMissingDomainRangeDefinition;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.util.TestUtil;
 
-public class TestPropertyHasMissingDomainRangeDefinition {
+public class CheckRdfsPropertyHasMissingDomainRangeDefinitionTest {
 
-	private CheckPropertyHasMissingDomainRangeDefinition check = new CheckPropertyHasMissingDomainRangeDefinition();
+	private CheckRdfsPropertyHasMissingDomainRangeDefinition check = new CheckRdfsPropertyHasMissingDomainRangeDefinition();
 
 	/**
 	 * each property has domain and range defined
 	 */
 	@Test
 	public void definedDomainRange() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckPropertyHasDomainRangeDefinition/domain_range_defined.ttl",
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfsPropertyHasMissingDomainRangeDefinition/domain_range_defined.ttl",
 				check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
@@ -34,7 +34,7 @@ public class TestPropertyHasMissingDomainRangeDefinition {
 	@Test
 	public void definedDomainMissingRange() throws Exception {
 		List<Failure> failures = TestUtil
-				.executeCheck("CheckPropertyHasDomainRangeDefinition/domain_missing_range_01.rdf", check);
+				.executeCheck("CheckRdfsPropertyHasMissingDomainRangeDefinition/domain_missing_range_01.rdf", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure failure = failures.get(0);
@@ -45,7 +45,7 @@ public class TestPropertyHasMissingDomainRangeDefinition {
 				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-5#ExampleDP-2 has no range defined",
 				failure.getText());
 
-		failures = TestUtil.executeCheck("CheckPropertyHasDomainRangeDefinition/domain_missing_range_02.jsonld", check);
+		failures = TestUtil.executeCheck("CheckRdfsPropertyHasMissingDomainRangeDefinition/domain_missing_range_02.jsonld", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		failure = failures.get(0);
@@ -56,7 +56,7 @@ public class TestPropertyHasMissingDomainRangeDefinition {
 				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-5#ExampleOP has no range defined",
 				failure.getText());
 
-		failures = TestUtil.executeCheck("CheckPropertyHasDomainRangeDefinition/domain_missing_range_03.ttl", check);
+		failures = TestUtil.executeCheck("CheckRdfsPropertyHasMissingDomainRangeDefinition/domain_missing_range_03.ttl", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures,
@@ -75,7 +75,7 @@ public class TestPropertyHasMissingDomainRangeDefinition {
 	@Test
 	public void definedRangeMissingDomain() throws Exception {
 		List<Failure> failures = TestUtil
-				.executeCheck("CheckPropertyHasDomainRangeDefinition/range_missing_domain_01.rdf", check);
+				.executeCheck("CheckRdfsPropertyHasMissingDomainRangeDefinition/range_missing_domain_01.rdf", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure failure = failures.get(0);
@@ -86,7 +86,7 @@ public class TestPropertyHasMissingDomainRangeDefinition {
 				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-5#ExampleDP-2 has no domain defined",
 				failure.getText());
 
-		failures = TestUtil.executeCheck("CheckPropertyHasDomainRangeDefinition/range_missing_domain_02.jsonld", check);
+		failures = TestUtil.executeCheck("CheckRdfsPropertyHasMissingDomainRangeDefinition/range_missing_domain_02.jsonld", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		failure = failures.get(0);
@@ -97,7 +97,7 @@ public class TestPropertyHasMissingDomainRangeDefinition {
 				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-5#ExampleOP has no domain defined",
 				failure.getText());
 
-		failures = TestUtil.executeCheck("CheckPropertyHasDomainRangeDefinition/range_missing_domain_03.ttl", check);
+		failures = TestUtil.executeCheck("CheckRdfsPropertyHasMissingDomainRangeDefinition/range_missing_domain_03.ttl", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures,
@@ -116,7 +116,7 @@ public class TestPropertyHasMissingDomainRangeDefinition {
 	@Test
 	public void missingDomainRange() throws Exception {
 		List<Failure> failures = TestUtil
-				.executeCheck("CheckPropertyHasDomainRangeDefinition/missing_domain_range_01.rdf", check);
+				.executeCheck("CheckRdfsPropertyHasMissingDomainRangeDefinition/missing_domain_range_01.rdf", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure failure = failures.get(0);
@@ -127,7 +127,7 @@ public class TestPropertyHasMissingDomainRangeDefinition {
 				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-5#ExampleDP-2 has no domain and range defined",
 				failure.getText());
 
-		failures = TestUtil.executeCheck("CheckPropertyHasDomainRangeDefinition/missing_domain_range_02.jsonld", check);
+		failures = TestUtil.executeCheck("CheckRdfsPropertyHasMissingDomainRangeDefinition/missing_domain_range_02.jsonld", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		failure = failures.get(0);
@@ -138,7 +138,7 @@ public class TestPropertyHasMissingDomainRangeDefinition {
 				"\nModel: Default Model\nhttp://www.semanticweb.org/ontologies/2022/9/untitled-ontology-5#ExampleOP has no domain and range defined",
 				failure.getText());
 
-		failures = TestUtil.executeCheck("CheckPropertyHasDomainRangeDefinition/missing_domain_range_03.ttl", check);
+		failures = TestUtil.executeCheck("CheckRdfsPropertyHasMissingDomainRangeDefinition/missing_domain_range_03.ttl", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures,
