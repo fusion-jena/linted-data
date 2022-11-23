@@ -22,7 +22,7 @@ public class CheckRdfContainersTest {
 	 */
 	@Test
 	public void duplicatedIndex() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckRdfContainers/duplicatedIndex.ttl", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfContainers/duplicatedIndex_01.ttl", check);
 
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
@@ -91,7 +91,7 @@ public class CheckRdfContainersTest {
 	 */
 	@Test
 	public void validContainers() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckRdfContainers/validContainers.ttl", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfContainers/validContainers_01.ttl", check);
 		assertNotNull(failures);
 		assertEquals(failures.size(), 0);
 	}

@@ -22,7 +22,7 @@ public class CheckRdfsMultipleDomainRangeTest {
 	 */
 	@Test
 	void multipleDomain() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckRdfsMultipleDomainRange/multiple_domain_01.xml", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfsMultipleDomainRange/multipleDomain_01.xml", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures,
@@ -40,7 +40,7 @@ public class CheckRdfsMultipleDomainRangeTest {
 	 */
 	@Test
 	void multipleRanges() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckRdfsMultipleDomainRange/multiple_range_01.ttl", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfsMultipleDomainRange/multipleRange_01.ttl", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures,
@@ -58,7 +58,7 @@ public class CheckRdfsMultipleDomainRangeTest {
 	 */
 	@Test
 	void multipleDomainAndRange() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckRdfsMultipleDomainRange/multiple_domain_range_01.ttl", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfsMultipleDomainRange/multipleDomainAndRange_01.ttl", check);
 		assertNotNull(failures);
 		assertEquals(6, failures.size());
 		assertTrue(TestUtil.contains(failures,
@@ -83,14 +83,14 @@ public class CheckRdfsMultipleDomainRangeTest {
 
 	@Test
 	void singleDomainRange() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckRdfsMultipleDomainRange/single_domain_range_01.xml", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfsMultipleDomainRange/singleDomainAndRange_01.xml", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 	}
 
 	@Test
 	void intersectionInsteadOfConjunction() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckRdfsMultipleDomainRange/intersection_domain_range_01.xml",
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfsMultipleDomainRange/intersectionDomainRange_01.xml",
 				check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());

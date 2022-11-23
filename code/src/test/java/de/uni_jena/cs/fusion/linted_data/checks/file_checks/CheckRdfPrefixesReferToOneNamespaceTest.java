@@ -21,9 +21,9 @@ public class CheckRdfPrefixesReferToOneNamespaceTest {
 	 * defined multiple namespaces, each with its own prefix in turtle format
 	 */
 	@Test
-	public void TurtleOneNamespacePerPrefix() throws Exception {
+	public void turtleOneNamespacePerPrefix() throws Exception {
 		List<Failure> failures = TestUtil
-				.executeCheck("CheckRdfPrefixesReferToOneNamespace/Turtle_OneNamespacePerPrefix_01.ttl", check);
+				.executeCheck("CheckRdfPrefixesReferToOneNamespace/turtleOneNamespacePerPrefix_01.ttl", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 	}
@@ -32,9 +32,9 @@ public class CheckRdfPrefixesReferToOneNamespaceTest {
 	 * defined multiple namespaces, some with the same prefix in turtle format
 	 */
 	@Test
-	public void TurtleMultipleNamespacesPerPrefix() throws Exception {
+	public void turtleMultipleNamespacesPerPrefix() throws Exception {
 		List<Failure> failures = TestUtil
-				.executeCheck("CheckRdfPrefixesReferToOneNamespace/Turtle_MultipleNamespacesPerPrefix_01.ttl", check);
+				.executeCheck("CheckRdfPrefixesReferToOneNamespace/turtleMultipleNamespacesPerPrefix_01.ttl", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure f = failures.get(0);
@@ -43,7 +43,7 @@ public class CheckRdfPrefixesReferToOneNamespaceTest {
 		assertEquals(f.getText(),
 				"\nabc has the 2 namespaces: [http://www.semanticweb.org/abc#, http://www.semanticweb.org/def#]");
 
-		failures = TestUtil.executeCheck("CheckRdfPrefixesReferToOneNamespace/Turtle_MultipleNamespacesPerPrefix_02.ttl",
+		failures = TestUtil.executeCheck("CheckRdfPrefixesReferToOneNamespace/turtleMultipleNamespacesPerPrefix_02.ttl",
 				check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
@@ -59,10 +59,10 @@ public class CheckRdfPrefixesReferToOneNamespaceTest {
 	 * same IRI and some with different IRIs, in turtle format
 	 */
 	@Test
-	public void TurtleOnePrefixOneNamespaceMultipleTimes() throws Exception {
+	public void turtleOnePrefixOneNamespaceMultipleTimes() throws Exception {
 		// one prefix -> same IRI multiple times
 		List<Failure> failures = TestUtil.executeCheck(
-				"CheckRdfPrefixesReferToOneNamespace/Turtle_OnePrefixOneNamespaceMultipleTimes_01.ttl", check);
+				"CheckRdfPrefixesReferToOneNamespace/turtleOnePrefixOneNamespaceMultipleTimes_01.ttl", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure f = failures.get(0);
@@ -72,7 +72,7 @@ public class CheckRdfPrefixesReferToOneNamespaceTest {
 
 		// one prefix -> same IRI multiple times + multiple IRIs
 		failures = TestUtil.executeCheck(
-				"CheckRdfPrefixesReferToOneNamespace/Turtle_OnePrefixOneNamespaceMultipleTimes_02.ttl", check);
+				"CheckRdfPrefixesReferToOneNamespace/turtleOnePrefixOneNamespaceMultipleTimes_02.ttl", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures, "test1", "\ntest1 has 2 times the namespace http://www.test-1.org/o#",
@@ -83,7 +83,7 @@ public class CheckRdfPrefixesReferToOneNamespaceTest {
 		// prefix a -> same IRI multiple times
 		// prefix b -> multiple IRIs
 		failures = TestUtil.executeCheck(
-				"CheckRdfPrefixesReferToOneNamespace/Turtle_OnePrefixOneNamespaceMultipleTimes_03.ttl", check);
+				"CheckRdfPrefixesReferToOneNamespace/turtleOnePrefixOneNamespaceMultipleTimes_03.ttl", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures, "test1", "\ntest1 has 2 times the namespace http://www.test-1.org/o#",
@@ -97,9 +97,9 @@ public class CheckRdfPrefixesReferToOneNamespaceTest {
 	 * defined multiple namespaces, each with its own prefix in TriG format
 	 */
 	@Test
-	public void TriG_oneNamespacePerPrefix() throws Exception {
+	public void trigOneNamespacePerPrefix() throws Exception {
 		List<Failure> failures = TestUtil
-				.executeCheck("CheckRdfPrefixesReferToOneNamespace/TriG_oneNamespacePerPrefix_01.trig", check);
+				.executeCheck("CheckRdfPrefixesReferToOneNamespace/trigOneNamespacePerPrefix_01.trig", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 	}
@@ -109,10 +109,10 @@ public class CheckRdfPrefixesReferToOneNamespaceTest {
 	 * same IRI and some with different IRIs, in TriG format
 	 */
 	@Test
-	public void TriG_MultipleNamespacesPerPrefix() throws Exception {
+	public void trigMultipleNamespacesPerPrefix() throws Exception {
 		// one prefix, different IRIs
 		List<Failure> failures = TestUtil
-				.executeCheck("CheckRdfPrefixesReferToOneNamespace/TriG_MultipleNamespacesPerPrefix_01.trig", check);
+				.executeCheck("CheckRdfPrefixesReferToOneNamespace/trigMultipleNamespacesPerPrefix_01.trig", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure failure = failures.get(0);
@@ -121,7 +121,7 @@ public class CheckRdfPrefixesReferToOneNamespaceTest {
 		assertEquals(failure.getText(),
 				"\ndc has the 2 namespaces: [http://purl.org/dc/terms/, http://purl.org/test/syntax#]");
 
-		failures = TestUtil.executeCheck("CheckRdfPrefixesReferToOneNamespace/TriG_MultipleNamespacesPerPrefix_02.trig",
+		failures = TestUtil.executeCheck("CheckRdfPrefixesReferToOneNamespace/trigMultipleNamespacesPerPrefix_02.trig",
 				check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
@@ -133,7 +133,7 @@ public class CheckRdfPrefixesReferToOneNamespaceTest {
 
 		// one prefix refering multiple times to the same IRI and to at least one
 		// different
-		failures = TestUtil.executeCheck("CheckRdfPrefixesReferToOneNamespace/TriG_MultipleNamespacesPerPrefix_03.trig",
+		failures = TestUtil.executeCheck("CheckRdfPrefixesReferToOneNamespace/trigMultipleNamespacesPerPrefix_03.trig",
 				check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
@@ -148,23 +148,23 @@ public class CheckRdfPrefixesReferToOneNamespaceTest {
 	 * defined multiple namespaces, each with its own prefix in JSONLD(10,11) format
 	 */
 	@Test
-	public void JSONLD_oneNamespacePerPrefix() throws Exception {
+	public void jsonldOneNamespacePerPrefix() throws Exception {
 		List<Failure> failures = TestUtil
-				.executeCheck("CheckRdfPrefixesReferToOneNamespace/JSONLD_oneNamespacePerPrefix_01.jsonld", check);
+				.executeCheck("CheckRdfPrefixesReferToOneNamespace/jsonldOneNamespacePerPrefix_01.jsonld", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 
-		failures = TestUtil.executeCheck("CheckRdfPrefixesReferToOneNamespace/JSONLD_oneNamespacePerPrefix_02.jsonld10",
+		failures = TestUtil.executeCheck("CheckRdfPrefixesReferToOneNamespace/jsonldOneNamespacePerPrefix_02.jsonld10",
 				check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 
-		failures = TestUtil.executeCheck("CheckRdfPrefixesReferToOneNamespace/JSONLD_oneNamespacePerPrefix_03.jsonld11",
+		failures = TestUtil.executeCheck("CheckRdfPrefixesReferToOneNamespace/jsonldOneNamespacePerPrefix_03.jsonld11",
 				check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 
-		failures = TestUtil.executeCheck("CheckRdfPrefixesReferToOneNamespace/JSONLD_oneNamespacePerPrefix_04.jsonld",
+		failures = TestUtil.executeCheck("CheckRdfPrefixesReferToOneNamespace/jsonldOneNamespacePerPrefix_04.jsonld",
 				check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
@@ -175,10 +175,10 @@ public class CheckRdfPrefixesReferToOneNamespaceTest {
 	 * same IRI and some with different IRIs, in JSONLD(10,11) format
 	 */
 	@Test
-	public void JSONLD_multipleNamespacesPerPrefix() throws Exception {
+	public void jsonldMultipleNamespacesPerPrefix() throws Exception {
 		// one prefix multiple namespaces
 		List<Failure> failures = TestUtil
-				.executeCheck("CheckRdfPrefixesReferToOneNamespace/JSONLD_multipleNamespacesPerPrefix_01.jsonld", check);
+				.executeCheck("CheckRdfPrefixesReferToOneNamespace/jsonldMultipleNamespacesPerPrefix_01.jsonld", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure failure = failures.get(0);
@@ -186,8 +186,8 @@ public class CheckRdfPrefixesReferToOneNamespaceTest {
 		assertEquals(failure.getSeverity(), Severity.WARN);
 		assertEquals(failure.getText(), "\nfoaf has the 2 namespaces: [http://foo.test#, http://xmlns.com/foaf/0.1/]");
 
-		failures = TestUtil
-				.executeCheck("CheckRdfPrefixesReferToOneNamespace/JSONLD_multipleNamespacesPerPrefix_02.jsonld10", check);
+		failures = TestUtil.executeCheck(
+				"CheckRdfPrefixesReferToOneNamespace/jsonldMultipleNamespacesPerPrefix_02.jsonld10", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		failure = failures.get(0);
@@ -195,8 +195,8 @@ public class CheckRdfPrefixesReferToOneNamespaceTest {
 		assertEquals(failure.getSeverity(), Severity.WARN);
 		assertEquals(failure.getText(), "\nfoo has the 2 namespaces: [http://foo.bar/, http://onto-foo.bar#]");
 
-		failures = TestUtil
-				.executeCheck("CheckRdfPrefixesReferToOneNamespace/JSONLD_multipleNamespacesPerPrefix_03.jsonld11", check);
+		failures = TestUtil.executeCheck(
+				"CheckRdfPrefixesReferToOneNamespace/jsonldMultipleNamespacesPerPrefix_03.jsonld11", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures, "foaf",
@@ -206,8 +206,8 @@ public class CheckRdfPrefixesReferToOneNamespaceTest {
 
 		// one prefix -> multiple namespaces
 		// one prefix -> multiple times the same namespace
-		failures = TestUtil
-				.executeCheck("CheckRdfPrefixesReferToOneNamespace/JSONLD_multipleNamespacesPerPrefix_04.jsonld11", check);
+		failures = TestUtil.executeCheck(
+				"CheckRdfPrefixesReferToOneNamespace/jsonldMultipleNamespacesPerPrefix_04.jsonld11", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures, "foo", "\nfoo has 3 times the namespace http://onto-foo.bar#",

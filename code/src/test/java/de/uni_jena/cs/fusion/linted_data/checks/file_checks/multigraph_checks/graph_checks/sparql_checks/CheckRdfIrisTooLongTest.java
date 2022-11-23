@@ -24,7 +24,7 @@ class CheckRdfIrisTooLongTest {
 	 * all IRIs have a local name with less than 30 characters
 	 */
 	@Test
-	void noIRITooLong() {
+	void noIriTooLong() {
 		OntModel model = ModelFactory.createOntologyModel();
 		model.createOntProperty("http://my-example.org/property-1_NAME");
 		model.createDatatypeProperty("http://my-example.org#6d573906-de16-4790-b65f-76d9448dfc47");
@@ -62,8 +62,8 @@ class CheckRdfIrisTooLongTest {
 	 * characters
 	 */
 	@Test
-	void subjectIRIsTooLong() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckRdfIrisTooLong/subjectIRIsTooLong_01.nt", check);
+	void subjectIrisTooLong() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIrisTooLong/subjectIrisTooLong_01.nt", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures,
@@ -82,8 +82,8 @@ class CheckRdfIrisTooLongTest {
 	 * characters
 	 */
 	@Test
-	void predicateIRIsTooLong() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckRdfIrisTooLong/predicateIRIsTooLong_01.nt", check);
+	void predicateIrisTooLong() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIrisTooLong/predicateIrisTooLong_01.nt", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure f = failures.get(0);
@@ -99,8 +99,8 @@ class CheckRdfIrisTooLongTest {
 	 * characters
 	 */
 	@Test
-	void objectIRIsTooLong() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckRdfIrisTooLong/objectIRIsTooLong_01.nt", check);
+	void objectIrisTooLong() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIrisTooLong/objectIrisTooLong_01.nt", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures,
@@ -117,8 +117,8 @@ class CheckRdfIrisTooLongTest {
 	 * characters
 	 */
 	@Test
-	void subjectPredicateIRIsTooLong() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckRdfIrisTooLong/subjectPredicateIRIsTooLong_01.nt", check);
+	void subjectPredicateIrisTooLong() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIrisTooLong/subjectPredicateIrisTooLong_01.nt", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures, "http://bar.org/f00-bar-f00-bar-f00-bar-147852369-erdfcv",
@@ -136,8 +136,8 @@ class CheckRdfIrisTooLongTest {
 	 * characters
 	 */
 	@Test
-	void subjectObjectIRIsTooLong() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckRdfIrisTooLong/subjectObjectIRIsTooLong_01.nt", check);
+	void subjectObjectIrisTooLong() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIrisTooLong/subjectObjectIrisTooLong_01.nt", check);
 		assertNotNull(failures);
 		assertEquals(4, failures.size());
 		assertTrue(TestUtil.contains(failures, "http://foo.com#class-0b5f8258-6ba0-4887-9843-7c630a06ecea",
@@ -159,8 +159,8 @@ class CheckRdfIrisTooLongTest {
 	 * characters as local name
 	 */
 	@Test
-	void predicateObjectIRIsTooLong() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckRdfIrisTooLong/predicateObjectIRIsTooLong_01.nt", check);
+	void predicateObjectIrisTooLong() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIrisTooLong/predicateObjectIrisTooLong_01.nt", check);
 		assertNotNull(failures);
 		assertEquals(4, failures.size());
 		assertTrue(TestUtil.contains(failures, "http://example.org#property-longIdentifier-9e7deb50-7329-435a",
@@ -181,8 +181,8 @@ class CheckRdfIrisTooLongTest {
 	 * IRIs at all three positions are too long
 	 */
 	@Test
-	void subjectPredicateObjectIRIsTooLong() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckRdfIrisTooLong/subjectPredicateObjectIRIsTooLong_01.nt",
+	void subjectPredicateObjectIrisTooLong() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIrisTooLong/subjectPredicateObjectIrisTooLong_01.nt",
 				check);
 		assertNotNull(failures);
 		assertEquals(3, failures.size());

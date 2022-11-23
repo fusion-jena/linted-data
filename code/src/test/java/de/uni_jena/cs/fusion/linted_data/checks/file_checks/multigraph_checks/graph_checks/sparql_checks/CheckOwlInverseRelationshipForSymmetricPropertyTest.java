@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.File;
 import java.util.List;
 
 import org.apache.jena.ontology.OntClass;
@@ -25,18 +24,12 @@ public class CheckOwlInverseRelationshipForSymmetricPropertyTest {
 
 	private CheckOwlInverseRelationshipForSymmetricProperty check = new CheckOwlInverseRelationshipForSymmetricProperty();
 
-	private List<Failure> init(String path) {
-		File file = new File(
-				CheckOwlInverseRelationshipForSymmetricPropertyTest.class.getClassLoader().getResource(path).getFile());
-		return check.execute(file, "");
-	}
-
 	/**
 	 * default model symmetric property is not an inverse of another relation
 	 */
 	@Test
 	public void symmetricProperty1() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckOwlInverseRelationshipForSymmetricProperty/SymmetricProperty_01.rdf", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckOwlInverseRelationshipForSymmetricProperty/symmetricProperty_01.rdf", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 	}
@@ -82,9 +75,9 @@ public class CheckOwlInverseRelationshipForSymmetricPropertyTest {
 	 * default model defined property as inverse of a symmetric property
 	 */
 	@Test
-	public void symmetricPropertyWithInverse1() {
-		List<Failure> failures = init(
-				"CheckOwlInverseRelationshipForSymmetricProperty/SymmetricPropertyWithInverse_01.ttl");
+	public void symmetricPropertyWithInverse1() throws Exception {
+		List<Failure> failures = TestUtil.executeCheck(
+				"CheckOwlInverseRelationshipForSymmetricProperty/symmetricPropertyWithInverse_01.ttl", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure f = failures.get(0);

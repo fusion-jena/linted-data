@@ -25,19 +25,19 @@ public class CheckOwlNoLicenseDeclaredTest {
 
 	@Test
 	public void license_declared() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckOwlNoLicenseDeclared/LicenseDeclared_01.rdf", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckOwlNoLicenseDeclared/licenseDeclared_01.rdf", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 
-		failures = TestUtil.executeCheck("CheckOwlNoLicenseDeclared/LicenseDeclared_02.ttl", check);
+		failures = TestUtil.executeCheck("CheckOwlNoLicenseDeclared/licenseDeclared_02.ttl", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 
-		failures = TestUtil.executeCheck("CheckOwlNoLicenseDeclared/LicenseDeclared_03.ttl", check);
+		failures = TestUtil.executeCheck("CheckOwlNoLicenseDeclared/licenseDeclared_03.ttl", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 
-		failures = TestUtil.executeCheck("CheckOwlNoLicenseDeclared/LicenseDeclared_04.rdf", check);
+		failures = TestUtil.executeCheck("CheckOwlNoLicenseDeclared/licenseDeclared_04.rdf", check);
 		assertNotNull(failures);
 		assertEquals(0, failures.size());
 	}
