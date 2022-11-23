@@ -25,11 +25,11 @@ import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
  * <p>
  * TODO more considerations?
  */
-public final class CheckIRIsTooLong extends SPARQLSelectCheck {
+public final class CheckRdfIrisTooLong extends SPARQLSelectCheck {
 
-	public CheckIRIsTooLong() {
-		super(Level.SPARQL, TargetLanguage.RDFS, Severity.INFO, "Local names shouldn't be longer than 36 characters",
-				CheckIRIsTooLong.class.getClassLoader().getResourceAsStream("CheckIRIsTooLong.rq"));
+	public CheckRdfIrisTooLong() {
+		super(Level.SPARQL, TargetLanguage.RDF, Severity.INFO, "Local names shouldn't be longer than 36 characters",
+				CheckRdfIrisTooLong.class.getClassLoader().getResourceAsStream("CheckRdfIrisTooLong.rq"));
 	}
 
 	@Override

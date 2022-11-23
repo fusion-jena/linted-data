@@ -20,7 +20,7 @@ import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.CheckSeveralCl
 import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.CheckNamespacesShouldNotBeReferredByMultiplePrefixes;
 import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.CheckNamespacesShouldNotOmitTheSeperator;
 import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.CheckRdfRoundedFloatingPointValue;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckIRIsTooLong;
+import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRdfIrisTooLong;
 import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckOwlInverseRelationshipForSymmetricProperty;
 import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckLeadingOrTrailingSpaces;
 import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRdfsMultipleDomainRange;
@@ -149,7 +149,7 @@ public class Runner {
 		allChecks.add(new CheckNamespacesShouldNotOmitTheSeperator());
 		allChecks.add(new CheckNamespacesShouldNotBeReferredByMultiplePrefixes());
 		allChecks.add(new CheckPrefixesReferToOneNamespace());
-		allChecks.add(new CheckIRIsTooLong());
+		allChecks.add(new CheckRdfIrisTooLong());
 		allChecks.add(new CheckRdfContainers());
 		allChecks.add(new CheckRdfRoundedFloatingPointValue());
 		allChecks.add(new CheckOwlNoLicenseDeclared());

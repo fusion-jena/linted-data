@@ -12,13 +12,13 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.junit.jupiter.api.Test;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckIRIsTooLong;
+import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRdfIrisTooLong;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.util.TestUtil;
 
-class TestIRIsTooLong {
+class CheckRdfIrisTooLongTest {
 
-	private CheckIRIsTooLong check = new CheckIRIsTooLong();
+	private CheckRdfIrisTooLong check = new CheckRdfIrisTooLong();
 
 	/**
 	 * all IRIs have a local name with less than 30 characters
@@ -63,7 +63,7 @@ class TestIRIsTooLong {
 	 */
 	@Test
 	void subjectIRIsTooLong() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckIRIsTooLong/subjectIRIsTooLong_01.nt", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIrisTooLong/subjectIRIsTooLong_01.nt", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures,
@@ -83,7 +83,7 @@ class TestIRIsTooLong {
 	 */
 	@Test
 	void predicateIRIsTooLong() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckIRIsTooLong/predicateIRIsTooLong_01.nt", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIrisTooLong/predicateIRIsTooLong_01.nt", check);
 		assertNotNull(failures);
 		assertEquals(1, failures.size());
 		Failure f = failures.get(0);
@@ -100,7 +100,7 @@ class TestIRIsTooLong {
 	 */
 	@Test
 	void objectIRIsTooLong() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckIRIsTooLong/objectIRIsTooLong_01.nt", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIrisTooLong/objectIRIsTooLong_01.nt", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures,
@@ -118,7 +118,7 @@ class TestIRIsTooLong {
 	 */
 	@Test
 	void subjectPredicateIRIsTooLong() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckIRIsTooLong/subjectPredicateIRIsTooLong_01.nt", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIrisTooLong/subjectPredicateIRIsTooLong_01.nt", check);
 		assertNotNull(failures);
 		assertEquals(2, failures.size());
 		assertTrue(TestUtil.contains(failures, "http://bar.org/f00-bar-f00-bar-f00-bar-147852369-erdfcv",
@@ -137,7 +137,7 @@ class TestIRIsTooLong {
 	 */
 	@Test
 	void subjectObjectIRIsTooLong() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckIRIsTooLong/subjectObjectIRIsTooLong_01.nt", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIrisTooLong/subjectObjectIRIsTooLong_01.nt", check);
 		assertNotNull(failures);
 		assertEquals(4, failures.size());
 		assertTrue(TestUtil.contains(failures, "http://foo.com#class-0b5f8258-6ba0-4887-9843-7c630a06ecea",
@@ -160,7 +160,7 @@ class TestIRIsTooLong {
 	 */
 	@Test
 	void predicateObjectIRIsTooLong() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckIRIsTooLong/predicateObjectIRIsTooLong_01.nt", check);
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIrisTooLong/predicateObjectIRIsTooLong_01.nt", check);
 		assertNotNull(failures);
 		assertEquals(4, failures.size());
 		assertTrue(TestUtil.contains(failures, "http://example.org#property-longIdentifier-9e7deb50-7329-435a",
@@ -182,7 +182,7 @@ class TestIRIsTooLong {
 	 */
 	@Test
 	void subjectPredicateObjectIRIsTooLong() throws Exception {
-		List<Failure> failures = TestUtil.executeCheck("CheckIRIsTooLong/subjectPredicateObjectIRIsTooLong_01.nt",
+		List<Failure> failures = TestUtil.executeCheck("CheckRdfIrisTooLong/subjectPredicateObjectIRIsTooLong_01.nt",
 				check);
 		assertNotNull(failures);
 		assertEquals(3, failures.size());
