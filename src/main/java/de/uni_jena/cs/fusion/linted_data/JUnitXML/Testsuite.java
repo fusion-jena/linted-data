@@ -1,5 +1,6 @@
 package de.uni_jena.cs.fusion.linted_data.JUnitXML;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,7 +14,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
  * see {@link https://www.ibm.com/docs/en/developer-for-zos/14.1.0?topic=formats-junit-xml-format}
  */
 public class Testsuite {
-	
+
 	/**
 	 * testcases that belong to the testsuite
 	 */
@@ -30,25 +31,29 @@ public class Testsuite {
 	 */
 	@JacksonXmlProperty(isAttribute = true)
 	private String name;
-	
-	public Testsuite(String id, String name, List<Testcase> testcases) {
+
+	@JsonIgnore
+	private DecimalFormat decimalFormat;
+
+	public Testsuite(String id, String name, List<Testcase> testcases, DecimalFormat decimalFormat) {
 		this.name = name;
 		this.testcases = testcases;
 		this.id = id;
+		this.decimalFormat = decimalFormat;
 	}
-	
+
 	/**
 	 * @return total number of rules that were applied
 	 */
-	@JacksonXmlProperty(isAttribute=true, localName ="tests")
+	@JacksonXmlProperty(isAttribute = true, localName = "tests")
 	public long getTests() {
 		return testcases.size();
 	}
-	
+
 	/**
 	 * @return total number of rule violations
 	 */
-	@JacksonXmlProperty(isAttribute=true, localName ="failures")
+	@JacksonXmlProperty(isAttribute = true, localName = "failures")
 	public long getFailures() {
 		long sum = 0L;
 		for (Testcase testcase : testcases) {
@@ -56,9 +61,10 @@ public class Testsuite {
 		}
 		return sum;
 	}
-	
+
 	/**
-	 * @return time that was required to process the rules in the provider in milliseconds
+	 * @return time that was required to process the rules in the provider in
+	 *         milliseconds
 	 */
 	@JsonIgnore
 	public long getTime_ms() {
@@ -68,11 +74,21 @@ public class Testsuite {
 		}
 		return sum;
 	}
-	
+
 	/**
-	 * @return time that was required to process the rules in the provider in seconds
+	 * @return time that was required to process the rules in the provider in
+	 *         seconds
 	 */
 	@JacksonXmlProperty(isAttribute = true, localName = "time")
+	public String getTimeInSeconds() {
+		return decimalFormat.format(getTime_s());
+	}
+
+	/**
+	 * @return time that was required to process the rules in the provider in
+	 *         seconds
+	 */
+	@JsonIgnore
 	public double getTime_s() {
 		long sum = 0L;
 		for (Testcase testcase : testcases) {
@@ -81,12 +97,9 @@ public class Testsuite {
 		// convert from ms to s
 		return (double) sum / 1000;
 	}
-	
-	
-	
-	public List<Testcase> getTestcases(){
+
+	public List<Testcase> getTestcases() {
 		return testcases;
 	}
-	
-	
+
 }

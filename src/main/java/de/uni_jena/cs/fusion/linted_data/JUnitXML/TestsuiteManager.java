@@ -1,9 +1,11 @@
 package de.uni_jena.cs.fusion.linted_data.JUnitXML;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
@@ -36,20 +38,32 @@ public class TestsuiteManager {
 	 */
 	@JacksonXmlProperty(isAttribute = true)
 	private String name;
-
-	public TestsuiteManager(String name, List<Testsuite> testsuites) {
+	
+	@JsonIgnore
+	private DecimalFormat decimalFormat;
+	
+	public TestsuiteManager(String name, List<Testsuite> testsuites, DecimalFormat decimalFormat) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 		this.id = dtf.format(now);
 		this.name = name;
 		this.testsuites = testsuites;
+		this.decimalFormat = decimalFormat;
 	}
-
+	
 	/**
 	 * @return time that was required to process all the rules in seconds
 	 */
 	@JacksonXmlProperty(isAttribute = true, localName = "time")
-	public double getTime() {
+	public String getTimeInSeconds() {
+		return decimalFormat.format(getTime_s());
+	}
+	
+	/**
+	 * @return time that was required to process all the rules in seconds
+	 */
+	@JsonIgnore
+	public double getTime_s() {
 		long sum = 0L;
 		for (Testsuite testsuite : testsuites) {
 			sum += testsuite.getTime_ms();

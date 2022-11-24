@@ -1,5 +1,6 @@
 package de.uni_jena.cs.fusion.linted_data.JUnitXML;
 
+import java.text.DecimalFormat;
 import java.util.Iterator;
 import java.util.List;
 
@@ -40,12 +41,16 @@ public class Testcase {
 
 	@JacksonXmlProperty(localName = "classname", isAttribute = true)
 	private String testsuiteName;
+	
+	@JsonIgnore
+	private DecimalFormat decimalFormat;
 
-	public Testcase(Check check, List<Failure> failures, String testsuiteName) {
+	public Testcase(Check check, List<Failure> failures, String testsuiteName, DecimalFormat decimalFormat) {
 		this.id = check.getClass().getCanonicalName();
 		this.testsuiteName = testsuiteName;
 		this.check = check;
 		this.failures = failures;
+		this.decimalFormat = decimalFormat;
 	}
 
 	public Check getCheck() {
@@ -110,6 +115,14 @@ public class Testcase {
 	 * @return the duration of the check in seconds
 	 */
 	@JacksonXmlProperty(isAttribute = true, localName = "time")
+	public String getTimeInSeconds() {
+		return decimalFormat.format(getTime_s());
+	}
+	
+	/**
+	 * @return the duration of the check in seconds
+	 */
+	@JsonIgnore
 	public double getTime_s() {
 		// convert from ms to s
 		return (double) check.getTime() / 1000;

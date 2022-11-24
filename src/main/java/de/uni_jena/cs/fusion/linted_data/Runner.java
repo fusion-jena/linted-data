@@ -2,6 +2,8 @@ package de.uni_jena.cs.fusion.linted_data;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +38,8 @@ public class Runner {
 
 	private Map<TargetLanguage, List<FileCheck>> checks;
 	private List<Testsuite> testsuites = new ArrayList<Testsuite>();
-
+	private DecimalFormat decimalFormat;
+	
 	/**
 	 * executes the checks on the resource and saves the results in XML-format in
 	 * the output file
@@ -52,10 +55,10 @@ public class Runner {
 	 *                   exception
 	 */
 	public Runner(Level level, File resource, File output) throws Exception {
+		initDecimalFormatter();
 		createChecks(level);
 		createTestsuites(resource);
-
-		TestsuiteManager manager = new TestsuiteManager("Linted Data", testsuites);
+		TestsuiteManager manager = new TestsuiteManager("Linted Data", testsuites, decimalFormat);
 
 		// export
 		System.out.println("Exporting the results");
@@ -63,8 +66,6 @@ public class Runner {
 
 		try {
 			xmlMapper.writerWithDefaultPrettyPrinter().writeValue(output, manager);
-//			String employeeXml = xmlMapper.writerWithDefaultPrettyPrinter().writeValueAsString(manager);
-//			System.out.println(employeeXml);
 		} catch (JsonProcessingException e) {
 			System.err.println("Error when exporting the testsuites");
 			e.printStackTrace();
@@ -104,11 +105,11 @@ public class Runner {
 				// execute all the checks of the corresponding language
 				List<Failure> failures = check.startExecution(resource);
 				// create a new testcase containing the check and its failures
-				testcases.get(targetLanguage).add(new Testcase(check, failures, TargetLanguage.class.getCanonicalName() + "." + targetLanguage));
+				testcases.get(targetLanguage).add(new Testcase(check, failures, TargetLanguage.class.getCanonicalName() + "." + targetLanguage, decimalFormat));
 			}
 			// create a testsuite for the language with its testcases
 			testsuites.add(new Testsuite(TargetLanguage.class.getCanonicalName() + "." + targetLanguage,
-					targetLanguage + " testsuite", testcases.get(targetLanguage)));
+					targetLanguage + " testsuite", testcases.get(targetLanguage), decimalFormat));
 			System.out.println("Finished tests for: " + targetLanguage);
 		}
 	}
@@ -160,6 +161,15 @@ public class Runner {
 		allChecks.add(new CheckRdfsMultipleDomainRange());
 		allChecks.add(new CheckRdfsPropertyHasMissingDomainRangeDefinition());
 		return allChecks;
+	}
+	
+	/**
+	 * 
+	 */
+	private void initDecimalFormatter() {
+		DecimalFormatSymbols decimalSymbols = DecimalFormatSymbols.getInstance();
+		decimalSymbols.setDecimalSeparator('.');
+		decimalFormat = new DecimalFormat("0.0", decimalSymbols);
 	}
 
 }
