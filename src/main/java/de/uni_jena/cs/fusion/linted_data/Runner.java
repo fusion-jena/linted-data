@@ -16,21 +16,21 @@ import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Testcase;
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Testsuite;
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.TestsuiteManager;
-import de.uni_jena.cs.fusion.linted_data.checks.file_checks.CheckRdfPrefixesReferToOneNamespace;
-import de.uni_jena.cs.fusion.linted_data.checks.file_checks.FileCheck;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.CheckRdfsSeveralClassesWithTheSameLabel;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.CheckRdfNamespacesShouldNotBeReferredByMultiplePrefixes;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.CheckRdfNamespacesShouldNotOmitTheSeperator;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.CheckRdfRoundedFloatingPointValue;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRdfIrisTooLong;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckOwlInverseRelationshipForSymmetricProperty;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRdfLeadingOrTrailingSpaces;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRdfsMultipleDomainRange;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRdfsPropertyHasMissingDomainRangeDefinition;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRdfContainers;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckRdfIriContainsFileExtension;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckOwlNoLicenseDeclared;
-import de.uni_jena.cs.fusion.linted_data.checks.multigraph_checks.graph_checks.sparql_checks.CheckOwlSelfInverseProperty;
+import de.uni_jena.cs.fusion.linted_data.checks.CheckOwlInverseRelationshipForSymmetricProperty;
+import de.uni_jena.cs.fusion.linted_data.checks.CheckOwlNoLicenseDeclared;
+import de.uni_jena.cs.fusion.linted_data.checks.CheckOwlSelfInverseProperty;
+import de.uni_jena.cs.fusion.linted_data.checks.CheckRdfContainers;
+import de.uni_jena.cs.fusion.linted_data.checks.CheckRdfIriContainsFileExtension;
+import de.uni_jena.cs.fusion.linted_data.checks.CheckRdfIrisTooLong;
+import de.uni_jena.cs.fusion.linted_data.checks.CheckRdfLeadingOrTrailingSpaces;
+import de.uni_jena.cs.fusion.linted_data.checks.CheckRdfNamespacesShouldNotBeReferredByMultiplePrefixes;
+import de.uni_jena.cs.fusion.linted_data.checks.CheckRdfNamespacesShouldNotOmitTheSeperator;
+import de.uni_jena.cs.fusion.linted_data.checks.CheckRdfPrefixesReferToOneNamespace;
+import de.uni_jena.cs.fusion.linted_data.checks.CheckRdfRoundedFloatingPointValue;
+import de.uni_jena.cs.fusion.linted_data.checks.CheckRdfsMultipleDomainRange;
+import de.uni_jena.cs.fusion.linted_data.checks.CheckRdfsPropertyHasMissingDomainRangeDefinition;
+import de.uni_jena.cs.fusion.linted_data.checks.CheckRdfsSeveralClassesWithTheSameLabel;
+import de.uni_jena.cs.fusion.linted_data.checks.FileCheck;
 import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
 
@@ -39,7 +39,7 @@ public class Runner {
 	private Map<TargetLanguage, List<FileCheck>> checks;
 	private List<Testsuite> testsuites = new ArrayList<Testsuite>();
 	private DecimalFormat decimalFormat;
-	
+
 	/**
 	 * executes the checks on the resource and saves the results in XML-format in
 	 * the output file
@@ -105,7 +105,8 @@ public class Runner {
 				// execute all the checks of the corresponding language
 				List<Failure> failures = check.startExecution(resource);
 				// create a new testcase containing the check and its failures
-				testcases.get(targetLanguage).add(new Testcase(check, failures, TargetLanguage.class.getCanonicalName() + "." + targetLanguage, decimalFormat));
+				testcases.get(targetLanguage).add(new Testcase(check, failures,
+						TargetLanguage.class.getCanonicalName() + "." + targetLanguage, decimalFormat));
 			}
 			// create a testsuite for the language with its testcases
 			testsuites.add(new Testsuite(TargetLanguage.class.getCanonicalName() + "." + targetLanguage,
@@ -162,9 +163,9 @@ public class Runner {
 		allChecks.add(new CheckRdfsPropertyHasMissingDomainRangeDefinition());
 		return allChecks;
 	}
-	
+
 	/**
-	 * 
+	 * sets how the execution time in seconds is formated
 	 */
 	private void initDecimalFormatter() {
 		DecimalFormatSymbols decimalSymbols = DecimalFormatSymbols.getInstance();

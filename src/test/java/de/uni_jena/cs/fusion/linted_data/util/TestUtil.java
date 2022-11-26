@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.checks.file_checks.FileCheck;
+import de.uni_jena.cs.fusion.linted_data.checks.FileCheck;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 
 /**
