@@ -169,7 +169,7 @@ public class Runner {
 	private void initDecimalFormatter() {
 		DecimalFormatSymbols decimalSymbols = DecimalFormatSymbols.getInstance();
 		decimalSymbols.setDecimalSeparator('.');
-		decimalFormat = new DecimalFormat("0.0", decimalSymbols);
+		decimalFormat = new DecimalFormat("0.00", decimalSymbols);
 	}
 
 }
