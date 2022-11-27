@@ -10,7 +10,7 @@ import org.apache.jena.rdf.model.Model;
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
-import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
+import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
 /**
  * checks that are executed on a single graph
@@ -18,7 +18,7 @@ import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
  */
 public abstract class GraphCheck extends MultiGraphCheck {
 
-	protected GraphCheck(Level level, TargetLanguage targetLanguage, Severity severity, String name) {
+	protected GraphCheck(Level level, Scope targetLanguage, Severity severity, String name) {
 		super(level, targetLanguage, severity, name);
 	}
 

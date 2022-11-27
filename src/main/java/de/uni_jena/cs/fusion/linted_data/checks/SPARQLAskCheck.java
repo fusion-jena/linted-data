@@ -11,19 +11,19 @@ import org.apache.jena.rdf.model.Model;
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
-import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
+import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
 public abstract class SPARQLAskCheck extends SPARQLCheck {
 
-	public SPARQLAskCheck(Level level, TargetLanguage targetLanguage, Severity severity, String name, String query) {
+	public SPARQLAskCheck(Level level, Scope targetLanguage, Severity severity, String name, String query) {
 		super(level, targetLanguage, severity, name, query);
 	}
 
-	public SPARQLAskCheck(Level level, TargetLanguage targetLanguage, Severity severity, String name, File queryFile) {
+	public SPARQLAskCheck(Level level, Scope targetLanguage, Severity severity, String name, File queryFile) {
 		super(level, targetLanguage, severity, name, queryFile);
 	}
 	
-	public SPARQLAskCheck(Level level, TargetLanguage targetLanguage, Severity severity, String name,
+	public SPARQLAskCheck(Level level, Scope targetLanguage, Severity severity, String name,
 			InputStream queryFile) {
 		super(level, targetLanguage, severity, name, queryFile);
 	}

@@ -13,7 +13,7 @@ import org.apache.jena.rdf.model.Model;
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
-import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
+import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
 /**
  * each namespace should be referred by exactly one prefix
@@ -29,7 +29,7 @@ import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
 public final class CheckRdfNamespacesShouldNotBeReferredByMultiplePrefixes extends GraphCheck {
 
 	public CheckRdfNamespacesShouldNotBeReferredByMultiplePrefixes() {
-		super(Level.GRAPH, TargetLanguage.RDF, Severity.INFO, "The namespace is refered by multiple prefixes");
+		super(Level.GRAPH, Scope.RDF, Severity.INFO, "The namespace is refered by multiple prefixes");
 	}
 
 	@Override

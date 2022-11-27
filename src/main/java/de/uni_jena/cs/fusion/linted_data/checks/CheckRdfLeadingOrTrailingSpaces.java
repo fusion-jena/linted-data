@@ -9,7 +9,7 @@ import org.apache.jena.query.ResultSet;
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
-import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
+import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
 /**
  * Finds all literals that start or end with a whitespace character
@@ -27,7 +27,7 @@ public final class CheckRdfLeadingOrTrailingSpaces extends SPARQLSelectCheck {
 	private static final String object = "object";
 
 	public CheckRdfLeadingOrTrailingSpaces() {
-		super(Level.SPARQL, TargetLanguage.RDF, Severity.INFO, "Literals shouldn't start or end with white spaces",
+		super(Level.SPARQL, Scope.RDF, Severity.INFO, "Literals shouldn't start or end with white spaces",
 				CheckRdfLeadingOrTrailingSpaces.class.getClassLoader()
 						.getResourceAsStream("CheckRdfLeadingOrTrailingSpaces.rq"));
 	}

@@ -15,7 +15,7 @@ import org.apache.jena.rdf.model.ModelFactory;
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
-import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
+import de.uni_jena.cs.fusion.linted_data.types.Scope;
 import de.uni_jena.cs.fusion.linted_data.util.FileUtil;
 
 /**
@@ -35,7 +35,7 @@ public final class CheckRdfsSeveralClassesWithTheSameLabel extends MultiGraphChe
 	private final String label = "label";
 
 	public CheckRdfsSeveralClassesWithTheSameLabel() {
-		super(Level.MULTIGRAPH, TargetLanguage.RDFS, Severity.INFO, "Other classes have the same label");
+		super(Level.MULTIGRAPH, Scope.RDFS, Severity.INFO, "Other classes have the same label");
 		String text = "";
 		// read SPARQL query from the resource file
 		// SPARQL query which finds all classes with the same label

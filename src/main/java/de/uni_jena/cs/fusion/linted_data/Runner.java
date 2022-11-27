@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,32 +32,42 @@ import de.uni_jena.cs.fusion.linted_data.checks.CheckRdfsMultipleDomainRange;
 import de.uni_jena.cs.fusion.linted_data.checks.CheckRdfsPropertyHasMissingDomainRangeDefinition;
 import de.uni_jena.cs.fusion.linted_data.checks.CheckRdfsSeveralClassesWithTheSameLabel;
 import de.uni_jena.cs.fusion.linted_data.checks.FileCheck;
-import de.uni_jena.cs.fusion.linted_data.types.Level;
-import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
+import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
 public class Runner {
 
-	private Map<TargetLanguage, List<FileCheck>> checks;
+	/**
+	 * the checks that will be executed grouped by their scope
+	 */
+	private Map<Scope, List<FileCheck>> checks;
+	/**
+	 * the testsuites that group the checks
+	 */
 	private List<Testsuite> testsuites = new ArrayList<Testsuite>();
+	/**
+	 * defines how the execution in seconds time is formated as string when exported
+	 * as xml
+	 */
 	private DecimalFormat decimalFormat;
 
 	/**
 	 * executes the checks on the resource and saves the results in XML-format in
 	 * the output file
 	 * 
-	 * creates first the needed checks, afterwards executes them on the resource the
-	 * results are then grouped to testcases -> testsuite -> testsuites and then
+	 * creates first the needed checks, afterwards executes them on the resource
+	 * <p>
+	 * the results are then grouped to testcases -> testsuite -> testsuites and then
 	 * exported in XML format in the output file
 	 * 
-	 * @param level    speciefies which checks will be executed
+	 * @param scopes   defines the scope of the executed checks
 	 * @param resource the file on which the checks will be performed
 	 * @param output   where the xml output should be stored
 	 * @throws Exception when during one of the execution of the checks occurred an
 	 *                   exception
 	 */
-	public Runner(Level level, File resource, File output) throws Exception {
+	public Runner(Scope[] scope, File resource, File output) throws Exception {
 		initDecimalFormatter();
-		createChecks(level);
+		createChecks(scope);
 		createTestsuites(resource);
 		TestsuiteManager manager = new TestsuiteManager("Linted Data", testsuites, decimalFormat);
 
@@ -86,18 +97,17 @@ public class Runner {
 	 * <p>
 	 * the testcase elements are then added to the corresponding testsuite
 	 * 
-	 * 
 	 * @param resource the file that is investigated
 	 * @throws Exception when during one of the execution of the checks occurred an
 	 *                   exception
 	 */
 	private void createTestsuites(File resource) throws Exception {
 		// split the testcases into the languages
-		Map<TargetLanguage, List<Testcase>> testcases = new HashMap<TargetLanguage, List<Testcase>>();
+		Map<Scope, List<Testcase>> testcases = new HashMap<Scope, List<Testcase>>();
 
 		testsuites = new ArrayList<Testsuite>();
 		System.out.println("Start executing tests");
-		for (TargetLanguage targetLanguage : checks.keySet()) {
+		for (Scope targetLanguage : checks.keySet()) {
 			System.out.println("Executing tests for: " + targetLanguage);
 			// for each language create a new list of testcases
 			testcases.put(targetLanguage, new ArrayList<Testcase>());
@@ -106,10 +116,10 @@ public class Runner {
 				List<Failure> failures = check.startExecution(resource);
 				// create a new testcase containing the check and its failures
 				testcases.get(targetLanguage).add(new Testcase(check, failures,
-						TargetLanguage.class.getCanonicalName() + "." + targetLanguage, decimalFormat));
+						Scope.class.getCanonicalName() + "." + targetLanguage, decimalFormat));
 			}
 			// create a testsuite for the language with its testcases
-			testsuites.add(new Testsuite(TargetLanguage.class.getCanonicalName() + "." + targetLanguage,
+			testsuites.add(new Testsuite(Scope.class.getCanonicalName() + "." + targetLanguage,
 					targetLanguage + " testsuite", testcases.get(targetLanguage), decimalFormat));
 			System.out.println("Finished tests for: " + targetLanguage);
 		}
@@ -118,26 +128,26 @@ public class Runner {
 	/**
 	 * creates the map containing all test of the specified level
 	 * 
-	 * the tests are split according to their target language (rdfs, owl)
+	 * the tests are split according to their scope (rdf, rdfs, owl)
 	 * 
-	 * @param level specifies which level the tests to be executed should belong to
+	 * @param scopes which scopes will be checked
 	 */
-	private void createChecks(Level level) {
-		checks = new HashMap<TargetLanguage, List<FileCheck>>();
+	private void createChecks(Scope[] scopes) {
+		checks = new HashMap<Scope, List<FileCheck>>();
 		// create a list that contains all implemented checks
 		List<FileCheck> allChecks = createAllChecks();
+
+		for (Scope language : scopes) {
+			checks.put(language, new ArrayList<>());
+		}
+
 		// add only fitting checks to the map
 		for (FileCheck check : allChecks) {
-			if (level.equals(check.getLevel())) {
-				// if the target language is not yet contained in the map
-				// create an empty list for it
-				if (checks.get(check.getTargetLangugage()) == null) {
-					checks.put(check.getTargetLangugage(), new ArrayList<FileCheck>());
-				}
+			if (checks.containsKey(check.getTargetLangugage())) {
 				checks.get(check.getTargetLangugage()).add(check);
 			}
 		}
-		System.out.println("Created checks from level: " + level);
+		System.out.println("Created checks for: " + Arrays.toString(scopes));
 	}
 
 	/**

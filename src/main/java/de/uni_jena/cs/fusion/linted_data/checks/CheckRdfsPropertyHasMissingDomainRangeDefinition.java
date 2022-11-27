@@ -9,7 +9,7 @@ import org.apache.jena.query.ResultSet;
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
-import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
+import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
 /**
  * Object and datatype properties should have a defined domain and range
@@ -20,7 +20,7 @@ import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
 public final class CheckRdfsPropertyHasMissingDomainRangeDefinition extends SPARQLSelectCheck {
 
 	public CheckRdfsPropertyHasMissingDomainRangeDefinition() {
-		super(Level.SPARQL, TargetLanguage.RDFS, Severity.WARN,
+		super(Level.SPARQL, Scope.RDFS, Severity.WARN,
 				"The property doesn't have a domain or range or none of them",
 				CheckRdfsPropertyHasMissingDomainRangeDefinition.class.getClassLoader()
 						.getResourceAsStream("CheckRdfsPropertyHasMissingDomainRangeDefinition.rq"));

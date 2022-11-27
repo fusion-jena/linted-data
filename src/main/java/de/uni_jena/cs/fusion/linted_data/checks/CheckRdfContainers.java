@@ -9,7 +9,7 @@ import org.apache.jena.query.ResultSet;
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
-import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
+import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
 /**
  * Check if RDF containers use illegal, repeated or missed out index numbers
@@ -23,7 +23,7 @@ public final class CheckRdfContainers extends SPARQLSelectCheck {
 	public CheckRdfContainers() {
 		// SPARQL query from
 		// https://stackoverflow.com/questions/72434963/validating-rdfseq-with-sparql/72449757#72449757
-		super(Level.SPARQL, TargetLanguage.RDF, Severity.WARN,
+		super(Level.SPARQL, Scope.RDF, Severity.WARN,
 				"The RDF container uses  one of illegal, repeated, missed out index numbers",
 				CheckRdfContainers.class.getClassLoader().getResourceAsStream("CheckRdfContainers.rq"));
 	}

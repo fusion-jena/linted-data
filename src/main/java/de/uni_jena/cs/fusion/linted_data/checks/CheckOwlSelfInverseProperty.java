@@ -9,7 +9,7 @@ import org.apache.jena.query.ResultSet;
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
-import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
+import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
 /**
  * Check if a property is defined as its own inverse
@@ -21,7 +21,7 @@ import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
 public class CheckOwlSelfInverseProperty extends SPARQLSelectCheck {
 
 	public CheckOwlSelfInverseProperty() {
-		super(Level.SPARQL, TargetLanguage.OWL, Severity.WARN, "A property is defined as inverse of itself. Better use owl:SymmetricProperty.",
+		super(Level.SPARQL, Scope.OWL, Severity.WARN, "A property is defined as inverse of itself. Better use owl:SymmetricProperty.",
 				CheckOwlSelfInverseProperty.class.getClassLoader().getResourceAsStream("CheckOwlSelfInverseProperty.rq"));
 	}
 

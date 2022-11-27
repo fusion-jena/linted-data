@@ -9,7 +9,7 @@ import org.apache.jena.query.ResultSet;
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
-import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
+import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
 /**
  * Check if an ontology has a license defined
@@ -20,7 +20,7 @@ import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
 public class CheckOwlNoLicenseDeclared extends SPARQLSelectCheck {
 
 	public CheckOwlNoLicenseDeclared() {
-		super(Level.SPARQL, TargetLanguage.OWL, Severity.ERROR,
+		super(Level.SPARQL, Scope.OWL, Severity.ERROR,
 				"A licence should be declared for the ontology.",
 				CheckOwlNoLicenseDeclared.class.getClassLoader().getResourceAsStream("CheckOwlNoLicenseDeclared.rq"));
 	}

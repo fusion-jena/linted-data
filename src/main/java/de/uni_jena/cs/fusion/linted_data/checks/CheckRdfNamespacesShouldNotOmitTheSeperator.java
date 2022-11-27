@@ -11,7 +11,7 @@ import org.apache.jena.rdf.model.Model;
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
-import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
+import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
 /**
  * Finds all namespace definitions where the IRI doesn't end with a # or /
@@ -19,7 +19,7 @@ import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
 public final class CheckRdfNamespacesShouldNotOmitTheSeperator extends GraphCheck {
 
 	public CheckRdfNamespacesShouldNotOmitTheSeperator() {
-		super(Level.MULTIGRAPH, TargetLanguage.RDF, Severity.WARN, "Namespaces should not omit the seperator (#, /)");
+		super(Level.MULTIGRAPH, Scope.RDF, Severity.WARN, "Namespaces should not omit the seperator (#, /)");
 	}
 
 	@Override

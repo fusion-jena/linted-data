@@ -7,7 +7,7 @@ import java.util.List;
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
 import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
-import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
+import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
 /**
  * Checks that are performed on the file itself
@@ -18,7 +18,7 @@ import de.uni_jena.cs.fusion.linted_data.types.TargetLanguage;
 public abstract class FileCheck extends Check {
 	
 	protected Level level;
-	protected TargetLanguage targetLanguage;
+	protected Scope targetLanguage;
 	
 	/**
 	 * severity of the check
@@ -32,7 +32,7 @@ public abstract class FileCheck extends Check {
 	 * @param severity
 	 * @param name general description of the testcase
 	 */
-	protected FileCheck(Level level, TargetLanguage targetLanguage, Severity severity, String name) {
+	protected FileCheck(Level level, Scope targetLanguage, Severity severity, String name) {
 		super(name);
 		this.level = level;
 		this.targetLanguage = targetLanguage;
@@ -67,7 +67,7 @@ public abstract class FileCheck extends Check {
 		return level;
 	}
 	
-	public TargetLanguage getTargetLangugage() {
+	public Scope getTargetLangugage() {
 		return targetLanguage;
 	}
 }

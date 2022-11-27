@@ -8,14 +8,6 @@ public enum Level {
 	SPARQL, 
 	FILE,
 	GRAPH,
-	MULTIGRAPH,
-	ALL;
-	
-	public boolean equals(Level o) {
-		if(this == ALL || o == ALL) {
-			return true;
-		}else {
-			return this == o;
-		}
-	}
+	MULTIGRAPH 
+
 }
