@@ -16,7 +16,7 @@ import picocli.CommandLine.ITypeConverter;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-@Command(name = "examination", mixinStandardHelpOptions = true, version = "0.0.1", description = "Performs checks on a ontology provided via file.")
+@Command(name = "LintedData", mixinStandardHelpOptions = true, version = "0.0.1", description = "Performs checks on a provided RDF file.")
 public class LintedData implements Callable<Integer> {
 
 	@Parameters(index = "0", description = "The file that will be checked")
