@@ -143,8 +143,8 @@ public class Runner {
 
 		// add only fitting checks to the map
 		for (FileCheck check : allChecks) {
-			if (checks.containsKey(check.getTargetLangugage())) {
-				checks.get(check.getTargetLangugage()).add(check);
+			if (checks.containsKey(check.getScope())) {
+				checks.get(check.getScope()).add(check);
 			}
 		}
 		System.out.println("Created checks for: " + Arrays.toString(scopes));

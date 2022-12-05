@@ -13,28 +13,30 @@ import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
+/**
+ * SPARQL check whose query is a SPARQL ASK query
+ */
 public abstract class SparqlAskCheck extends SparqlCheck {
 
-	public SparqlAskCheck(Level level, Scope targetLanguage, Severity severity, String name, String query) {
-		super(level, targetLanguage, severity, name, query);
+	public SparqlAskCheck(Level level, Scope scope, Severity severity, String name, String query) {
+		super(level, scope, severity, name, query);
 	}
 
-	public SparqlAskCheck(Level level, Scope targetLanguage, Severity severity, String name, File queryFile) {
-		super(level, targetLanguage, severity, name, queryFile);
+	public SparqlAskCheck(Level level, Scope scope, Severity severity, String name, File queryFile) {
+		super(level, scope, severity, name, queryFile);
 	}
-	
-	public SparqlAskCheck(Level level, Scope targetLanguage, Severity severity, String name,
-			InputStream queryFile) {
-		super(level, targetLanguage, severity, name, queryFile);
+
+	public SparqlAskCheck(Level level, Scope scope, Severity severity, String name, InputStream queryFile) {
+		super(level, scope, severity, name, queryFile);
 	}
-	
+
 	@Override
 	public List<Failure> execute(Model model, String failureDescription) {
 		QueryExecution queryExecution = QueryExecutionFactory.create(query, model);
 
-		return execute(queryExecution.execAsk(), failureDescription); 
+		return execute(queryExecution.execAsk(), failureDescription);
 	}
-	
+
 	protected abstract List<Failure> execute(boolean b, String failureDescription);
 
 }

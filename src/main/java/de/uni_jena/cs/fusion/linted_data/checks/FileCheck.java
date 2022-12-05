@@ -17,8 +17,8 @@ import de.uni_jena.cs.fusion.linted_data.types.Scope;
  */
 public abstract class FileCheck extends Check {
 	
-	protected Level level;
-	protected Scope targetLanguage;
+	private Level level;
+	private Scope scope;
 	
 	/**
 	 * severity of the check
@@ -28,14 +28,14 @@ public abstract class FileCheck extends Check {
 	/**
 	 * 
 	 * @param level
-	 * @param targetLanguage
+	 * @param scope
 	 * @param severity
 	 * @param name general description of the testcase
 	 */
-	protected FileCheck(Level level, Scope targetLanguage, Severity severity, String name) {
+	protected FileCheck(Level level, Scope scope, Severity severity, String name) {
 		super(name);
 		this.level = level;
-		this.targetLanguage = targetLanguage;
+		this.scope = scope;
 		this.severity = severity;
 	}
 	
@@ -59,7 +59,7 @@ public abstract class FileCheck extends Check {
 	 * 
 	 * the parameter is updated through the calls of parent methods
 	 * 
-	 * @return
+	 * @return 
 	 */
 	public abstract List<Failure> execute(File file, String failureDescription) throws Exception;
 	
@@ -67,7 +67,7 @@ public abstract class FileCheck extends Check {
 		return level;
 	}
 	
-	public Scope getTargetLangugage() {
-		return targetLanguage;
+	public Scope getScope() {
+		return scope;
 	}
 }

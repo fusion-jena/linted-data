@@ -19,8 +19,8 @@ import de.uni_jena.cs.fusion.linted_data.types.Scope;
  */
 public abstract class MultiGraphCheck extends FileCheck {
 	
-	protected MultiGraphCheck (Level level, Scope targetLanguage, Severity severity, String name) {
-		super(level, targetLanguage, severity, name);
+	protected MultiGraphCheck (Level level, Scope scope, Severity severity, String name) {
+		super(level, scope, severity, name);
 	}
 	
 	@Override

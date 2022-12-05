@@ -9,14 +9,6 @@ package de.uni_jena.cs.fusion.linted_data.checks;
 public abstract class Check {
 
 	/**
-	 * counter for the id of the different checks
-	 */
-	private static long idCounter = 0;
-	/**
-	 * id of check object
-	 */
-	protected long id;
-	/**
 	 * measurement of the execution time
 	 */
 	protected long time;
@@ -26,8 +18,6 @@ public abstract class Check {
 	public Check(String name) {
 		this.name = name;
 		this.time = 0L;
-		this.id = Check.idCounter;
-		Check.idCounter++;
 	}
 	
 	public String getName() {
@@ -38,7 +28,4 @@ public abstract class Check {
 		return time;
 	}
 	
-	public long getID() {
-		return id;
-	}
 }

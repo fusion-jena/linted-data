@@ -1,18 +1,8 @@
 package de.uni_jena.cs.fusion.linted_data.util;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public abstract class StringUtil {
-
-	public final static String checkForFileExtension(String s, List<String> extensions) {
-		for (String e : extensions) {
-			if (s.contains(e)) {
-				return e;
-			}
-		}
-		return null;
-	}
 
 	/**
 	 * Checks if a double should be replaced by decimal

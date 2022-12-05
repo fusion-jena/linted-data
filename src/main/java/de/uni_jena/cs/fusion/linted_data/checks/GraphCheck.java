@@ -18,14 +18,15 @@ import de.uni_jena.cs.fusion.linted_data.types.Scope;
  */
 public abstract class GraphCheck extends MultiGraphCheck {
 
-	protected GraphCheck(Level level, Scope targetLanguage, Severity severity, String name) {
-		super(level, targetLanguage, severity, name);
+	protected GraphCheck(Level level, Scope scope, Severity severity, String name) {
+		super(level, scope, severity, name);
 	}
 
 	@Override
 	public List<Failure> execute(Dataset dataset, String failureDescription) {
 
 		List<Failure> failures = new ArrayList<Failure>();
+		
 		if (dataset.getDefaultModel() != null) {
 			String currentFailureDescription = failureDescription + "\n";
 			currentFailureDescription += "Model: " + "Default Model";

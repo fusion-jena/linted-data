@@ -25,12 +25,12 @@ public abstract class SparqlCheck extends GraphCheck {
 
 	protected SparqlCheck(Level level, Scope targetLanguage, Severity severity, String name, File queryFile) {
 		super(level, targetLanguage, severity, name);
-		this.query  = readQuery(queryFile);
+		this.query = readQuery(queryFile);
 	}
 
 	protected SparqlCheck(Level level, Scope targetLanguage, Severity severity, String name, InputStream queryFile) {
 		super(level, targetLanguage, severity, name);
-		this.query  = readQuery(queryFile);
+		this.query = readQuery(queryFile);
 	}
 
 	/**
@@ -44,15 +44,24 @@ public abstract class SparqlCheck extends GraphCheck {
 	private String readQuery(File file) {
 		try {
 			return FileUtil.readFile(file);
-		}catch(IOException e) {
+		} catch (IOException e) {
 			return null;
 		}
 	}
-	
-	private String readQuery(InputStream file) {
+
+	/**
+	 * parses the inputStream containing the SPARQL query and returns the query as a
+	 * String
+	 * 
+	 * the IOException can't occur during runtime
+	 * 
+	 * @param inputStream contains the SPARQL query, is parsed
+	 * @return String representing the SPARQL query
+	 */
+	private String readQuery(InputStream inputStream) {
 		try {
-			return FileUtil.readFile(file);
-		}catch(IOException e) {
+			return FileUtil.readFile(inputStream);
+		} catch (IOException e) {
 			return null;
 		}
 	}

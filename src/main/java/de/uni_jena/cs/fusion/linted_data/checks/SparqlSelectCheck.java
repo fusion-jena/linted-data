@@ -1,6 +1,5 @@
 package de.uni_jena.cs.fusion.linted_data.checks;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
@@ -15,20 +14,13 @@ import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
 import org.apache.jena.query.ResultSet;
 
+/**
+ * SPARQL check whose query is of type SELECT
+ */
 public abstract class SparqlSelectCheck extends SparqlCheck {
 
-	public SparqlSelectCheck(Level level, Scope targetLanguage, Severity severity, String name, String query) {
-		super(level, targetLanguage, severity, name, query);
-	}
-
-	public SparqlSelectCheck(Level level, Scope targetLanguage, Severity severity, String name,
-			File queryFile) {
-		super(level, targetLanguage, severity, name, queryFile);
-	}
-
-	public SparqlSelectCheck(Level level, Scope targetLanguage, Severity severity, String name,
-			InputStream queryFile) {
-		super(level, targetLanguage, severity, name, queryFile);
+	public SparqlSelectCheck(Level level, Scope scope, Severity severity, String name, InputStream queryFile) {
+		super(level, scope, severity, name, queryFile);
 	}
 
 	@Override

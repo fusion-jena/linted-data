@@ -19,17 +19,6 @@ import org.apache.jena.riot.RDFParser;
  */
 public abstract class FileUtil {
 
-	/**
-	 * check if the input file is in a valid format
-	 * 
-	 * valid formats are: owl, ttl, rdf
-	 * 
-	 * @param file its extension will be checked
-	 * @return true if the file extension is in the list, else false
-	 */
-	public static final boolean checkInputFileExtension(File file) {
-		return checkFileExtension(file, Arrays.asList("owl", "ttl", "rdf", "xml", "nt", "nq", "trig"));
-	}
 
 	/**
 	 * check if the output file is an xml document
@@ -48,7 +37,7 @@ public abstract class FileUtil {
 	 * @param extensions valid file extensions
 	 * @return true if the file extension is in extensions, else false
 	 */
-	public static final boolean checkFileExtension(File file, List<String> extensions) {
+	private static final boolean checkFileExtension(File file, List<String> extensions) {
 		String[] partOfFileName = file.getName().split("\\.");
 		// the file extension is the substring after the last .
 		String fileExtension = partOfFileName[partOfFileName.length - 1];
