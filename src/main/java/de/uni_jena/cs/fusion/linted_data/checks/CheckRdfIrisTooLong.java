@@ -25,7 +25,7 @@ import de.uni_jena.cs.fusion.linted_data.types.Scope;
  * <p>
  * TODO more considerations?
  */
-public final class CheckRdfIrisTooLong extends SPARQLSelectCheck {
+public final class CheckRdfIrisTooLong extends SparqlSelectCheck {
 
 	public CheckRdfIrisTooLong() {
 		super(Level.SPARQL, Scope.RDF, Severity.INFO, "Local names shouldn't be longer than 36 characters",

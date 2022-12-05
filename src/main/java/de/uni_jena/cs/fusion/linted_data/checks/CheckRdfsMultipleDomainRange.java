@@ -18,7 +18,7 @@ import de.uni_jena.cs.fusion.linted_data.types.Scope;
  * is equivalent to owl:intersectionOf
  *
  */
-public final class CheckRdfsMultipleDomainRange extends SPARQLSelectCheck {
+public final class CheckRdfsMultipleDomainRange extends SparqlSelectCheck {
 
 	public CheckRdfsMultipleDomainRange() {
 		super(Level.SPARQL, Scope.RDFS, Severity.WARN,

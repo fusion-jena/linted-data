@@ -19,7 +19,7 @@ import de.uni_jena.cs.fusion.linted_data.types.Scope;
  * <p>
  * \v also doesn't exist in SPARQL and is hence not checked
  */
-public final class CheckRdfLeadingOrTrailingSpaces extends SPARQLSelectCheck {
+public final class CheckRdfLeadingOrTrailingSpaces extends SparqlSelectCheck {
 
 	private static final String literal = "literal";
 	private static final String subject = "subject";

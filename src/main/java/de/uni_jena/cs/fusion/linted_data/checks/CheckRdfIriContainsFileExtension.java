@@ -14,7 +14,7 @@ import de.uni_jena.cs.fusion.linted_data.types.Scope;
 /**
  * Check whether any occuring URI contains a file extension 
  */
-public final class CheckRdfIriContainsFileExtension extends SPARQLSelectCheck {
+public final class CheckRdfIriContainsFileExtension extends SparqlSelectCheck {
 	
 	
 	public CheckRdfIriContainsFileExtension() {

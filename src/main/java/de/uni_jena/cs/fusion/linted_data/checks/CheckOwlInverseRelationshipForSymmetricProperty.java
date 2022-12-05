@@ -20,7 +20,7 @@ import de.uni_jena.cs.fusion.linted_data.types.Scope;
  * owl:equivalentProperty.
  *
  */
-public class CheckOwlInverseRelationshipForSymmetricProperty extends SPARQLSelectCheck {
+public class CheckOwlInverseRelationshipForSymmetricProperty extends SparqlSelectCheck {
 
 	public CheckOwlInverseRelationshipForSymmetricProperty() {
 		super(Level.SPARQL, Scope.OWL, Severity.WARN,

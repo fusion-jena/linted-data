@@ -12,23 +12,23 @@ import de.uni_jena.cs.fusion.linted_data.util.FileUtil;
 /**
  * Checks that can be formulated as SPARQL query
  */
-public abstract class SPARQLCheck extends GraphCheck {
+public abstract class SparqlCheck extends GraphCheck {
 	/**
 	 * the query that will be executed against the model
 	 */
 	protected final String query;
 
-	protected SPARQLCheck(Level level, Scope targetLanguage, Severity severity, String name, String query) {
+	protected SparqlCheck(Level level, Scope targetLanguage, Severity severity, String name, String query) {
 		super(level, targetLanguage, severity, name);
 		this.query = query;
 	}
 
-	protected SPARQLCheck(Level level, Scope targetLanguage, Severity severity, String name, File queryFile) {
+	protected SparqlCheck(Level level, Scope targetLanguage, Severity severity, String name, File queryFile) {
 		super(level, targetLanguage, severity, name);
 		this.query  = readQuery(queryFile);
 	}
 
-	protected SPARQLCheck(Level level, Scope targetLanguage, Severity severity, String name, InputStream queryFile) {
+	protected SparqlCheck(Level level, Scope targetLanguage, Severity severity, String name, InputStream queryFile) {
 		super(level, targetLanguage, severity, name);
 		this.query  = readQuery(queryFile);
 	}

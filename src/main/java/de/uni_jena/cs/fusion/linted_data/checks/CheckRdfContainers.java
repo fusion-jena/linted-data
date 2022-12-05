@@ -18,7 +18,7 @@ import de.uni_jena.cs.fusion.linted_data.types.Scope;
  * {@link https://stackoverflow.com/questions/72434963/validating-rdfseq-with-sparql/}
  *
  */
-public final class CheckRdfContainers extends SPARQLSelectCheck {
+public final class CheckRdfContainers extends SparqlSelectCheck {
 
 	public CheckRdfContainers() {
 		// SPARQL query from

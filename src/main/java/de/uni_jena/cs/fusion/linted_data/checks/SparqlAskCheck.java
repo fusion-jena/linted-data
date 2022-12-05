@@ -13,30 +13,28 @@ import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
-import org.apache.jena.query.ResultSet;
+public abstract class SparqlAskCheck extends SparqlCheck {
 
-public abstract class SPARQLSelectCheck extends SPARQLCheck {
-
-	public SPARQLSelectCheck(Level level, Scope targetLanguage, Severity severity, String name, String query) {
+	public SparqlAskCheck(Level level, Scope targetLanguage, Severity severity, String name, String query) {
 		super(level, targetLanguage, severity, name, query);
 	}
 
-	public SPARQLSelectCheck(Level level, Scope targetLanguage, Severity severity, String name,
-			File queryFile) {
+	public SparqlAskCheck(Level level, Scope targetLanguage, Severity severity, String name, File queryFile) {
 		super(level, targetLanguage, severity, name, queryFile);
 	}
-
-	public SPARQLSelectCheck(Level level, Scope targetLanguage, Severity severity, String name,
+	
+	public SparqlAskCheck(Level level, Scope targetLanguage, Severity severity, String name,
 			InputStream queryFile) {
 		super(level, targetLanguage, severity, name, queryFile);
 	}
-
+	
 	@Override
 	public List<Failure> execute(Model model, String failureDescription) {
 		QueryExecution queryExecution = QueryExecutionFactory.create(query, model);
-		return execute(queryExecution.execSelect(), failureDescription);
-	}
 
-	protected abstract List<Failure> execute(ResultSet resultSet, String failureDescription);
+		return execute(queryExecution.execAsk(), failureDescription); 
+	}
+	
+	protected abstract List<Failure> execute(boolean b, String failureDescription);
 
 }

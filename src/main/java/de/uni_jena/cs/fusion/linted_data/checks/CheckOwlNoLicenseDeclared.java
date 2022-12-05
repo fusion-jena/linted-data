@@ -17,7 +17,7 @@ import de.uni_jena.cs.fusion.linted_data.types.Scope;
  * check if one of the four license properties: dc:rights, dcterms:license,
  * schema:license or cc:license is used
  */
-public class CheckOwlNoLicenseDeclared extends SPARQLSelectCheck {
+public class CheckOwlNoLicenseDeclared extends SparqlSelectCheck {
 
 	public CheckOwlNoLicenseDeclared() {
 		super(Level.SPARQL, Scope.OWL, Severity.ERROR,

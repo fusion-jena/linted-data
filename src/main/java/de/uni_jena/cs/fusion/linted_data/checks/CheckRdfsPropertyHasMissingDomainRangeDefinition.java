@@ -17,7 +17,7 @@ import de.uni_jena.cs.fusion.linted_data.types.Scope;
  * Properties that have defined only domain OR range are reported as well as
  * properties that are missing both
  */
-public final class CheckRdfsPropertyHasMissingDomainRangeDefinition extends SPARQLSelectCheck {
+public final class CheckRdfsPropertyHasMissingDomainRangeDefinition extends SparqlSelectCheck {
 
 	public CheckRdfsPropertyHasMissingDomainRangeDefinition() {
 		super(Level.SPARQL, Scope.RDFS, Severity.WARN,

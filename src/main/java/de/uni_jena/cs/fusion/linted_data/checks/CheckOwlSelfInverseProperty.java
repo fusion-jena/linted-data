@@ -18,7 +18,7 @@ import de.uni_jena.cs.fusion.linted_data.types.Scope;
  * a property is symmetric, one should use owl:SymmetricProperty
  *
  */
-public class CheckOwlSelfInverseProperty extends SPARQLSelectCheck {
+public class CheckOwlSelfInverseProperty extends SparqlSelectCheck {
 
 	public CheckOwlSelfInverseProperty() {
 		super(Level.SPARQL, Scope.OWL, Severity.WARN, "A property is defined as inverse of itself. Better use owl:SymmetricProperty.",
