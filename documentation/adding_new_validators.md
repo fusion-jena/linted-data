@@ -18,7 +18,6 @@ Additionally some of the classes and their functionality are explained.
 The general structure of the classes, used to implement the LintedData, is displayed in the following image:  
 
 ![Class diagram for LintedData](../graphics/class_diagram.png "Class diagram for LintedData")  
-<!--TODO correctness & completeness -->
 
 The classes belong to three different packages:
 
@@ -143,40 +142,58 @@ In both cases, it is only possible to access the result of the query, not the qu
 
 ### 3.4.1 `CheckRdfIrisTooLong`
 
-One example for this type of check is the validation, that literals don't start or end with a white space.
-This could also be realised as a `GraphCheck`, but can also be realised with a SPARQL query.
-<!--TODO more information, or move this to section 5?-->
+This validator checks, if the locale name of an IRI, the part after `#` or after the last `/`, contains not more than 36 character.
+36 might look like an arbitary decission, and is based on the following aspects:
+
+- three IRIs should fit into one line
+- IRIs should be easy to tipe
+- UUIDs are 36 character long and should therefore not be detected when used as locale name
+
+Since for each IRI whose locale name is longer than 36 characters, a failure entry should be created, this validator is realised as a subclass of `SparqlSelectCheck`.
+A realisation as `SparqlAskCheck` would only provide the answer if in a model exists an IRI that is too long.
+
+It would also be possible to implement this check without SPARQL, but since the aim is to possible reuse the checks for SPARQL endpoints.  
 
 The next section describes the procedure when implementing a new validator.
-<!-- TODO
-	* describe the different types of test
-  * each level -> example
-  * why a test should be as specialised as possible
-<-->
+
 ## 4. Implementation of a new validator  
 
-After describing the different level that are included in LintedData , this section describes which steps need to be followed when implementing a new validator.  
+After describing the different types of check that are included in LintedData, this section describes which steps need to be followed when implementing a new validator.  
 
 The first step is to assign the validator a level.
-The differences between those are described in section 2.
-When choosing the level, it should be considered that although you can parse a file into a dataset in a `FileCheck` this shouldn't be done.
-Instead, the most appropriate class should always be chosen.
+The differences between those are described in the previous section.
+The examples also given in the section may help to find a suitable level.
+It may also help to ask, what information is needed to solve the problem.
+When choosing the level, it should be considered that the most appropriate class should always be chosen.
 
-Next to choosing the level of the validator, it must be considered to which `TargetLanguage` it applies.
-This selection is not as important as the choice of level, as described in section 2, it only influences to which `Testsuite` the validator belongs.  
+Next to choosing the level of the check, it must be considered to which `Scope` it applies.
+The scope of an validator defines, which modeling language of the semantic web the check applies to.
+For example, `CheckRdfIrisTooLong` only uses the concept IRI from RDF.
+Whereas `CheckRdfsSeveralClassesWithTheSameLabel` uses the concept Label from RDFS. <!-- TODO concept a valid word at this position? -->
+The validators are grouped by their `scope` to the different `Testsuite`s in `Runner` as well as in the exported XML result file.
+
+The name of a check should be created in the following way:
+
+1. Check
+2. its scope (RDF, RDFS, OWL)
+3. short description of the validation
+
 All checks call the constructor of their abstract superclass.
 They have the following arguments:  
 
 | Argument         | Description |
 |--------------|-----------------------|
-| `level` | As described before, corresponding value of the enum `level`  |
-| `targetLanguage`      | Determines corresponding `Testuite`, a value of `TargetLanguage`. |
+| `level` | As described before, corresponding value of the enum `Level`  |
+| `scope`      | Corresponding semantic web modelling language, determines corresponding `Testuite`, a value of `Scope`. |
 | `severity` | How important it is to fix an occurring failure of this validator, see section 2 for a description of the different values. |
-| `name`| This attribute does not describe the validator, but is a general description of the occurring failures found by the validator. |
+| `name`| This attribute does not describe the validator itself, but is a general description of the occurring failures found by the validator. |
 
-When the validator is a `SPARQLCheck` the constructor has an additional argument for the query.
-All these arguments should be set in the constructor itself, so that the constructor itself doesn't require an argument.  
-Next to creating a constructor is the implementation of the method `execute`.
+When the validator is a `SparqlCheck` the constructor has an additional argument for the query.
+The query can be passed as `String`, as File or as `InputStream`.
+
+All these arguments should be set in the constructor itself, so that the constructor itself doesn't require any argument.  
+
+Besides the creation of a constructor, the implementation of the `execute` method is an essential step.
 This function returns a list of `Failure`s and always has two arguments:
 
 One is a String called `failureDescription`.
@@ -191,84 +208,26 @@ The content of `failureDescription` and the second argument for each level can b
 
 | Level         | `failureDescription`     | 2nd argument |
 |--------------|-----------|------------|
-| File | Canonical path to the file | Raw file      
-| MultiGraph | Canonical path to the file | File parsed as dataset |
-| Graph | Canonical path to the file, Name of the model | Single model from the `dataset` |
-| SPARQL | Canonical path to the file, Name of the model | `ResultSet` from the query
+| `FileCheck` | Canonical path to the file | Raw file      
+| `MultiGraphCheck` | Canonical path to the file | File parsed as dataset |
+| `GraphCheck` | Canonical path to the file, Name of the model | Single model from the `dataset` |
+| `SparqlSelectCheck` | Canonical path to the file, Name of the model | `ResultSet` from the query
+| `SparqlAskCheck` | Canonical path to the file, Name of the model | boolean answer from the query
 
 When creating a new failure, and adding it to the list that will be returned at the end,
 the following information must be given:
 
-* **message:** Describes the error in a general way, in most cases the attribute `name` of the check can be used.
-* **severity:** How critical the found error is.
-This information can also be often extracted from the attributes.
-* **failureElement:** This is only for testing, not for productive environment.
-This argument is used to describe what especially caused the failure.
-For example the number that can't be represented exactly.
-* **text:** Description of the error position, should be the extended  `failureDescription`.
+| Argument | Description |
+| ---------- | ----------- |
+| `message` | Describes the error in a general way, in most cases the attribute `name` of the check can be used. |
+| `severity` | How critical the found error is. This information can also be often extracted from the attributes. |
+| `failureElement` | This is only for testing, not for productive environment. This argument is used to describe what especially caused the failure. For example the number that can't be represented exactly. |
+| `text` | Description of the error position, should be the extended  `failureDescription`. |
 
-Before the validator is used in the tool, use JUnit tests to ensure its correctness.
+Before the validator is added to the tool, use JUnit tests to ensure its correctness.
 
 The last step is to add the check to all the checks that are executed when the tool is executed.
 Therefore the function `createAllChecks` in the class `Runner` must be adopted.
 Within this function the new class must be added to the list `allChecks`, that's the only needed change in this class.
-When executing LintedData the next time, the check will also be executed.
+When executing LintedData the next time, the check will also be executed, if its `scope` is chosen.
 No further steps are needed.
-In the last section an example of adding a new validator is given.  
-
-<!-- TODO
-\begin{enumerate}
-	- implementation of the \function{execute}
-		* how to customise \argument{failureDescription}
-	- test check
-	\begin{itemize}
-		* JUnit Test
-		* test the \enquote{lowest} \function{execute} function
--->
-## 5. Examples  
-
-After describing the general structure of LintedData , and discussing the different types of checks the previous section explained in a general way how to add a new validator.
-This section uses an example to illustrate the general way.  
-
-<!--TODO keep track of numbers -->
-## 5.1 ``FileCheck``
-
-One example for a validator that must be implemented as a subclass of `FileCheck` is `CheckPrefixesReferToOneNamespace`.
-When in a file a prefix is defined multiple times, for example in Turtle:
-```
-@prefix ns1:"Namespace IRI 1".
-@prefix ns2:"Namespace IRI 2".
-@prefix ns1:"Namespace IRI 3".
-```
-the aim is to detect that the prefix `ns1` has two different IRIs and also that the prefix `ns3` has twice the same IRI.
-But after parsing the file with the JenaAPI, only the last defined prefix is available.
-This leads to the consequence, that the file needs to be parsed manually.
-The details of the parsing process won't be discussed here, but an outline is described.
-
-Within this check, it depends on the serialisation language, how the file is parsed to extract the prefix and the corresponding IRI.
-The check realises two different serialisation languages
-* Turtle and
-* JSONLD.
-
-These are the only ones which are standarised by the [W3C](https://www.w3.org/) and the file can be parsed, although a prefix occurs more than once.
-
-This check creates two different types of failures:
-1. One prefix has two, or more times, the same namespace IRI,
-in the example above this would be `ns3`. In this case the severity of the failure is `INFO`.
-2. One prefix has at least two different namespace IRIs, like `ns1` in the example. This case is not `INFO` but `WARN` because it can cause errors in contrast to the first case.
-In the test of this validator it was important to check the combination of these two cases.
-
-In both cases the failure element would be the prefix.
-The description of the text is, next to the path to the file, the specification of the prefix and all its IRIs.
-One example would be:
-```
-exampleFile.ttl
-prefix ns1 has the 2 namespaces: [Namespace IRI1, Namespace IRI 2]
-
-exampleFile.ttl
-prefix ns3 has 2 times the namespace Namespace IRI 4
-```
-
-<!-- TODO
-documentation of creating a check for each level
--->
