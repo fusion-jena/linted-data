@@ -24,21 +24,21 @@ The classes belong to three different packages:
 
 | Package         | Description     |
 |--------------|-----------|
-| *checks* | This package contains all the validators.     |
-| *JUnitXML*      | All classes in this package are used to build the structure of [JUnitXML](https://www.ibm.com/docs/en/developer-for-zos/14.1.0?topic=formats-junit-xml-format)  |
-| *Main* | The classes from this package are used to execute the tool. |
+| *linted_data* | The classes from this package are used to execute the tool. |
+| *linted_data/checks* | This package contains all the validators.     |
+| *linted_data/JUnitXML*      | All classes in this package are used to build the structure of [JUnitXML](https://www.ibm.com/docs/en/developer-for-zos/14.1.0?topic=formats-junit-xml-format)  |
 
 The different classes in the package `checks` are described in section 3.
 <!-- TODO keep track of section number -->
-In general all of these classes have a `execute` that must be implemented.
-Each of the abstract classes overwrites the `execute` of its superclass, except for `FileCheck` as the first check.
-`Check` is a superclass of `FileCheck` and used to capture the attributes of a check.
+In general all of these classes have a function called `execute` that must be implemented.
+Each of the abstract classes overwrites the `execute` of its superclass, except for `FileCheck` as the first level.
+`Check` is a superclass of `FileCheck` and used to capture the general attributes of a check.
 It can be used to extend the tool later with different types of checks.  
 
-Each of the `FileCheck`s has one level it applies to, this could also be modelled via the subclass relation, but with the enum `Level`, the user can pass as an argument what kind of validations he wants to execute.
-A new validator mustn't have the `Level` `ALL`, this value is only for the user input.
-Also each one has a `TargetLanguage`.
+Each of the `FileCheck`s has one level it applies to, this could also be modelled via the subclass relation.
+Also each one has a `Scope`.
 This attribute is used to assign the validator to the corresponding Testsuite in the result.
+It represents the modeling language of the semantic web which is needed to realise the checked concept. <!--TODO is concept a good word? -->
 
 The abstract subclasses of the different levels each implement the abstract `execute` method of its superclass.
 In these implementations the argument, that is not `failureDescription`, is further processed and along with the `failureDescription` passed to the new abstract method `execute`.  
@@ -54,6 +54,7 @@ The weakest value is `INFO` which is for non critical failures that don't affect
 
 The `main`-method is contained in `LintedData`.
 Within this class the command-line arguments are processed and a new instance of `Runner` is created.
+The checks are only executed, when the file can be parsed successfully, else the program stops.
 `Runner` executes the selected checks and stores the result to the destination file.
 When a new validator is added, it must be added to the method `Runner.createAllChecks`, there are no further changes needed.  
 
@@ -70,7 +71,7 @@ The aim of this section is it, to understand, when to implement which type of ch
 
 As seen in the class diagram in the previous section, the different types of validators are implemented as subclass from `Check`.
 
-A general rule is, that a validator should be implemented as subclass of the most specific level.
+A general rule is, that a validator should be implemented as subclass of the most specific check.
 It is always possible to realise a validator as a subclass of `FileCheck`.
 But this leads to code duplication that can be prevented.
 Also each level provides a method that only has the required arguments.
@@ -85,10 +86,12 @@ does this even make sense?-->
 All non abstract subclasses of this class need to process the file in its raw format.
 The failures detected in those classes can't be detected after parsing the file into a [Jena](https://jena.apache.org/) dataset.  
 
-One example for this type is the check if a prefix is defined multiple times.
-This can only occur in serialisation languages, that allow prefix definitions, such as RDF/XML, JSONLD and Turtle.
+### 3.1.1 `CheckRdfPrefixesReferToOneNamespace`
+
+One example for this type is the check if a prefix is defined multiple times, see `CheckRdfPrefixesReferToOneNamespace`.
+This can only occur in serialisation languages, that allow prefix definitions, for example Turtle.
 In Turtle and JSONLD it is possible to generate a valid document, where a prefix is defined multiple times.
-This error can't be detected after parsing the file because then only the last set prefix would be available.
+This error can't be detected after parsing the file because then only the last set prefix definition would be available.
 
 ## 3.2 `MultiGraphCheck`
 
@@ -98,32 +101,48 @@ At this level the file gets parsed into a `dataset`.
 A `dataset` gains access to the default graph, and if serialised in a language supporting multiple graphs within one document, also to all other named graphs.
 This level should be used, when it is necessary to access all contained models and combine the results from them.  
 
-An example for that level would be
-<!--TODO find & implement an example -->
+### 3.2.1 `CheckRdfsSeveralClassesWithTheSameLabel`
+
+The only example created at this stage is `CheckRdfsSeveralClassesWithTheSameLabel`.
+This check should be implemented as `MultiGraphSparqlCheck`, but due to time issues, this class doesn't exist yet.
+It is not possible to realise this validator at another level, because in the next level, each graph contained in the `dataset` is processed on its own.
+It is not possible to get all used labels from each model and check if they are also used for another concept.
 
 ## 3.3 `GraphCheck`
 
 A `MultiGraphCheck` allows the user to access all models at the same time, but the dataset does not allow direct access to the statements contained in the different models.
-<!--This section is horrible-->
-Therefore each model needs to be accessed before.
-To prevent code duplication, where each check needs to access all contained models, this level implements the abstract function from its superclass and call with each in the dataset contained model a function.
-The subclasses of `GraphCheck` then must implement this function, where they only have access to one model at the same time.  
-<!--When a problem affects only a single model from Jena, contained in the dataset, at the same time, then the corresponding validator should be realised as a `GraphCheck`.
-At this level, it is not possible to access any other model.
-The checks are performed on all models of a dataset, the default model as well as named models.
-If this is necessary, the validator should be a subclass of `MultiGraphCheck`.-->
+
+A `GraphCheck` gains access to only one model of a dataset at the same time, but therefore it is possible to access its contained statements.
+If it is necessary to combine results or statements from multiple graphs within a check, this must be implemented as a `MultiGraphCheck`.
+
+
+### 3.3.1 `CheckRdfRoundedFloatingPointValue`
+
 Whether a value can be exactly represented as a double or float is an example for a `GraphCheck`.
-<!--TODO missing part, or should this be moved to section 5 ?-->
+In the check `CheckRdfRoundedFloatingPointValue` each statement of a model is examined.
+In case that the object of a statement is a literal with the datatype `xsd:float` or `xsd:double`, it is checked if this value can be exactly represented in this datatype, or if its datatype should be `xsd:decimal`.
+The comparison of the `decimal` value and the `double` or `float` value can't be realised as SPARQL query.
+So this validator can't be realised as `SparqlCheck`.
 
-## 3.4 `SPARQLCheck`
+## 3.4 `SparqlCheck`
 
-Checks that can be formulated as a SPARQL query, are a subclass of `SPARQLCheck`.
-Although implementing a validator as a subclass of `SPARQLCheck` might not be the best efficient solution, it should be the superclass to choose.
-If the validator is implemented as SPARQL query, this query can be reused in other frameworks as well.
+Checks that can be formulated as a SPARQL query, are a subclass of `SparqlCheck`.
+Although implementing a validator as a subclass of `SparqlCheck` might not be the best efficient solution, it should be the superclass to choose.
+This enables the reuse of  the SPARQL query in other frameworks as well.
 
-This abstract class `SPARQLCheck` has an attribute in which the query is stored as String.
-Within the `execute`, that needs to be implemented, only the result of the query execution is present.
-The execution of the query itself is done in the superclass.  
+This abstract class `SparqlCheck` has an attribute in which the query is stored as String.
+`SparqlAskCheck` and `SparqlSelectCheck` are its two abstract subclasses used to model and execute the different types of request queries in SPARQL.
+
+`SparqlAskCheck` is used to model `ASK` queries.
+It defines an abstract method with a boolean parameter that needs to be processed.
+With `SparqlSelectCheck` `SELECT FROM WHERE` queries are modelled.
+The abstract `execute` function has one argument of the type  `ResultSet`.
+This contains the answer from the SPARQL query and can then be processed further.  
+
+In both cases, it is only possible to access the result of the query, not the queried model.
+
+### 3.4.1 `CheckRdfIrisTooLong`
+
 One example for this type of check is the validation, that literals don't start or end with a white space.
 This could also be realised as a `GraphCheck`, but can also be realised with a SPARQL query.
 <!--TODO more information, or move this to section 5?-->
