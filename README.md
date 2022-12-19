@@ -60,10 +60,56 @@ A Docker image for LintedData is provided on GitHub Packages.
 The `LintedData.jar` file is inside located at `opt/LintedData.jar` but it can also be accessed with the alias `LintedData` instead of `java -jar /opt/LintedData.jar`.
 
 ### Example configuration for use in an CI pipeline on GitLab:
-<!-- TODO  -->
+```
+image: ghcr.io/fusion-jena/linted-data:main
+
+linted-data:
+  stage: test
+  script:
+    - LintedData -s "RDF","OWL" <inputFile> <outputFile>
+  artifacts:
+    paths:
+      - <outputFile>
+    reports:
+      junit: <outputFile>
+```
 
 ### Example configuration for use in an CI pipeline on GitHub:
-<!-- TODO -->
+```
+name: Check Maya the bee ontology
+on: workflow_dispatch
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read  # for dorny/test-reporter
+      id-token: write # for dorny/test-reporter
+      checks: write # for dorny/test-reporter
+    container:
+      image: ghcr.io/fusion-jena/linted-data
+      credentials:
+         username: ${{ github.actor }}
+         password: ${{ secrets.github_token }}
+    steps:
+      - name: Setup git
+        run: apt-get update && apt-get install git -y
+      - name: Checkout Project
+        uses: actions/checkout@main
+      - name: Run LintedData with RDF and RDFS scope
+        run: LintedData -s "RDF" -s "RDFS" <inputFile> <outputFile>
+      - name: Archive Reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: junit-reports
+          path: <outputFile>
+      - name: Report
+        uses: dorny/test-reporter@v1.4.2
+        with:
+          name: Maven Tests
+          path: <outputFile>
+          reporter: java-junit
+```
 
 ### Example project
 
