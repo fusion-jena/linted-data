@@ -79,7 +79,10 @@ public class LintedData implements Callable<Integer> {
 			System.err.println("The output file must be an xml file");
 			return -1;
 		}
-		if(outputFile.getParentFile().mkdirs()) {
+
+		// to prevent errors when saving the results, create missing parent directories
+		// if necessary
+		if (!outputFile.exists() && outputFile.getParentFile() != null && outputFile.getParentFile().mkdirs()) {
 			System.out.println("Created missing parent directories");
 		}
 
