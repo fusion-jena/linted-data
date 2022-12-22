@@ -58,12 +58,15 @@ public class LintedData implements Callable<Integer> {
 			System.err.println("The file can't be parsed");
 			return -1;
 		}
+		System.out.println("Input parsed successfull");
 		if (!FileUtil.checkOutputFileExtension(outputFile)) {
 			System.err.println("The output file must be an xml file");
 			return -1;
 		}
+		if(outputFile.getParentFile().mkdirs()) {
+			System.out.println("Created missing parent directories");
+		}
 
-		System.out.println("Input parsed successfull");
 		try {
 			new Runner(scopes, inputFile, outputFile);
 		} catch (Exception e) {
