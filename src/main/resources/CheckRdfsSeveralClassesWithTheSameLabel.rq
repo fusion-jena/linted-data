@@ -1,3 +1,19 @@
+#
+# Copyright 2022 Merle Gänßinger (merle.gaenssinger@uni-jena.de)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -10,7 +26,7 @@ WHERE {
   SELECT ?label (GROUP_CONCAT(?c1; SEPARATOR=", ") AS ?classes) (COUNT(?c1) AS ?numClasses)
   WHERE {
       {
-      # query class labels and order the result alphabetically by the IRI of the classes 
+      # query class labels and order the result alphabetically by the IRI of the classes
       SELECT ?label ?c1
         WHERE {
           {?c1 rdf:type owl:Class.} UNION {?c1 rdf:type  rdfs:Class.}.
