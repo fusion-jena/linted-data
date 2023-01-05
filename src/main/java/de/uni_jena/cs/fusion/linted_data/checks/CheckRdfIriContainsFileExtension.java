@@ -23,7 +23,6 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
@@ -34,8 +33,7 @@ public final class CheckRdfIriContainsFileExtension extends SparqlSelectCheck {
 	
 	
 	public CheckRdfIriContainsFileExtension() {
-		super(Level.SPARQL, Scope.RDF, Severity.WARN,
-				"The IRI should not contain the file extension.", 
+		super(Scope.RDF, Severity.WARN, "The IRI should not contain the file extension.",
 				CheckRdfIriContainsFileExtension.class.getClassLoader().getResourceAsStream("CheckRdfIriContainsFileExtension.rq"));
 	}
 

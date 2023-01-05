@@ -32,7 +32,6 @@ import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFLanguages;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.types.Scope;
 import de.uni_jena.cs.fusion.linted_data.util.FileUtil;
@@ -52,7 +51,7 @@ public final class CheckRdfPrefixesReferToOneNamespace extends FileCheck {
 			RDFLanguages.JSONLD, RDFLanguages.JSONLD10, RDFLanguages.JSONLD11);
 
 	public CheckRdfPrefixesReferToOneNamespace() {
-		super(Level.FILE, Scope.RDF, Severity.WARN, "Prefixes should not refer to multiple namespaces");
+		super(Scope.RDF, Severity.WARN, "Prefixes should not refer to multiple namespaces");
 	}
 
 	@Override

@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.types.Scope;
 import de.uni_jena.cs.fusion.linted_data.util.FileUtil;
@@ -34,18 +33,18 @@ public abstract class SparqlCheck extends GraphCheck {
 	 */
 	protected final String query;
 
-	protected SparqlCheck(Level level, Scope targetLanguage, Severity severity, String name, String query) {
-		super(level, targetLanguage, severity, name);
+	protected SparqlCheck(Scope scope, Severity severity, String name, String query) {
+		super(scope, severity, name);
 		this.query = query;
 	}
 
-	protected SparqlCheck(Level level, Scope targetLanguage, Severity severity, String name, File queryFile) {
-		super(level, targetLanguage, severity, name);
+	protected SparqlCheck(Scope scope, Severity severity, String name, File queryFile) {
+		super(scope, severity, name);
 		this.query = readQuery(queryFile);
 	}
 
-	protected SparqlCheck(Level level, Scope targetLanguage, Severity severity, String name, InputStream queryFile) {
-		super(level, targetLanguage, severity, name);
+	protected SparqlCheck(Scope scope, Severity severity, String name, InputStream queryFile) {
+		super(scope, severity, name);
 		this.query = readQuery(queryFile);
 	}
 

@@ -23,7 +23,6 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
@@ -36,8 +35,7 @@ import de.uni_jena.cs.fusion.linted_data.types.Scope;
 public final class CheckRdfsPropertyHasMissingDomainRangeDefinition extends SparqlSelectCheck {
 
 	public CheckRdfsPropertyHasMissingDomainRangeDefinition() {
-		super(Level.SPARQL, Scope.RDFS, Severity.WARN,
-				"The property doesn't have a domain or range or none of them",
+		super(Scope.RDFS, Severity.WARN, "The property doesn't have a domain or range or none of them",
 				CheckRdfsPropertyHasMissingDomainRangeDefinition.class.getClassLoader()
 						.getResourceAsStream("CheckRdfsPropertyHasMissingDomainRangeDefinition.rq"));
 	}

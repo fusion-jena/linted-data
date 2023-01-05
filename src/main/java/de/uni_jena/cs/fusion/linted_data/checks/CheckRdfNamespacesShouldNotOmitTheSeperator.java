@@ -25,7 +25,6 @@ import java.util.Set;
 import org.apache.jena.rdf.model.Model;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
@@ -35,7 +34,7 @@ import de.uni_jena.cs.fusion.linted_data.types.Scope;
 public final class CheckRdfNamespacesShouldNotOmitTheSeperator extends GraphCheck {
 
 	public CheckRdfNamespacesShouldNotOmitTheSeperator() {
-		super(Level.MULTIGRAPH, Scope.RDF, Severity.WARN, "Namespaces should not omit the seperator (#, /)");
+		super(Scope.RDF, Severity.WARN, "Namespaces should not omit the seperator (#, /)");
 	}
 
 	@Override

@@ -23,7 +23,6 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
@@ -39,8 +38,7 @@ import de.uni_jena.cs.fusion.linted_data.types.Scope;
 public class CheckOwlInverseRelationshipForSymmetricProperty extends SparqlSelectCheck {
 
 	public CheckOwlInverseRelationshipForSymmetricProperty() {
-		super(Level.SPARQL, Scope.OWL, Severity.WARN,
-				"An inverse relationship is declared for a symmetric relationship. Better use \"owl:equivalentProperty.\"",
+		super(Scope.OWL, Severity.WARN, "An inverse relationship is declared for a symmetric relationship. Better use \"owl:equivalentProperty.\"",
 				CheckOwlInverseRelationshipForSymmetricProperty.class.getClassLoader().getResourceAsStream("CheckOwlInverseRelationshipForSymmetricProperty.rq"));
 	}
 

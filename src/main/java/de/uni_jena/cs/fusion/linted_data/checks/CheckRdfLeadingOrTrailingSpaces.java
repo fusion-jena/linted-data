@@ -23,7 +23,6 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
@@ -43,9 +42,8 @@ public final class CheckRdfLeadingOrTrailingSpaces extends SparqlSelectCheck {
 	private static final String object = "object";
 
 	public CheckRdfLeadingOrTrailingSpaces() {
-		super(Level.SPARQL, Scope.RDF, Severity.INFO, "Literals shouldn't start or end with white spaces",
-				CheckRdfLeadingOrTrailingSpaces.class.getClassLoader()
-						.getResourceAsStream("CheckRdfLeadingOrTrailingSpaces.rq"));
+		super(Scope.RDF, Severity.INFO, "Literals shouldn't start or end with white spaces", CheckRdfLeadingOrTrailingSpaces.class.getClassLoader()
+				.getResourceAsStream("CheckRdfLeadingOrTrailingSpaces.rq"));
 	}
 
 	@Override

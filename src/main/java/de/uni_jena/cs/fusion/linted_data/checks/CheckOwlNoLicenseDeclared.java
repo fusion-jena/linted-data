@@ -23,7 +23,6 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
@@ -36,8 +35,7 @@ import de.uni_jena.cs.fusion.linted_data.types.Scope;
 public class CheckOwlNoLicenseDeclared extends SparqlSelectCheck {
 
 	public CheckOwlNoLicenseDeclared() {
-		super(Level.SPARQL, Scope.OWL, Severity.ERROR,
-				"A licence should be declared for the ontology.",
+		super(Scope.OWL, Severity.ERROR, "A licence should be declared for the ontology.",
 				CheckOwlNoLicenseDeclared.class.getClassLoader().getResourceAsStream("CheckOwlNoLicenseDeclared.rq"));
 	}
 

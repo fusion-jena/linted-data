@@ -24,7 +24,6 @@ import org.apache.jena.query.Dataset;
 import org.apache.jena.rdf.model.Model;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
@@ -34,8 +33,8 @@ import de.uni_jena.cs.fusion.linted_data.types.Scope;
  */
 public abstract class GraphCheck extends MultiGraphCheck {
 
-	protected GraphCheck(Level level, Scope scope, Severity severity, String name) {
-		super(level, scope, severity, name);
+	protected GraphCheck(Scope scope, Severity severity, String name) {
+		super(scope, severity, name);
 	}
 
 	@Override

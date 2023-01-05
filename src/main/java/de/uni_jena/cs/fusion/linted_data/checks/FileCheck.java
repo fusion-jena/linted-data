@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.util.List;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
@@ -32,13 +31,6 @@ import de.uni_jena.cs.fusion.linted_data.types.Scope;
  * For errors that can't be detected, once the file is parsed
  */
 public abstract class FileCheck extends Check {
-
-	/**
-	 * what kind of check is created
-	 * 
-	 * all other validators extend this class
-	 */
-	private Level level;
 
 	/**
 	 * to which modeling language the check is applicable
@@ -53,14 +45,12 @@ public abstract class FileCheck extends Check {
 	/**
 	 * generate a new FileCheck
 	 * 
-	 * @param level    what kind of check is created
 	 * @param scope    addressed modelling language
 	 * @param severity how important it is to fix occuring failures
 	 * @param name     general description of the testcase
 	 */
-	protected FileCheck(Level level, Scope scope, Severity severity, String name) {
+	protected FileCheck(Scope scope, Severity severity, String name) {
 		super(name);
-		this.level = level;
 		this.scope = scope;
 		this.severity = severity;
 	}
@@ -100,10 +90,6 @@ public abstract class FileCheck extends Check {
 	 * @return list of failures matching the criteria of the check
 	 */
 	public abstract List<Failure> execute(File file, String failureDescription) throws Exception;
-
-	public Level getLevel() {
-		return level;
-	}
 
 	public Scope getScope() {
 		return scope;

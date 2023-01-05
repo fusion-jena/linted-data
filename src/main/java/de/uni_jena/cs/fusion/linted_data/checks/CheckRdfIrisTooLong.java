@@ -23,7 +23,6 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
@@ -44,8 +43,7 @@ import de.uni_jena.cs.fusion.linted_data.types.Scope;
 public final class CheckRdfIrisTooLong extends SparqlSelectCheck {
 
 	public CheckRdfIrisTooLong() {
-		super(Level.SPARQL, Scope.RDF, Severity.INFO, "Local names shouldn't be longer than 36 characters",
-				CheckRdfIrisTooLong.class.getClassLoader().getResourceAsStream("CheckRdfIrisTooLong.rq"));
+		super(Scope.RDF, Severity.INFO, "Local names shouldn't be longer than 36 characters", CheckRdfIrisTooLong.class.getClassLoader().getResourceAsStream("CheckRdfIrisTooLong.rq"));
 	}
 
 	@Override

@@ -24,7 +24,6 @@ import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.rdf.model.Model;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
@@ -35,8 +34,8 @@ import org.apache.jena.query.ResultSet;
  */
 public abstract class SparqlSelectCheck extends SparqlCheck {
 
-	public SparqlSelectCheck(Level level, Scope scope, Severity severity, String name, InputStream queryFile) {
-		super(level, scope, severity, name, queryFile);
+	public SparqlSelectCheck(Scope scope, Severity severity, String name, InputStream queryFile) {
+		super(scope, severity, name, queryFile);
 	}
 
 	@Override

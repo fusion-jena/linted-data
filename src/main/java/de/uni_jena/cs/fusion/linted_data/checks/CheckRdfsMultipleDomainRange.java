@@ -23,7 +23,6 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
@@ -37,8 +36,7 @@ import de.uni_jena.cs.fusion.linted_data.types.Scope;
 public final class CheckRdfsMultipleDomainRange extends SparqlSelectCheck {
 
 	public CheckRdfsMultipleDomainRange() {
-		super(Level.SPARQL, Scope.RDFS, Severity.WARN,
-				"Multiple domains or ranges are interpreted as conjunction and should therefore be replaced with an owl:intersectionOf.",
+		super(Scope.RDFS, Severity.WARN, "Multiple domains or ranges are interpreted as conjunction and should therefore be replaced with an owl:intersectionOf.",
 				CheckRdfsMultipleDomainRange.class.getClassLoader().getResourceAsStream("CheckRdfsMultipleDomainRange.rq"));
 	}
 

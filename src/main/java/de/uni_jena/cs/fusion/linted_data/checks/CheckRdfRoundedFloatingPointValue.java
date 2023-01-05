@@ -27,7 +27,6 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.types.Scope;
 import de.uni_jena.cs.fusion.linted_data.util.StringUtil;
@@ -40,8 +39,7 @@ import de.uni_jena.cs.fusion.linted_data.util.StringUtil;
 public final class CheckRdfRoundedFloatingPointValue extends GraphCheck {
 
 	public CheckRdfRoundedFloatingPointValue() {
-		super(Level.GRAPH, Scope.RDF, Severity.WARN,
-				"Lexical representation is not in the values space of the selected floating point datatype and will get rounded.");
+		super(Scope.RDF, Severity.WARN, "Lexical representation is not in the values space of the selected floating point datatype and will get rounded.");
 	}
 
 	@Override

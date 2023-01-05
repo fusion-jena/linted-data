@@ -24,19 +24,16 @@ import org.apache.jena.query.DatasetFactory;
 import org.apache.jena.riot.RDFParser;
 
 import de.uni_jena.cs.fusion.linted_data.JUnitXML.Failure;
-import de.uni_jena.cs.fusion.linted_data.types.Level;
 import de.uni_jena.cs.fusion.linted_data.types.Severity;
 import de.uni_jena.cs.fusion.linted_data.types.Scope;
 
 /**
  * Checks that are executed on multiple graphs
- * 
- * 
  */
 public abstract class MultiGraphCheck extends FileCheck {
 	
-	protected MultiGraphCheck (Level level, Scope scope, Severity severity, String name) {
-		super(level, scope, severity, name);
+	protected MultiGraphCheck (Scope scope, Severity severity, String name) {
+		super(scope, severity, name);
 	}
 	
 	@Override
