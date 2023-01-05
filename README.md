@@ -1,15 +1,13 @@
 # LintedData
 
-LintedData is a tool to find common mistakes in RDF-files.
+LintedData is a tool to find common mistakes in RDF files.
 
 ## Building
 
 To use LintedData checkout the project and compile it using Maven:
 
-```
-mvn clean
-mvn compile
-mvn package
+```bash
+mvn clean package
 ```
 
 This will create the .jar at `target/LintedData.jar`.
@@ -20,7 +18,7 @@ LintedData can be run with the following options and parameters:
 
 ```
 Usage: LintedData [-hV] [-s=<scopes>[,<scopes>...]]... <inputFile> <outputFile>
-Performs checks on a provided RDF-file.
+Performs checks on a provided RDF file.
       <inputFile>    The file that will be checked
       <outputFile>   The file where the result will be stored (must be xml)
   -h, --help         Show this help message and exit.
@@ -31,37 +29,39 @@ Performs checks on a provided RDF-file.
 ```
 
 ### Examples
-
 - show the help message
-```
-java -jar target/LintedData.jar -h
-```
-- run all tests again an example file and store the result
-```
-java -jar target/LintedData.jar <inputFile> <outputFile.xml>
-```
-- run only RDF tests again an example file and store the result
-```
-java -jar target/LintedData.jar --scope "RDF" <inputFile> <outputFile.xml>
-```
-- run RDF and OWL tests again an example file and store the result
-```
-java -jar target/LintedData.jar -s "RDF","OWL" <inputFile> <outputFile.xml>
-```
-or
-```
-java -jar target/LintedData.jar -s "RDF" -s "OWL" <inputFile> <outputFile.xml>
-```
+  ```bash
+  java -jar target/LintedData.jar -h
+  ```
+- run all tests against an example file and store the result
+  ```bash
+  java -jar target/LintedData.jar <inputFile> <outputFile.xml>
+  ```
+- run only RDF tests against an example file and store the result
+  ```bash
+  java -jar target/LintedData.jar --scope "RDF" <inputFile> <outputFile.xml>
+  ```
+- run RDF and OWL tests against an example file and store the result
+  ```bash
+  java -jar target/LintedData.jar -s "RDF","OWL" <inputFile> <outputFile.xml>
+  ```
+  or
+  ```bash
+  java -jar target/LintedData.jar -s "RDF" -s "OWL" <inputFile> <outputFile.xml>
+  ```
 
 ## CI Usage with Docker
 
 A Docker image for LintedData is provided on GitHub Packages.
-<!-- TODO make it public available -->
+
 The `LintedData.jar` file is inside located at `opt/LintedData.jar` but it can also be accessed with the alias `LintedData` instead of `java -jar /opt/LintedData.jar`.
 
 ### Example configuration for use in an CI pipeline on GitLab:
-```
-image: ghcr.io/fusion-jena/linted-data:main
+
+Create a YAML file at `.gitlab-ci.yml` containing:
+
+```yaml
+image: ghcr.io/fusion-jena/linted-data:latest
 
 linted-data:
   stage: test
@@ -74,11 +74,16 @@ linted-data:
       junit: <outputFile>
 ```
 
-### Example configuration for use in an CI pipeline on GitHub:
-```
-name: Check Maya the bee ontology
-on: workflow_dispatch
+Where the arguments passed to `LindedData` in line **6** must be adopted to the use case.
+As shown in the examples, it is possible to set the scope of the tool.
+In the same line `inputFile` and `outputFile` must be set.
+In line **9** and **11** also the `outputFile` must be defined.
 
+### Example configuration for use in an CI pipeline on GitHub:
+
+Create a YAML file at `.github/workflows/<filename>.yml` containing:
+
+```yaml
 jobs:
   report:
     runs-on: ubuntu-latest
@@ -87,7 +92,7 @@ jobs:
       id-token: write # for dorny/test-reporter
       checks: write # for dorny/test-reporter
     container:
-      image: ghcr.io/fusion-jena/linted-data
+      image: ghcr.io/fusion-jena/linted-data:v1.0.0
       credentials:
          username: ${{ github.actor }}
          password: ${{ secrets.github_token }}
@@ -110,6 +115,11 @@ jobs:
           path: <outputFile>
           reporter: java-junit
 ```
+
+Where the arguments passed to `LindedData` in line **19** must be adopted to the use case.
+As shown in the examples, it is possible to set the scope of the tool.
+In the same line `inputFile` and `outputFile` must be set.
+In line **24** and **29** also the `outputFile` must be defined.
 
 ### Example project
 
