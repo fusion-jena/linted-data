@@ -17,7 +17,7 @@ Additionally some of the classes and their functionality are explained.
 
 The general structure of the classes, used to implement the LintedData, is displayed in the following image:  
 
-![Class diagram for LintedData](../graphics/class_diagram.png "Class diagram for LintedData")  
+![Class diagram for LintedData](graphics/class_diagram.png "Class diagram for LintedData")  
 
 The classes belong to three different packages:
 
