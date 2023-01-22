@@ -14,10 +14,10 @@ It can't process files using the OWL/XML format.
 
 1. [General architecture](#general-architecture)
 2. [Check types](#check-types)
-    2.1. [FileCheck](#FileCheck)
-    2.2. [MultiGraphCheck](#MultiGraphCheck)
-    2.3. [GraphCheck](#GraphCheck)
-    2.4. [SparqlCheck](#SparqlCheck)
+    1. [FileCheck](#FileCheck)
+    2. [MultiGraphCheck](#MultiGraphCheck)
+    3. [GraphCheck](#GraphCheck)
+    4. [SparqlCheck](#SparqlCheck)
 3. [Implementation of a new validator](#implementation-of-a-new-validator)
 
 ## <a id="general-architecture"></a> General architecture  
@@ -87,7 +87,7 @@ Also, each level provides a method that only has the required arguments.
 
 `FileCheck` is the most general check that applies to the structure of the tool.
 All non-abstract subclasses of this class need to process the file in its raw format.
-The failures detected in those classes can't be detected after parsing the file into a [Jena](https://jena.apache.org/) dataset.  
+The failures detected in those classes can't be detected after parsing the file into a [Apache Jena](https://jena.apache.org/) dataset.  
 
 **Example: `CheckRdfPrefixesReferToOneNamespace`**
 
@@ -99,7 +99,7 @@ This bad practice can't be detected after parsing the file because then only the
 ## <a id="MultiGraphCheck"></a> `MultiGraphCheck`
 
 To easily interact with the file content, it is helpful to parse the file into an API.
-In LintedData the [Jena](https://jena.apache.org/) API is used therefore.
+In LintedData the [Apache Jena](https://jena.apache.org/) API is used therefore.
 At this level, the file gets parsed into a `dataset`.
 A `dataset` provides access to the default graph and, if serialised in a language supporting multiple graphs within one document, also to all other named graphs.
 This level should be used when it is necessary to access all contained models and combine the results from them.
@@ -147,16 +147,16 @@ In both cases, it is only possible to access the result of the query, not the qu
 **Example: `CheckRdfIrisTooLong`**
 
 This validator checks if the locale name of an IRI, the part after `#` or after the last `/`, contains not more than 36 characters.
-36 might look like an arbitral decision and is based on the following aspects:
+The limit of 36 characters is based on:
 
 - Three IRIs should fit into one line
 - IRIs should be easy to type
-- UUIDs are 36 characters long and should therefore not be detected when used as locale names
+- UUIDs are 36 characters long and should not be detected when used as locale names
 
 Since for each IRI whose locale name is longer than 36 characters, a failure entry should be created, this validator is realised as a subclass of `SparqlSelectCheck`.
 A realisation as a `SparqlAskCheck` would only provide the answer if in a model there exists an IRI that is too long.
 
-It would also be possible to implement this check without SPARQL, but since the aim is to reuse the checks for SPARQL endpoints, it is implemented as `SPARQLSelectCheck`.
+It would also be possible to implement this check without SPARQL.
 
 The next section describes the procedure for implementing a new validator.
 
@@ -171,7 +171,7 @@ It may also help to ask what information is needed to solve the problem.
 When choosing the level, it should be considered that the most appropriate class should always be chosen.
 
 Next to choosing the level of the check, it must be considered to which `Scope` it applies.
-The scope of a validator defines which modelling language of the semantic web the check applies to.
+The scope of a validator defines which common vocabulary the check applies to.
 For example, `CheckRdfIrisTooLong` only uses the IRI concept from RDF.
 Whereas `CheckRdfsSeveralClassesWithTheSameLabel` uses the concept Label from RDFS.
 The validators are grouped by their `scope` for the different `Testsuite`s in `Runner` as well as in the exported XML result file.
@@ -188,7 +188,7 @@ They have the following arguments:
 
 | Argument         | Description |
 |--------------|-----------------------|
-| `scope`      | Corresponding semantic web modelling language, determines corresponding `Testuite`, a value of `Scope`. |
+| `scope`      | Corresponding semantic web modelling language, determines corresponding `Testsuite`, a value of `Scope`. |
 | `severity` | How important it is to fix an occurring failure of this validator, see section [general architecture](#general-architecture) for a description of the different values. |
 | `name`| This attribute does not describe the validator itself but is a general description of the failures found by the validator. |
 | `query` | This attribute only applies to `SparqlCheck`s. It can be passed as `String`, file or `InputStream`.
