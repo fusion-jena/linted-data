@@ -233,4 +233,4 @@ Within this function, the new class must be added to the list `allChecks`.
 
 That's the only needed change in this class.
 When executing LintedData the next time, the check will also be executed if its `scope` is chosen.
-No further steps are needed.
+If the check is to be added to the repository, the table of implemented checks in the `README.md` should be extended to include the new validator.
