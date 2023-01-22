@@ -1,2 +1,17 @@
+#
+# Copyright 2022 Merle Gänßinger (merle.gaenssinger@uni-jena.de)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 <http://foo.com#class-0b5f8258-6ba0-4887-9843-7c630a06ecea> <http://bar.org/f00-bar-f00-bar-f00-bar-147852369-erdfcv> <http://bar.org/short_IRI> .
 <http://foo.com#class-0b5f8258-6ba0-4887-9843-7c630a06ecea> <http://bar.org/f00-bar-f00-bar-f00-bar-147852369-erdfcv> <http://foo.com#short-identifier>.

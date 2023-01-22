@@ -1,4 +1,19 @@
 <?xml version="1.0"?>
+<!--
+ Copyright 2022 Merle Gänßinger (merle.gaenssinger@uni-jena.de)
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
 <rdf:RDF xmlns="http://www.semanticweb.org/rs/ontologies/INBIO#"
      xml:base="http://www.semanticweb.org/rs/ontologies/INBIO"
      xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -692,7 +707,7 @@ A continuant cannot have an occurrent as part: use &apos;participates in&apos;. 
         <obo:IAO_0000116>Alan Ruttenberg: This is a binary version of a ternary time-indexed, instance level, relation. The BFO reading of the binary relation &apos;occupies spatial region at some time@en&apos; is: exists t,  exists_at(x,t) &amp; exists_at(y,t) &amp; &apos;occupies spatial region@en&apos;(x,y,t)</obo:IAO_0000116>
         <obo:IAO_0000116>BFO2 Reference: independent continuant</obo:IAO_0000116>
         <obo:IAO_0000116>BFO2 Reference: spatial region</obo:IAO_0000116>
-        <obo:IAO_0000600 xml:lang="en">b occupies_spatial_region r at t means that r is a spatial region in which independent continuant b is exactly located (axiom label in BFO2 Reference: [041-002])</obo:IAO_0000600>
+        <obo:IAO_0000600 xml:lang="en">bÂ occupies_spatial_regionÂ rÂ atÂ tÂ means that r is a spatial region in which independent continuant b is exactly located (axiom label in BFO2 Reference: [041-002])</obo:IAO_0000600>
         <obo:IAO_0000601 xml:lang="en">every region r is occupies_spatial_region r at all times. (axiom label in BFO2 Reference: [042-002])</obo:IAO_0000601>
         <obo:IAO_0000601 xml:lang="en">if b occupies_spatial_region r at t &amp; b continuant_part_of b at t, then there is some r which is continuant_part_of r at t such that b  occupies_spatial_region r at t. (axiom label in BFO2 Reference: [043-001])</obo:IAO_0000601>
         <obo:IAO_0000602>(forall (r t) (if (Region r) (occupiesSpatialRegionAt r r t))) // axiom label in BFO2 CLIF: [042-002] </obo:IAO_0000602>
@@ -713,7 +728,7 @@ A continuant cannot have an occurrent as part: use &apos;participates in&apos;. 
         <obo:IAO_0000116>[copied from inverse property &apos;occupies spatial region at some time&apos;] Alan Ruttenberg: This is a binary version of a ternary time-indexed, instance level, relation. The BFO reading of the binary relation &apos;occupies spatial region at some time@en&apos; is: exists t,  exists_at(x,t) &amp; exists_at(y,t) &amp; &apos;occupies spatial region@en&apos;(x,y,t)</obo:IAO_0000116>
         <obo:IAO_0000116>[copied from inverse property &apos;occupies spatial region at some time&apos;] BFO2 Reference: independent continuant</obo:IAO_0000116>
         <obo:IAO_0000116>[copied from inverse property &apos;occupies spatial region at some time&apos;] BFO2 Reference: spatial region</obo:IAO_0000116>
-        <obo:IAO_0000600>[copied from inverse property &apos;occupies spatial region at some time&apos;] b occupies_spatial_region r at t means that r is a spatial region in which independent continuant b is exactly located (axiom label in BFO2 Reference: [041-002])</obo:IAO_0000600>
+        <obo:IAO_0000600>[copied from inverse property &apos;occupies spatial region at some time&apos;] bÂ occupies_spatial_regionÂ rÂ atÂ tÂ means that r is a spatial region in which independent continuant b is exactly located (axiom label in BFO2 Reference: [041-002])</obo:IAO_0000600>
         <rdfs:isDefinedBy rdf:resource="http://purl.obolibrary.org/obo/bfo.owl"/>
         <rdfs:label xml:lang="en">has spatial occupant at some time</rdfs:label>
     </owl:ObjectProperty>
@@ -1741,7 +1756,7 @@ Source: wikipedia.org</rdfs:comment>
     <owl:Class rdf:about="http://cerrado.linkeddata.es/ecology/ccon#Precipitation">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/ENVO_01000203"/>
         <rdfs:comment xml:lang="en">Any product of the condensation of atmospheric water vapour that falls under gravity (http://en.wikipedia.org/wiki/Precipitation)</rdfs:comment>
-        <rdfs:comment xml:lang="pt">Qualquer produto da condensação do vapor de água atmosférico que cai sob efeito da gravidade.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Qualquer produto da condensaÃ§Ã£o do vapor de Ã¡gua atmosfÃ©rico que cai sob efeito da gravidade.</rdfs:comment>
         <rdfs:label>average annual precipitation</rdfs:label>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">precipitation</rdfs:label>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">rainfall</rdfs:label>
@@ -1764,7 +1779,7 @@ Source: wikipedia.org</rdfs:comment>
 
     <owl:Class rdf:about="http://cerrado.linkeddata.es/ecology/ccon#RelativeHumidity">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/ENVO_01000203"/>
-        <rdfs:comment xml:lang="pt">Quantidade relativa de vapor de água na atmosfera</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Quantidade relativa de vapor de Ã¡gua na atmosfera</rdfs:comment>
         <rdfs:comment xml:lang="en">The relative amount of whater vapour in the atmosphere</rdfs:comment>
         <rdfs:label>mean annual relative humidity</rdfs:label>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">relative humidity</rdfs:label>
@@ -1786,8 +1801,8 @@ Source: wikipedia.org</rdfs:comment>
 
     <owl:Class rdf:about="http://cerrado.linkeddata.es/ecology/ccon#SorensensSimilarityIndex">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rs/ontologies/INBIO#SpeciesDiversityIndex"/>
-        <rdfs:label>Sørensen–dice index</rdfs:label>
-        <rdfs:label>Sørensen’s similarity coefficient</rdfs:label>
+        <rdfs:label>SÃ¸rensenâ€“dice index</rdfs:label>
+        <rdfs:label>SÃ¸rensenâ€™s similarity coefficient</rdfs:label>
         <rdfs:label>sorensen&apos;s similarity index</rdfs:label>
     </owl:Class>
 
@@ -2666,7 +2681,7 @@ Source: wikipedia.org</rdfs:comment>
     <!-- http://purl.obolibrary.org/obo/BFO_0000002 -->
 
     <owl:Class rdf:about="http://purl.obolibrary.org/obo/BFO_0000002">
-        <obo:IAO_0000116 xml:lang="en">BFO 2 Reference: Continuant entities are entities which can be sliced to yield parts only along the spatial dimension, yielding for example the parts of your table which we call its legs, its top, its nails. ‘My desk stretches from the window to the door. It has spatial parts, and can be sliced (in space) in two. With respect to time, however, a thing is a continuant.’ [60, p. 240</obo:IAO_0000116>
+        <obo:IAO_0000116 xml:lang="en">BFO 2 Reference: Continuant entities are entities which can be sliced to yield parts only along the spatial dimension, yielding for example the parts of your table which we call its legs, its top, its nails. â€˜My desk stretches from the window to the door. It has spatial parts, and can be sliced (in space) in two. With respect to time, however, a thing is a continuant.â€™ [60, p. 240</obo:IAO_0000116>
         <obo:IAO_0000116 xml:lang="en">Continuant doesn&apos;t have a closure axiom because the subclasses don&apos;t necessarily exhaust all possibilites. For example, in an expansion involving bringing in some of Ceuster&apos;s other portions of reality, questions are raised as to whether universals are continuants</obo:IAO_0000116>
         <obo:IAO_0000600 xml:lang="en">A continuant is an entity that persists, endures, or continues to exist through time while maintaining its identity. (axiom label in BFO2 Reference: [008-002])</obo:IAO_0000600>
         <obo:IAO_0000601 xml:lang="en">if b is a continuant and if, for some t, c has_continuant_part b at t, then c is a continuant. (axiom label in BFO2 Reference: [126-001])</obo:IAO_0000601>
@@ -2799,14 +2814,14 @@ Source: wikipedia.org</rdfs:comment>
     <owl:Class rdf:about="http://purl.obolibrary.org/obo/BFO_0000020">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000002"/>
         <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/BFO_0000031"/>
-        <obo:IAO_0000115 xml:lang="en">b is a specifically dependent continuant = Def. b is a continuant &amp; there is some independent continuant c which is not a spatial region and which is such that b s-depends_on c at every time t during the course of b’s existence. (axiom label in BFO2 Reference: [050-003])</obo:IAO_0000115>
+        <obo:IAO_0000115 xml:lang="en">b is a specifically dependent continuant = Def. b is a continuant &amp; there is some independent continuant c which is not a spatial region and which is such that b s-depends_on c at every time t during the course of bâ€™s existence. (axiom label in BFO2 Reference: [050-003])</obo:IAO_0000115>
         <rdfs:label xml:lang="en">specifically dependent continuant</rdfs:label>
         <skos:definition xml:lang="en">A continuant that inheres in or is borne by other entities. Every instance of A requires some specific instance of B which must always be the same.</skos:definition>
     </owl:Class>
     <owl:Axiom>
         <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/BFO_0000020"/>
         <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
-        <owl:annotatedTarget xml:lang="en">b is a specifically dependent continuant = Def. b is a continuant &amp; there is some independent continuant c which is not a spatial region and which is such that b s-depends_on c at every time t during the course of b’s existence. (axiom label in BFO2 Reference: [050-003])</owl:annotatedTarget>
+        <owl:annotatedTarget xml:lang="en">b is a specifically dependent continuant = Def. b is a continuant &amp; there is some independent continuant c which is not a spatial region and which is such that b s-depends_on c at every time t during the course of bâ€™s existence. (axiom label in BFO2 Reference: [050-003])</owl:annotatedTarget>
         <obo:IAO_0010000 rdf:resource="http://purl.obolibrary.org/obo/bfo/axiom/050-003"/>
     </owl:Axiom>
 
@@ -2858,7 +2873,7 @@ Source: wikipedia.org</rdfs:comment>
         <obo:IAO_0000112 xml:lang="en">an epidemic</obo:IAO_0000112>
         <obo:IAO_0000116 xml:lang="en">BFO 2 Reference: Material entities (continuants) can preserve their identity even while gaining and losing material parts. Continuants are contrasted with occurrents, which unfold themselves in successive temporal parts or phases [60</obo:IAO_0000116>
         <obo:IAO_0000116 xml:lang="en">BFO 2 Reference: Object, Fiat Object Part and Object Aggregate are not intended to be exhaustive of Material Entity. Users are invited to propose new subcategories of Material Entity.</obo:IAO_0000116>
-        <obo:IAO_0000116 xml:lang="en">BFO 2 Reference: ‘Matter’ is intended to encompass both mass and energy (we will address the ontological treatment of portions of energy in a later version of BFO). A portion of matter is anything that includes elementary particles among its proper or improper parts: quarks and leptons, including electrons, as the smallest particles thus far discovered; baryons (including protons and neutrons) at a higher level of granularity; atoms and molecules at still higher levels, forming the cells, organs, organisms and other material entities studied by biologists, the portions of rock studied by geologists, the fossils studied by paleontologists, and so on.Material entities are three-dimensional entities (entities extended in three spatial dimensions), as contrasted with the processes in which they participate, which are four-dimensional entities (entities extended also along the dimension of time).According to the FMA, material entities may have immaterial entities as parts – including the entities identified below as sites; for example the interior (or ‘lumen’) of your small intestine is a part of your body. BFO 2.0 embodies a decision to follow the FMA here.</obo:IAO_0000116>
+        <obo:IAO_0000116 xml:lang="en">BFO 2 Reference: â€˜Matterâ€™ is intended to encompass both mass and energy (we will address the ontological treatment of portions of energy in a later version of BFO). A portion of matter is anything that includes elementary particles among its proper or improper parts: quarks and leptons, including electrons, as the smallest particles thus far discovered; baryons (including protons and neutrons) at a higher level of granularity; atoms and molecules at still higher levels, forming the cells, organs, organisms and other material entities studied by biologists, the portions of rock studied by geologists, the fossils studied by paleontologists, and so on.Material entities are three-dimensional entities (entities extended in three spatial dimensions), as contrasted with the processes in which they participate, which are four-dimensional entities (entities extended also along the dimension of time).According to the FMA, material entities may have immaterial entities as parts â€“ including the entities identified below as sites; for example the interior (or â€˜lumenâ€™) of your small intestine is a part of your body. BFO 2.0 embodies a decision to follow the FMA here.</obo:IAO_0000116>
         <obo:IAO_0000600 xml:lang="en">A material entity is an independent continuant that has some portion of matter as proper or improper continuant part. (axiom label in BFO2 Reference: [019-002])</obo:IAO_0000600>
         <obo:IAO_0000601 xml:lang="en">Every entity which has a material entity as continuant part is a material entity. (axiom label in BFO2 Reference: [020-002])</obo:IAO_0000601>
         <obo:IAO_0000601 xml:lang="en">every entity of which a material entity is continuant part is also a material entity. (axiom label in BFO2 Reference: [021-002])</obo:IAO_0000601>
@@ -6638,7 +6653,7 @@ One question is whether this class encompasses fiat parts of islands.</rdfs:comm
 
     <owl:Class rdf:about="http://purl.obolibrary.org/obo/GEO_000000372">
         <rdfs:subClassOf rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41129"/>
-        <oboInOwl:created_by xml:lang="en">François Modave</oboInOwl:created_by>
+        <oboInOwl:created_by xml:lang="en">FranÃ§ois Modave</oboInOwl:created_by>
         <oboInOwl:created_by xml:lang="en">Mathias Brochhausen</oboInOwl:created_by>
         <oboInOwl:created_by xml:lang="en">Matt Diller</oboInOwl:created_by>
         <oboInOwl:created_by xml:lang="en">William R. Hogan</oboInOwl:created_by>
@@ -9843,7 +9858,7 @@ One question is whether this class encompasses fiat parts of islands.</rdfs:comm
         <rdfs:subClassOf rdf:resource="http://cerrado.linkeddata.es/ecology/ccon#Biodiversity"/>
         <rdfs:comment>from https://en.wikipedia.org/wiki/Beta_diversity</rdfs:comment>
         <rdfs:label>beta diversity</rdfs:label>
-        <skos:definition>In ecology, beta diversity (β-diversity or true beta diversity) is the ratio between regional and local species diversity.</skos:definition>
+        <skos:definition>In ecology, beta diversity (Î²-diversity or true beta diversity) is the ratio between regional and local species diversity.</skos:definition>
     </owl:Class>
 
 
@@ -10551,11 +10566,11 @@ One question is whether this class encompasses fiat parts of islands.</rdfs:comm
     <owl:Class rdf:about="http://www.semanticweb.org/rs/ontologies/INBIO#population_density">
         <rdfs:subClassOf rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C171088"/>
         <rdfs:comment>From http://www.fao.org/aims/aos/cwr.owl#PopulationDensity</rdfs:comment>
-        <rdfs:label xml:lang="es">densidad de población</rdfs:label>
-        <rdfs:label xml:lang="fr">densité de population</rdfs:label>
+        <rdfs:label xml:lang="es">densidad de poblaciÃ³n</rdfs:label>
+        <rdfs:label xml:lang="fr">densitÃ© de population</rdfs:label>
         <rdfs:label xml:lang="en">population density</rdfs:label>
-        <rdfs:label xml:lang="ru">густота популяции</rdfs:label>
-        <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blackwell’s concise encyclopedia of ecology, 1999</owl:versionInfo>
+        <rdfs:label xml:lang="ru">Ð³ÑƒÑÑ‚Ð¾Ñ‚Ð° Ð¿Ð¾Ð¿ÑƒÐ»ÑÑ†Ð¸Ð¸</rdfs:label>
+        <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blackwellâ€™s concise encyclopedia of ecology, 1999</owl:versionInfo>
         <skos:definition xml:lang="en">The number of individuals per unit area.</skos:definition>
     </owl:Class>
 
@@ -10568,8 +10583,8 @@ One question is whether this class encompasses fiat parts of islands.</rdfs:comm
         <rdfs:comment>From http://www.fao.org/aims/aos/cwr.owl#PopulationSize</rdfs:comment>
         <rdfs:label xml:lang="en">population size</rdfs:label>
         <rdfs:label xml:lang="fr">taille d&apos;une population</rdfs:label>
-        <rdfs:label xml:lang="es">tamaño de la población</rdfs:label>
-        <rdfs:label xml:lang="ru">размер популяции</rdfs:label>
+        <rdfs:label xml:lang="es">tamaÃ±o de la poblaciÃ³n</rdfs:label>
+        <rdfs:label xml:lang="ru">Ñ€Ð°Ð·Ð¼ÐµÑ€ Ð¿Ð¾Ð¿ÑƒÐ»ÑÑ†Ð¸Ð¸</rdfs:label>
         <skos:definition xml:lang="en">It&apos;s the amount of individuals in a population</skos:definition>
     </owl:Class>
 
@@ -11011,3 +11026,4 @@ One question is whether this class encompasses fiat parts of islands.</rdfs:comm
 
 
 <!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
