@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Merle Gänßinger (merle.gaenssinger@uni-jena.de)
+ * Copyright © 2022 Merle Gänßinger (merle.gaenssinger@uni-jena.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package de.uni_jena.cs.fusion.linted_data.util;
 
 import java.math.BigDecimal;

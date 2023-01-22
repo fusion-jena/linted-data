@@ -75,8 +75,8 @@
 				<configuration>
 					<header>com/mycila/maven/plugin/license/templates/APACHE-2.txt</header>
 					<properties>
-						<owner>${developers.developer.name}</owner>
-						<email>${developers.developer.email}</email>
+						<owner>Merle Gänßinger</owner>
+						<email>merle.gaenssinger@uni-jena.de</email>
 					</properties>
 					<excludes>
 						<exclude>LICENSE</exclude>
